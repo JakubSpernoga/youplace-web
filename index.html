@@ -18,7 +18,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 40px 120px;
 }
 
 body::before {
@@ -26,20 +26,20 @@ body::before {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: -1;
 }
 
 .window {
   width: 100%;
-  max-width: 1600px;
-  height: calc(100vh - 60px);
+  max-width: 1800px;
+  height: calc(100vh - 80px);
   min-height: 600px;
   border-radius: 16px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 50px 100px rgba(0,0,0,0.4), 0 20px 60px rgba(0,0,0,0.3);
+  box-shadow: 0 80px 180px rgba(0,0,0,0.7), 0 40px 100px rgba(0,0,0,0.6);
 }
 
 /* ===== VIEWS (pages) ===== */
