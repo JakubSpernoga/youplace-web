@@ -1929,7 +1929,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="login-logo">You&Place</div>
 <div class="login-sub">Admin prihlaseni</div>
 <div class="admin-label">Pristupovy kod</div>
-<input class="admin-input" id="admin-code" type="password" placeholder="Zadejte kod" style="text-align:center;letter-spacing:6px;font-size:clamp(18px,5vw,24px);font-weight:700;color:#c9a270;border-color:rgba(201,162,112,0.3);background:rgba(201,162,112,0.04)" onkeydown="if(event.key==='Enter')tryAdminLogin()">
+<input class="admin-input" id="admin-code" type="password" inputmode="numeric" pattern="[0-9]*" placeholder="Zadejte kod" style="text-align:center;letter-spacing:6px;font-size:clamp(18px,5vw,24px);font-weight:700;color:#c9a270;border-color:rgba(201,162,112,0.3);background:rgba(201,162,112,0.04)" onkeydown="if(event.key==='Enter')tryAdminLogin()">
 <button class="admin-btn" onclick="tryAdminLogin()">Prihlasit se</button>
 <div class="admin-divider"><div class="admin-divider-line"></div><div class="admin-divider-text">nebo</div><div class="admin-divider-line"></div></div>
 <button class="admin-btn-secondary" onclick="nav('login-pin')">Prihlasit se PINem (zamestnanci)</button>
