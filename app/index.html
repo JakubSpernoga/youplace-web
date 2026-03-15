@@ -1913,19 +1913,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="admin-box">
 <div class="login-logo">You&Place</div>
 <div class="login-sub">Admin prihlaseni</div>
-<div class="admin-label">Email</div>
-<input class="admin-input" type="text" placeholder="vas@email.cz" value="spery@youplace.cz">
-<div class="admin-label">Telefonni cislo</div>
-<div style="display:flex;gap:10px;margin-bottom:20px">
-<div style="width:90px;padding:16px 14px;border:1px solid rgba(255,255,255,0.08);border-radius:12px;font-size:16px;background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.5);text-align:center">+420</div>
-<input class="admin-input" style="flex:1;margin-bottom:0" type="text" placeholder="777 123 456" value="777 *** ***">
-</div>
-<div class="admin-label">Overovaci kod (SMS)</div>
-<div style="display:flex;gap:10px;margin-bottom:20px">
-<input style="flex:1;padding:16px;border:1px solid rgba(201,162,112,0.3);border-radius:12px;font-size:24px;font-weight:700;background:rgba(201,162,112,0.04);color:#c9a270;font-family:'Poppins';text-align:center;letter-spacing:8px;outline:none" value="4 8 _ _">
-<div style="padding:16px 20px;border:1px solid rgba(255,255,255,0.06);border-radius:12px;font-size:12px;color:rgba(255,255,255,0.25);display:flex;align-items:center;white-space:nowrap;flex-direction:column"><span>Odeslat znovu</span><span style="color:#c9a270;font-weight:600">1:42</span></div>
-</div>
-<button class="admin-btn" onclick="nav('dashboard')">Prihlasit se</button>
+<div class="admin-label">Pristupovy kod</div>
+<input class="admin-input" id="admin-code" type="password" placeholder="Zadejte kod" style="text-align:center;letter-spacing:8px;font-size:24px;font-weight:700;color:#c9a270;border-color:rgba(201,162,112,0.3);background:rgba(201,162,112,0.04)" onkeydown="if(event.key==='Enter')tryAdminLogin()">
+<button class="admin-btn" onclick="tryAdminLogin()">Prihlasit se</button>
 <div class="admin-divider"><div class="admin-divider-line"></div><div class="admin-divider-text">nebo</div><div class="admin-divider-line"></div></div>
 <button class="admin-btn-secondary" onclick="nav('login-pin')">Prihlasit se PINem (zamestnanci)</button>
 <div class="admin-footer">You&Place s.r.o. · Admin panel v2.0 · Zabezpecene pripojeni</div>
@@ -1938,12 +1928,12 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="login-box">
 <div class="login-logo">You&Place</div>
 <div class="login-sub">Zadejte PIN pro prihlaseni</div>
-<div class="pin-dots"><div class="pin-dot filled"></div><div class="pin-dot filled"></div><div class="pin-dot"></div><div class="pin-dot"></div></div>
+<div class="pin-dots"><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div></div>
 <div class="numpad">
-<div class="num">1</div><div class="num">2</div><div class="num">3</div>
-<div class="num">4</div><div class="num">5</div><div class="num">6</div>
-<div class="num">7</div><div class="num">8</div><div class="num">9</div>
-<div class="num empty"></div><div class="num">0</div><div class="num del">Smazat</div>
+<div class="num" onclick="pinPress('1')">1</div><div class="num" onclick="pinPress('2')">2</div><div class="num" onclick="pinPress('3')">3</div>
+<div class="num" onclick="pinPress('4')">4</div><div class="num" onclick="pinPress('5')">5</div><div class="num" onclick="pinPress('6')">6</div>
+<div class="num" onclick="pinPress('7')">7</div><div class="num" onclick="pinPress('8')">8</div><div class="num" onclick="pinPress('9')">9</div>
+<div class="num empty"></div><div class="num" onclick="pinPress('0')">0</div><div class="num del" onclick="pinDel()">Smazat</div>
 </div>
 </div>
 </div>
@@ -2002,7 +1992,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="menu-item" data-nav="ukoly"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span>Ukoly</span></div>
 <div class="menu-bottom">
 <div class="menu-bottom-item" data-nav="nastaveni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Nastaveni</div>
-<div class="menu-bottom-item" data-nav="login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Odhlasit</div>
+<div class="menu-bottom-item" onclick="logoutUser()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Odhlasit</div>
 </div>
 </div>
 </div><!-- .app -->
@@ -2028,6 +2018,35 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 const titles={dashboard:['Prehled','DASHBOARD'],projekty:['Projekty','PROJEKTY'],'projekty-detail':['Projekty','DETAIL PROJEKTU'],'projekty-lide':['Projekty','TYM PROJEKTU'],'projekty-fotky':['Projekty','FOTODOKUMENTACE'],'projekty-kalendar':['Projekty','KALENDAR'],'projekty-statistiky':['Projekty','STATISTIKY'],'projekty-novy':['Projekty','NOVY PROJEKT'],lide:['Lide','LIDE'],'lide-detail':['Lide','DETAIL OSOBY'],'lide-dokumenty':['Lide','DOKUMENTY'],'lide-kalendar':['Lide','KALENDAR TYMU'],'lide-telefon':['Lide','TELEFONNI SEZNAM'],'lide-pridat':['Lide','PRIDAT OSOBU'],auta:['Auta','AUTA'],'auta-detail':['Auta','DETAIL VOZIDLA'],ai:['AI Tym','AI TYM'],'ai-detail':['AI Tym','AI CHAT'],'ai-dokumenty':['AI Tym','DOKUMENTY'],'ai-statistiky':['AI Tym','STATISTIKY AI'],'ai-kalendar':['AI Tym','KALENDAR AI'],'ai-pridat':['AI Tym','NOVY AI CLEN'],finance:['Finance','FINANCE'],'fin-vydane':['Finance','VYDANE FAKTURY'],'fin-prijate':['Finance','PRIJATE FAKTURY'],'fin-mzdy':['Finance','MESICNI MZDY'],'fin-dph':['Finance','DPH'],'fin-smlouvy':['Finance','SMLOUVY'],'fin-upload':['Finance','UPLOAD'],'fin-prehled':['Finance','FINANCNI PREHLED'],'fin-terminy':['Finance','FINANCNI TERMINY'],'fin-novy':['Finance','NOVA FAKTURA'],'fa-detail':['Finance','FAKTURA'],kalkulacky:['Kalkulacky','STAVEBNI KALKULACKY'],'kalkulacky-detail':['Kalkulacky','KALKULACKA'],ukoly:['Ukoly','UKOLY'],'ukoly-detail':['Ukoly','DETAIL UKOLU'],'ukoly-ai':['Ukoly','AI UKOLY'],nastaveni:['Nastaveni','NASTAVENI'],notifikace:['Notifikace','NOTIFIKACE'],vyhledavani:['Hledat','VYHLEDAVANI'],login:['Prihlaseni','ADMIN LOGIN'],'login-pin':['Prihlaseni','PIN LOGIN'],flipy:['Flipy','FLIPY'],prazdny:['Hledat','ZADNE VYSLEDKY'],chyba:['Chyba','CHYBA']};
 const navMap={dashboard:'dashboard',projekty:'projekty','projekty-detail':'projekty','projekty-lide':'projekty','projekty-fotky':'projekty','projekty-kalendar':'projekty','projekty-statistiky':'projekty','projekty-novy':'projekty',lide:'lide','lide-detail':'lide','lide-dokumenty':'lide','lide-kalendar':'lide','lide-telefon':'lide','lide-pridat':'lide',auta:'auta','auta-detail':'auta',ai:'ai','ai-detail':'ai','ai-dokumenty':'ai','ai-statistiky':'ai','ai-kalendar':'ai','ai-pridat':'ai',finance:'finance','fin-vydane':'finance','fin-prijate':'finance','fin-mzdy':'finance','fin-dph':'finance','fin-smlouvy':'finance','fin-upload':'finance','fin-prehled':'finance','fin-terminy':'finance','fin-novy':'finance','fa-detail':'finance',kalkulacky:'kalkulacky','kalkulacky-detail':'kalkulacky',ukoly:'ukoly','ukoly-detail':'ukoly','ukoly-ai':'ukoly',nastaveni:null,notifikace:null,vyhledavani:null,login:null,'login-pin':null,flipy:null,prazdny:null,chyba:null};
 let currentPage='dashboard';
+
+// === AUTH SYSTEM ===
+const AUTH_ADMIN_CODE='2025';
+const AUTH_PINS={'1234':'Jakub Spernoga','1111':'Martin Kovar','2222':'Petr Hajek','3333':'Tomas Nemec','4444':'Jan Vlcek','5555':'Lukas Dvorak'};
+let pinEntry='';
+
+function isLoggedIn(){return sessionStorage.getItem('yp_auth')==='1'}
+function loginUser(name,role){sessionStorage.setItem('yp_auth','1');sessionStorage.setItem('yp_user',name);sessionStorage.setItem('yp_role',role)}
+function logoutUser(){sessionStorage.removeItem('yp_auth');sessionStorage.removeItem('yp_user');sessionStorage.removeItem('yp_role');nav('login')}
+
+function tryAdminLogin(){
+  var codeInput=document.querySelector('#page-login .admin-input[type="text"]:last-of-type')||document.getElementById('admin-code');
+  var code=document.getElementById('admin-code').value.replace(/\s/g,'');
+  if(code===AUTH_ADMIN_CODE){loginUser('Admin','admin');nav('dashboard')}
+  else{var el=document.getElementById('admin-code');el.style.borderColor='#ff4444';el.value='';el.placeholder='Spatny kod';setTimeout(function(){el.style.borderColor='';el.placeholder='Zadejte kod'},1500)}
+}
+
+function pinPress(n){
+  if(pinEntry.length>=4)return;
+  pinEntry+=n;
+  updatePinDots();
+  if(pinEntry.length===4){
+    var user=AUTH_PINS[pinEntry];
+    if(user){loginUser(user,'employee');nav('dashboard')}
+    else{document.querySelectorAll('#page-login-pin .pin-dot').forEach(function(d){d.style.background='#ff4444';d.style.borderColor='#ff4444'});setTimeout(function(){pinEntry='';updatePinDots()},800)}
+  }
+}
+function pinDel(){pinEntry=pinEntry.slice(0,-1);updatePinDots()}
+function updatePinDots(){document.querySelectorAll('#page-login-pin .pin-dot').forEach(function(d,i){d.classList.toggle('filled',i<pinEntry.length);d.style.background='';d.style.borderColor=''})}
 
 function nav(page){location.hash=page}
 
@@ -2137,8 +2156,8 @@ function heroPrev(key){var d=heroData[key];d.idx=(d.idx-1+d.items.length)%d.item
 function heroGo(key,i){heroData[key].idx=i;heroRender(key)}
 
 function route(){
-  const hash=location.hash.slice(1)||'dashboard';
-  const page=hash;
+  const hash=location.hash.slice(1)||'login';
+  const page=(hash==='login'||hash==='login-pin')?hash:isLoggedIn()?hash:'login';
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById('page-'+page);
   if(el)el.classList.add('active');
