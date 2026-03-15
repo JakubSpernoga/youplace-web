@@ -258,13 +258,10 @@ body::before {
 .mobile-menu { display: none; }
 
 /* ===== LOGIN ICON ===== */
-.login-btn { cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(201,162,112,0.3); transition: all 0.3s; }
-.login-btn:hover { border-color: var(--gold); background: rgba(201,162,112,0.1); }
-.login-btn svg { width: 18px; height: 18px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.4s; }
-.header.dark .login-btn svg { stroke: rgba(255,255,255,0.5); }
-.header.dark .login-btn:hover svg { stroke: var(--gold); }
-.header.light .login-btn svg, .sub-header .login-btn svg { stroke: rgba(0,0,0,0.4); }
-.header.light .login-btn:hover svg, .sub-header .login-btn:hover svg { stroke: var(--gold-dark); }
+.login-float { position: fixed; top: 28px; right: 28px; z-index: 9999; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(201,162,112,0.35); background: rgba(0,0,0,0.3); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: all 0.3s; }
+.login-float:hover { border-color: var(--gold); background: rgba(201,162,112,0.15); transform: scale(1.08); }
+.login-float svg { width: 18px; height: 18px; fill: none; stroke: rgba(255,255,255,0.6); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s; }
+.login-float:hover svg { stroke: var(--gold); }
 
 /* ========================================================================
    SUBPAGE: SHARED STYLES (konfigurator, eshop, projekty, vyroba)
@@ -892,6 +889,8 @@ body::before {
 </head>
 <body>
 
+<a href="app/" class="login-float" title="Prihlaseni do systemu"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+
 <div class="window">
 
   <!-- ================================================================
@@ -911,7 +910,6 @@ body::before {
       <div class="header-right">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         <div class="cart-btn" onclick="showView('view-eshop'); setTimeout(function(){showEshopCart()},100)"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="cart-count" id="cartCountLanding">0</span></div>
-        <div class="login-btn" onclick="window.location.href='app/'" title="Prihlaseni do systemu"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
       </div>
     </header>
 
