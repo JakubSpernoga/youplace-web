@@ -2172,8 +2172,8 @@ function heroPrev(key){var d=heroData[key];d.idx=(d.idx-1+d.items.length)%d.item
 function heroGo(key,i){heroData[key].idx=i;heroRender(key)}
 
 function route(){
-  const hash=location.hash.slice(1)||'login';
-  const page=(hash==='login'||hash==='login-pin')?hash:isLoggedIn()?hash:'login';
+  const hash=location.hash.slice(1)||'login-pin';
+  const page=(hash==='login'||hash==='login-pin')?hash:isLoggedIn()?hash:'login-pin';
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   const el=document.getElementById('page-'+page);
   if(el)el.classList.add('active');
