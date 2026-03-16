@@ -231,35 +231,48 @@
     .print-btn:hover { background: rgba(201,162,112,0.2); }
     .print-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
     /* EMBEDDED MODE - matches YouPlace main app theme */
-    body.embedded { background:transparent;overflow:hidden;height:auto; }
-    body.embedded .app-container { background:transparent;max-width:100%;margin:0 auto;overflow:visible;height:auto;padding:0 20px; }
+    /* === EMBEDDED MODE === */
+    body.embedded { background:transparent;overflow:hidden;height:auto;margin:0; }
+    body.embedded .app-container { background:transparent;max-width:100%;margin:0;overflow:visible;height:auto;padding:0; }
     body.embedded .header { display:none!important; }
-    body.embedded .content { background:transparent;padding:10px 0;overflow:visible; }
-    body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent { display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start; }
-    body.embedded .content > .tabs { margin-bottom:12px; }
-    body.embedded .content > div[style*="text-align:center"] { grid-column:1/-1; }
-    body.embedded .summary-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px; }
-    @media (min-width:700px) {
-      body.embedded .content { display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start; }
-      body.embedded .content > .tabs { grid-column:1/-1; }
-      body.embedded .content > .summary-grid { grid-column:1/-1; }
-      body.embedded .content > div[style*="text-align:center"] { grid-column:1/-1; }
+    body.embedded .home-indicator { display:none!important; }
+    body.embedded .logo-section { display:none!important; }
+    body.embedded .content { background:transparent;padding:0;overflow:visible; }
+    /* 2-column: config left, result right */
+    body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent {
+      display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;
     }
-    body.embedded .home-indicator { display:none; }
-    body.embedded .card { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);backdrop-filter:blur(8px);margin-bottom:0; }
-    body.embedded .card-title { font-size:14px; }
-    body.embedded .form-group { margin-bottom:8px; }
-    body.embedded .form-label { font-size:11px; }
-    body.embedded .form-input { padding:8px 10px;font-size:13px; }
-    body.embedded .form-input.large { font-size:18px;padding:10px; }
-    body.embedded .toggle-btns { gap:6px;margin-bottom:6px; }
-    body.embedded .toggle-btn { padding:6px 10px;font-size:11px; }
+    /* Multi-card pages (zaklady, elektro etc): 2 columns */
+    body.embedded .content > .card { break-inside:avoid; }
+    @media (min-width:800px) {
+      body.embedded .content { columns:2;column-gap:20px; }
+      body.embedded .content > .tabs { column-span:all;margin-bottom:12px; }
+      body.embedded .content > .summary-grid { column-span:all;margin-bottom:12px; }
+    }
+    body.embedded .summary-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px; }
+    /* Compact sizing */
+    body.embedded .card { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);margin-bottom:12px;padding:12px;border-radius:12px; }
+    body.embedded .card-title { font-size:13px;margin-bottom:8px; }
+    body.embedded .form-group { margin-bottom:6px; }
+    body.embedded .form-label { font-size:10px;margin-bottom:3px; }
+    body.embedded .form-input { padding:6px 8px;font-size:12px; }
+    body.embedded .form-input.large { font-size:16px;padding:8px; }
+    body.embedded .form-select { padding:6px 8px;font-size:12px; }
+    body.embedded .toggle-btns { gap:4px;margin-bottom:4px; }
+    body.embedded .toggle-btn { padding:5px 8px;font-size:10px; }
     body.embedded .tabs { margin-bottom:10px; }
-    body.embedded .tab { padding:8px 16px;font-size:12px; }
-    body.embedded .result { margin-top:0; }
-    body.embedded .result-item { padding:8px 10px; }
-    body.embedded .reserve-row { margin-top:8px; }
-    @media (max-width:700px) { body.embedded .content { grid-template-columns:1fr; } }
+    body.embedded .tab { padding:6px 12px;font-size:11px; }
+    body.embedded .option { padding:8px 10px;margin-bottom:4px;font-size:12px; }
+    body.embedded .reserve-row { margin-top:6px;font-size:11px; }
+    body.embedded .result { margin-top:0;padding:10px;border-radius:12px; }
+    body.embedded .result-item { padding:6px 8px;font-size:12px; }
+    body.embedded .result-item-name { font-size:12px; }
+    body.embedded .result-item-price { font-size:12px; }
+    body.embedded .result-total { padding:8px 0; }
+    body.embedded .section-title { font-size:11px;margin-bottom:6px;margin-top:8px; }
+    body.embedded .info-box { font-size:11px;padding:6px 8px; }
+    body.embedded .detail-panel { font-size:11px;padding:8px; }
+    /* Colors */
     body.embedded .option { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12); }
     body.embedded .option.active { background:rgba(201,162,112,0.06);border-color:#c9a270; }
     body.embedded .tab { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.3); }
@@ -273,14 +286,19 @@
     body.embedded .detail-panel { background:rgba(0,0,0,0.3); }
     body.embedded .option-dot { border-color:rgba(255,255,255,0.15); }
     body.embedded .section-title::after { background:rgba(255,255,255,0.1); }
-    body.embedded .summary-box { background:rgba(201,162,112,0.06);border-color:rgba(255,255,255,0.1); }
-    body.embedded .mistnost-card { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
-    body.embedded .podklad-item { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
+    body.embedded .summary-box { background:rgba(201,162,112,0.06);border-color:rgba(255,255,255,0.1);padding:8px;font-size:12px; }
+    body.embedded .mistnost-card { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);padding:8px; }
+    body.embedded .podklad-item { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);padding:6px; }
     body.embedded .podklad-item.active { background:rgba(201,162,112,0.06);border-color:#c9a270; }
-    body.embedded .klima-jednotka { background:#161616;border-color:#1e1e1e; }
-    body.embedded .klima-spec { background:#111; }
-    body.embedded .info-box { background:rgba(201,162,112,0.04);border-color:#1e1e1e; }
-    body.embedded .detail-warning { background:rgba(201,162,112,0.06);border-color:#1e1e1e; }
+    body.embedded .klima-jednotka { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
+    body.embedded .klima-spec { background:rgba(0,0,0,0.2); }
+    body.embedded .info-box { background:rgba(201,162,112,0.04);border-color:rgba(255,255,255,0.1); }
+    body.embedded .detail-warning { background:rgba(201,162,112,0.06);border-color:rgba(255,255,255,0.1); }
+    @media (max-width:700px) {
+      body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent { grid-template-columns:1fr; }
+      body.embedded .content { columns:1; }
+      body.embedded .summary-grid { grid-template-columns:1fr 1fr; }
+    }
     body.embedded .reserve-select { background:#161616;border-color:#1e1e1e; }
     body.embedded select option { background:#161616; }
     body.embedded ::-webkit-scrollbar-thumb { background:#2a2a2a; }
