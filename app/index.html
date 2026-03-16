@@ -570,11 +570,11 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 
 /* Hero layout classes */
 .hero-container{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:0 12px 20px}
-.hero-row{display:flex;gap:16px;align-items:stretch;max-width:850px;width:100%;margin-bottom:30px}
-.hero-card{flex:2;background:rgba(201,162,112,0.04);border:1px solid rgba(201,162,112,0.1);border-radius:12px;padding:80px 24px;text-align:center;cursor:pointer}
-.hero-sidebar{flex:1;display:flex;flex-direction:column;gap:0;background:rgba(255,255,255,0.07);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:20px;padding:20px}
-.hero-stat{display:flex;align-items:center;flex-wrap:nowrap;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);background:none;border-radius:0;box-shadow:none;border-left:none;backdrop-filter:none;-webkit-backdrop-filter:none;cursor:pointer;transition:opacity 0.2s}
-.hero-stat:last-child{border-bottom:none}
+.hero-row{display:flex;flex-direction:column;gap:16px;align-items:stretch;max-width:850px;width:100%;margin-bottom:30px}
+.hero-card{background:rgba(201,162,112,0.04);border:1px solid rgba(201,162,112,0.1);border-radius:12px;padding:80px 24px;text-align:center;cursor:pointer}
+.hero-sidebar{width:100%;display:flex;flex-direction:row;gap:0;background:rgba(255,255,255,0.07);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:20px;padding:20px}
+.hero-stat{flex:1;display:flex;align-items:center;flex-wrap:nowrap;gap:14px;padding:16px 0;border-bottom:none;border-right:1px solid rgba(255,255,255,0.06);background:none;border-radius:0;box-shadow:none;border-left:none;backdrop-filter:none;-webkit-backdrop-filter:none;cursor:pointer;transition:opacity 0.2s;padding:12px 16px}
+.hero-stat:last-child{border-right:none}
 .hero-stat:hover{opacity:0.85}
 .hero-stat-icon{width:40px;height:40px;min-width:40px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center}
 .hero-stat-icon svg{width:18px;height:18px;stroke:rgba(255,255,255,0.35);fill:none;stroke-width:1.5}
@@ -609,7 +609,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .hero-row{flex-direction:column;gap:12px;margin-bottom:14px}
 .hero-card{padding:32px 22px;border-radius:20px;background:rgba(255,255,255,0.07) !important;border:none !important}
 .hero-sidebar{flex-direction:column !important;gap:0 !important;background:rgba(255,255,255,0.07) !important;backdrop-filter:blur(30px) !important;-webkit-backdrop-filter:blur(30px) !important;border-radius:20px !important;padding:20px !important}
-.hero-stat{padding:14px 0 !important;gap:12px !important;background:none !important;border:none !important;border-bottom:1px solid rgba(255,255,255,0.06) !important;border-radius:0 !important;box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+.hero-stat{flex:none !important;padding:14px 0 !important;gap:12px !important;background:none !important;border-right:none !important;border-bottom:1px solid rgba(255,255,255,0.06) !important;border-radius:0 !important;box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
 .hero-stat:last-child{border-bottom:none !important}
 .hero-stat-icon{width:36px !important;height:36px !important;min-width:36px !important;border-radius:8px !important}
 .hero-stat-val{font-size:13px !important;font-weight:600 !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important}
@@ -957,7 +957,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="topbar">
 <div class="logo" onclick="nav('dashboard')">You&Place</div>
 <div class="tc"><div class="tc-l" id="tc-label">Prehled</div><div class="tc-t" id="tc-title">DASHBOARD</div></div>
-<div class="tr"><span class="tr-d" id="topbar-date"></span><span class="tr-t" id="topbar-time"></span><span style="font-size:15px;font-weight:700;color:#c9a270;background:rgba(201,162,112,0.15);border:1.5px solid rgba(201,162,112,0.3);border-radius:10px;padding:6px 14px;margin:0 8px;white-space:nowrap">15 000 Kc</span><span class="tr-i" onclick="nav('nastaveni')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></div>
+<div class="tr"><span class="tr-d" id="topbar-date"></span><span class="tr-t" id="topbar-time"></span><span class="tr-i" onclick="nav('nastaveni')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></div>
 </div>
 
 <!-- Mobile Topbar -->
@@ -966,7 +966,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="mob-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 <div class="logo" onclick="nav('dashboard')">You&Place</div>
 </div>
-<div class="mob-top-right"><span id="mob-time" style="font-weight:600;font-size:13px;color:#fff"></span><span style="font-size:15px;font-weight:700;color:#c9a270;background:rgba(201,162,112,0.15);border:1.5px solid rgba(201,162,112,0.3);border-radius:10px;padding:6px 14px;margin:0 6px;white-space:nowrap">15 000 Kc</span><span class="topbar-icon" onclick="nav('nastaveni')" style="cursor:pointer;color:rgba(255,255,255,0.3);display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></div>
+<div class="mob-top-right"><span id="mob-time" style="font-weight:600;font-size:13px;color:#fff"></span><span class="topbar-icon" onclick="nav('nastaveni')" style="cursor:pointer;color:rgba(255,255,255,0.3);display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></div>
 </div>
 
 <!-- Mobile Page Bar -->
@@ -991,34 +991,23 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <!-- PAGE: Dashboard -->
 <section class="page" id="page-dashboard">
 <div class="dash">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
 <div class="dash-title">You&Place</div>
-
+<div style="font-size:13px;font-weight:600;color:#c9a270;margin-top:4px;margin-bottom:16px">Bonus: 15 000 Kc</div>
+<div style="display:flex;gap:12px;margin-bottom:18px">
+<!-- Task card -->
+<div onclick="nav('ukoly')" style="flex:1;min-width:0;background:rgba(201,162,112,0.06);border:1px solid rgba(201,162,112,0.15);border-radius:16px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px">
+<div style="width:36px;height:36px;min-width:36px;border-radius:10px;background:rgba(201,162,112,0.1);border:1px solid rgba(201,162,112,0.2);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="rgba(201,162,112,0.6)" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Objednat material</div><div style="font-size:10px;color:rgba(201,162,112,0.5);margin-top:2px">Dalsi ukol · Dnes</div></div>
 </div>
-<div style="background:rgba(255,255,255,0.07);backdrop-filter:blur(30px);border-radius:20px;padding:20px;margin:12px 0 18px">
-<!-- Task row -->
-<div onclick="nav('ukoly')" style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer">
-<div style="width:40px;height:40px;min-width:40px;border-radius:10px;background:rgba(201,162,112,0.08);border:1px solid rgba(201,162,112,0.2);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(201,162,112,0.6)" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Objednat material</div><div style="font-size:11px;color:rgba(201,162,112,0.5);margin-top:2px">Dalsi ukol · Dnes</div></div>
-<div style="font-size:14px;font-weight:600;color:#c9a270;white-space:nowrap">Dnes</div>
+<!-- Project: Vinohrady -->
+<div onclick="nav('projekty-detail')" style="flex:1;min-width:0;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px">
+<div style="font-size:22px;font-weight:800;color:#c9a270;min-width:44px">74%</div>
+<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Vinohrady</div><div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:5px"><div style="width:74%;height:100%;background:#c9a270;border-radius:2px"></div></div></div>
 </div>
-<!-- Project row: Vinohrady -->
-<div onclick="nav('projekty-detail')" style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer">
-<div style="width:40px;height:40px;min-width:40px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg></div>
-<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Vinohrady</div><div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:6px;max-width:120px"><div style="width:74%;height:100%;background:#c9a270;border-radius:2px"></div></div></div>
-<div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap">74%</div>
-</div>
-<!-- Project row: Karlin -->
-<div onclick="nav('projekty-detail')" style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer">
-<div style="width:40px;height:40px;min-width:40px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg></div>
-<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Karlin</div><div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:6px;max-width:120px"><div style="width:45%;height:100%;background:#c9a270;border-radius:2px"></div></div></div>
-<div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap">45%</div>
-</div>
-<!-- Project row: D. Jircany -->
-<div onclick="nav('projekty-detail')" style="display:flex;align-items:center;gap:14px;padding:14px 0;cursor:pointer">
-<div style="width:40px;height:40px;min-width:40px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg></div>
-<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">D. Jircany</div><div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:6px;max-width:120px"><div style="width:12%;height:100%;background:#c9a270;border-radius:2px"></div></div></div>
-<div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap">12%</div>
+<!-- Project: Karlin -->
+<div onclick="nav('projekty-detail')" style="flex:1;min-width:0;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px">
+<div style="font-size:22px;font-weight:800;color:#c9a270;min-width:44px">45%</div>
+<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Karlin</div><div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:5px"><div style="width:45%;height:100%;background:#c9a270;border-radius:2px"></div></div></div>
 </div>
 </div>
 <div class="dash-icons" style="justify-content:center">
