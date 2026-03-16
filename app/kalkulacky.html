@@ -231,72 +231,85 @@
     .print-btn:hover { background: rgba(201,162,112,0.2); }
     .print-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
     /* EMBEDDED MODE - matches YouPlace main app theme */
-    /* === EMBEDDED MODE === */
+    /* === EMBEDDED MODE — Horizontal Flow (v2) === */
     body.embedded { background:transparent;overflow:hidden;height:auto;margin:0; }
-    body.embedded .app-container { background:transparent;max-width:100%;margin:0;overflow:visible;height:auto;padding:0; }
+    body.embedded .app-container { background:transparent;max-width:100%;margin:0;overflow:visible;height:auto;padding:0 16px; }
     body.embedded .header { display:none!important; }
     body.embedded .home-indicator { display:none!important; }
     body.embedded .logo-section { display:none!important; }
-    body.embedded .content { background:transparent;padding:0;overflow:visible; }
-    /* 2-column: config left, result right */
-    body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent {
-      display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;
+    body.embedded .content { background:transparent;padding:0;overflow:visible;display:flex;flex-direction:column;gap:10px; }
+    /* Glass base */
+    body.embedded .card,body.embedded .result,body.embedded .detail-panel,body.embedded .info-box {
+      background:rgba(255,255,255,0.035);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.07);border-radius:14px;
     }
-    /* Multi-card pages (zaklady, elektro etc): 2 columns */
-    body.embedded .content > .card { break-inside:avoid; }
-    @media (min-width:800px) {
-      body.embedded .content { columns:2;column-gap:20px; }
-      body.embedded .content > .tabs { column-span:all;margin-bottom:12px; }
-      body.embedded .content > .summary-grid { column-span:all;margin-bottom:12px; }
-    }
-    body.embedded .summary-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px; }
-    /* Compact sizing */
-    body.embedded .card { background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(8px);margin-bottom:12px;padding:12px;border-radius:12px; }
-    body.embedded .card-title { font-size:13px;margin-bottom:8px; }
-    body.embedded .form-group { margin-bottom:6px; }
-    body.embedded .form-label { font-size:10px;margin-bottom:3px; }
-    body.embedded .form-input { padding:6px 8px;font-size:12px; }
-    body.embedded .form-input.large { font-size:16px;padding:8px; }
-    body.embedded .form-select { padding:6px 8px;font-size:12px; }
-    body.embedded .toggle-btns { gap:4px;margin-bottom:4px; }
-    body.embedded .toggle-btn { padding:5px 8px;font-size:10px; }
-    body.embedded .tabs { margin-bottom:10px; }
-    body.embedded .tab { padding:6px 12px;font-size:11px; }
-    body.embedded .option { padding:8px 10px;margin-bottom:4px;font-size:12px; }
-    body.embedded .reserve-row { margin-top:6px;font-size:11px; }
-    body.embedded .result { margin-top:0;padding:10px;border-radius:12px; }
-    body.embedded .result-item { padding:6px 8px;font-size:12px; }
-    body.embedded .result-item-name { font-size:12px; }
-    body.embedded .result-item-price { font-size:12px; }
-    body.embedded .result-total { padding:8px 0; }
-    body.embedded .section-title { font-size:11px;margin-bottom:6px;margin-top:8px; }
-    body.embedded .info-box { font-size:11px;padding:6px 8px; }
-    body.embedded .detail-panel { font-size:11px;padding:8px; }
-    /* Colors */
-    body.embedded .option { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12); }
-    body.embedded .option.active { background:rgba(201,162,112,0.06);border-color:#c9a270; }
-    body.embedded .tab { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.3); }
-    body.embedded .tab.active { background:#c9a270;color:#0e0e0e;border-color:#c9a270; }
-    body.embedded .toggle-btn { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.3); }
-    body.embedded .toggle-btn.active { background:rgba(201,162,112,0.12);color:#c9a270;border-color:#c9a270; }
-    body.embedded .form-input,body.embedded .form-select { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:#fff; }
+    /* Tabs as pill bar */
+    body.embedded .tabs { display:flex;gap:3px;background:rgba(255,255,255,0.03);border-radius:8px;padding:3px;border:1px solid rgba(255,255,255,0.05);margin-bottom:2px; }
+    body.embedded .tab { padding:6px 14px;border-radius:6px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.4);border:none;background:transparent; }
+    body.embedded .tab.active { background:rgba(201,162,112,0.2);color:#c9a270;border:none; }
+    /* Card — compact */
+    body.embedded .card { padding:12px 18px;margin-bottom:0; }
+    body.embedded .card-title { font-size:11px;margin-bottom:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.35); }
+    body.embedded .form-group { margin-bottom:5px; }
+    body.embedded .form-label { font-size:9px;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.4);margin-bottom:2px; }
+    body.embedded .form-input { padding:5px 8px;font-size:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff; }
+    body.embedded .form-input.large { font-size:15px;font-weight:600;padding:6px 10px;text-align:center; }
+    body.embedded .form-select { padding:5px 8px;font-size:11px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff; }
     body.embedded .form-input:focus,body.embedded .form-select:focus { border-color:#c9a270;box-shadow:0 0 0 3px rgba(201,162,112,0.1); }
-    body.embedded .result { background:rgba(201,162,112,0.04);border-color:rgba(255,255,255,0.1); }
-    body.embedded .result-item { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
-    body.embedded .detail-panel { background:rgba(0,0,0,0.3); }
+    /* Toggle pills */
+    body.embedded .toggle-btns { display:flex;gap:3px;background:rgba(255,255,255,0.03);border-radius:8px;padding:3px;border:1px solid rgba(255,255,255,0.05);margin-bottom:4px; }
+    body.embedded .toggle-btn { padding:4px 10px;border-radius:6px;font-size:10px;font-weight:500;color:rgba(255,255,255,0.4);border:none;background:transparent; }
+    body.embedded .toggle-btn.active { background:rgba(201,162,112,0.2);color:#c9a270;border:none; }
+    /* Options as glass cards */
+    body.embedded .option { padding:10px 14px;margin-bottom:4px;border-radius:12px;font-size:11px;position:relative;
+      background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);cursor:pointer;transition:all 0.2s; }
+    body.embedded .option.active { background:rgba(201,162,112,0.08);border-color:rgba(201,162,112,0.25); }
     body.embedded .option-dot { border-color:rgba(255,255,255,0.15); }
-    body.embedded .section-title::after { background:rgba(255,255,255,0.1); }
-    body.embedded .summary-box { background:rgba(201,162,112,0.06);border-color:rgba(255,255,255,0.1);padding:8px;font-size:12px; }
-    body.embedded .mistnost-card { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);padding:8px; }
-    body.embedded .podklad-item { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);padding:6px; }
-    body.embedded .podklad-item.active { background:rgba(201,162,112,0.06);border-color:#c9a270; }
-    body.embedded .klima-jednotka { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
-    body.embedded .klima-spec { background:rgba(0,0,0,0.2); }
-    body.embedded .info-box { background:rgba(201,162,112,0.04);border-color:rgba(255,255,255,0.1); }
-    body.embedded .detail-warning { background:rgba(201,162,112,0.06);border-color:rgba(255,255,255,0.1); }
+    body.embedded .reserve-row { margin-top:4px;font-size:10px;color:rgba(255,255,255,0.4); }
+    body.embedded .reserve-select { background:rgba(201,162,112,0.15);border:1px solid rgba(201,162,112,0.3);color:#c9a270;border-radius:6px;padding:3px 6px;font-size:10px; }
+    /* 2-column layout for paint calculators */
+    body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent {
+      display:grid;grid-template-columns:1fr 1.3fr;gap:12px;align-items:start;
+    }
+    /* Result */
+    body.embedded .result { padding:14px 18px;margin-top:0;border-radius:14px; }
+    body.embedded .result-item { padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);background:transparent;border-radius:0;border-left:none;border-right:none;border-top:none; }
+    body.embedded .result-item:last-child { border-bottom:none; }
+    body.embedded .result-item-name { font-size:12px;font-weight:500; }
+    body.embedded .result-item-detail { font-size:9px;color:rgba(255,255,255,0.35); }
+    body.embedded .result-item-price { font-size:14px;font-weight:600;color:#c9a270; }
+    body.embedded .result-total { padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05));border:1px solid rgba(201,162,112,0.2);margin-top:6px; }
+    body.embedded .result-total-value { font-size:20px;font-weight:700;color:#c9a270; }
+    body.embedded .result-per-m2 { font-size:10px;color:rgba(255,255,255,0.4); }
+    /* Section titles */
+    body.embedded .section-title { font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:500;margin-bottom:6px;margin-top:4px; }
+    body.embedded .section-title::after { display:none; }
+    /* Detail panel */
+    body.embedded .detail-panel { padding:10px 14px;font-size:10px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07); }
+    body.embedded .info-box { padding:6px 10px;font-size:10px;background:rgba(201,162,112,0.04);border-color:rgba(255,255,255,0.07); }
+    /* Summary grid */
+    body.embedded .summary-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px; }
+    body.embedded .summary-box { background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);border-radius:12px;padding:10px;font-size:11px; }
+    body.embedded .summary-box-value { font-size:15px;font-weight:600;color:#c9a270; }
+    /* Multi-card pages: 2 columns */
+    @media (min-width:800px) {
+      body.embedded .content { columns:2;column-gap:12px;display:block; }
+      body.embedded .content > .tabs { column-span:all;margin-bottom:6px; }
+      body.embedded .content > .summary-grid { column-span:all;margin-bottom:6px; }
+      body.embedded .card { break-inside:avoid; }
+    }
+    /* Misc */
+    body.embedded .mistnost-card { background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px; }
+    body.embedded .podklad-item { background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:6px; }
+    body.embedded .podklad-item.active { background:rgba(201,162,112,0.06);border-color:rgba(201,162,112,0.25); }
+    body.embedded .klima-jednotka { background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);border-radius:10px; }
+    body.embedded .klima-spec { background:rgba(0,0,0,0.15);border-radius:6px; }
+    body.embedded .detail-warning { background:rgba(201,162,112,0.06);border:1px solid rgba(255,255,255,0.07);border-radius:10px; }
+    body.embedded .checkbox-label { font-size:11px; }
+    /* Mobile */
     @media (max-width:700px) {
       body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent { grid-template-columns:1fr; }
-      body.embedded .content { columns:1; }
+      body.embedded .content { columns:1!important;display:flex!important;flex-direction:column; }
       body.embedded .summary-grid { grid-template-columns:1fr 1fr; }
     }
     body.embedded .reserve-select { background:#161616;border-color:#1e1e1e; }
