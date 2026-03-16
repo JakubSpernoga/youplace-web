@@ -2097,12 +2097,16 @@ function openFa(typ,num){
 }
 function resizeCalcFrame(){
   var f=document.getElementById('calcFrame');
-  try{f.style.height=f.contentDocument.body.scrollHeight+'px';}catch(e){f.style.height='100vh';}
-  // Keep checking as user interacts with calculator
+  function getH(){
+    try{
+      var active=f.contentDocument.querySelector('.page.active');
+      if(active)return active.scrollHeight+20;
+      return f.contentDocument.body.scrollHeight;
+    }catch(e){return 0;}
+  }
+  var h=getH();if(h>0)f.style.height=h+'px';else f.style.height='80vh';
   if(f._resizeObs) return;
-  f._resizeObs=setInterval(function(){
-    try{var h=f.contentDocument.body.scrollHeight;if(h>0)f.style.height=h+'px';}catch(e){}
-  },500);
+  f._resizeObs=setInterval(function(){var h=getH();if(h>0)f.style.height=h+'px';},500);
 }
 function openCalc(pageId){
   var hash=pageId.replace(/Page$/,'');
