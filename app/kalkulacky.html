@@ -231,6 +231,48 @@
     .print-btn:hover { background: rgba(201,162,112,0.2); }
     .print-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
     /* EMBEDDED MODE - matches YouPlace main app theme */
+    /* === V2 COMPONENT CLASSES === */
+    .v2-topbar { display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:12px 16px; }
+    .v2-brand { font-size:14px;color:#e8e8ec;display:flex;align-items:center;gap:8px;white-space:nowrap; }
+    .v2-brand strong { font-weight:700; }
+    .v2-brand-dot { width:10px;height:10px;border-radius:50%;display:inline-block; }
+    .v2-topbar-group { display:flex;align-items:center;gap:6px;white-space:nowrap; }
+    .v2-topbar-label { font-size:9px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,0.4);text-transform:uppercase; }
+    .v2-topbar-unit { font-size:11px;color:rgba(255,255,255,0.4); }
+    .v2-reserve-pills { display:flex;align-items:center;gap:8px;margin-left:auto; }
+    .v2-systems-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:0; }
+    .v2-system-card { background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s; }
+    .v2-system-card:hover { border-color:rgba(201,162,112,0.3); }
+    .v2-system-card.active { border-color:rgba(201,162,112,0.5);border-top:3px solid #c9a270;background:rgba(201,162,112,0.06); }
+    .v2-system-card .v2-abbr { display:inline-block;font-size:12px;font-weight:700;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);margin-bottom:8px; }
+    .v2-system-card.active .v2-abbr { background:rgba(201,162,112,0.15);color:#c9a270; }
+    .v2-system-card .v2-sys-name { font-size:14px;font-weight:600;color:#e8e8ec;margin-bottom:4px; }
+    .v2-system-card.active .v2-sys-name { color:#c9a270; }
+    .v2-system-card .v2-sys-desc { font-size:11px;color:rgba(255,255,255,0.4);line-height:1.4; }
+    .v2-result-grid { display:grid;grid-template-columns:1.3fr 1fr;gap:12px;align-items:start; }
+    .v2-result-section { background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px; }
+    .v2-result-title { font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.35);margin-bottom:12px; }
+    .v2-product-row { display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:6px;border:1px solid rgba(255,255,255,0.05); }
+    .v2-product-badge { display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;font-size:10px;font-weight:700;margin-right:12px;flex-shrink:0; }
+    .v2-product-info { flex:1;min-width:0; }
+    .v2-product-name { font-size:13px;font-weight:600;color:#e8e8ec; }
+    .v2-product-detail { font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px; }
+    .v2-product-amount { font-size:11px;color:rgba(255,255,255,0.5);margin-right:16px;white-space:nowrap; }
+    .v2-product-price { font-size:16px;font-weight:700;color:#c9a270;white-space:nowrap; }
+    .v2-postup-table { width:100%;border-collapse:separate;border-spacing:0 4px; }
+    .v2-postup-table th { font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.3);padding:4px 8px;text-align:left; }
+    .v2-postup-table td { font-size:11px;color:rgba(255,255,255,0.7);padding:8px;background:rgba(255,255,255,0.03);border:none; }
+    .v2-postup-table tr td:first-child { border-radius:6px 0 0 6px; }
+    .v2-postup-table tr td:last-child { border-radius:0 6px 6px 0; }
+    .v2-step-badge { display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:rgba(201,162,112,0.15);color:#c9a270;font-size:11px;font-weight:700; }
+    .v2-total-banner { display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-radius:10px;background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.04));border:1px solid rgba(201,162,112,0.2);margin-top:8px; }
+    .v2-total-label { font-size:12px;font-weight:500;color:rgba(255,255,255,0.6); }
+    .v2-total-value { font-size:22px;font-weight:700;color:#c9a270; }
+    .v2-total-sub { font-size:10px;color:rgba(255,255,255,0.3); }
+    @media (max-width:700px) {
+      .v2-result-grid { grid-template-columns:1fr; }
+      .v2-systems-grid { grid-template-columns:1fr 1fr; }
+    }
     /* === EMBEDDED v2 — Horizontal Flow === */
     body.embedded { background:transparent;overflow:hidden;height:auto;margin:0; }
     body.embedded .app-container { background:transparent;max-width:100%;margin:0;overflow:visible;height:auto;padding:0 12px; }
@@ -377,14 +419,10 @@
         
         <!-- KOV -->
         <div id="kovContent">
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-              <img src="https://www.barvy-viton.cz/user/documents/upload/logo.png" alt="VITON" style="height:28px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-              <span style="display:none;font-size:18px;font-weight:700;color:#e31e24;">VITON</span>
-              <div style="font-size:11px;color:var(--g400);">Cesky vyrobce | barvy-viton.cz</div>
-            </div>
-            <div class="form-group"><label class="form-label">Plocha (m2)</label><input type="number" class="form-input large" id="kovPlocha" placeholder="0" oninput="vypoctiKov()"></div>
-            <div class="toggle-btns" style="margin-bottom:8px;">
+          <div class="card v2-topbar">
+            <div class="v2-brand"><span class="v2-brand-dot" style="background:#e31e24;"></span> <strong>VITON</strong> BARVY</div>
+            <div class="v2-topbar-group"><span class="v2-topbar-label">PLOCHA</span><input type="number" class="form-input large" id="kovPlocha" placeholder="0" oninput="vypoctiKov()"> <span class="v2-topbar-unit">m2</span></div>
+            <div class="toggle-btns">
               <button class="toggle-btn active" onclick="setKovTyp('rozpoustedlo',this)" id="kovTypRozp">Rozpoustedlove</button>
               <button class="toggle-btn" onclick="setKovTyp('voda',this)" id="kovTypVoda">Vodouredelne</button>
             </div>
@@ -392,12 +430,20 @@
               <button class="toggle-btn active" onclick="setKovRezim('system',this)">Doporucene systemy</button>
               <button class="toggle-btn" onclick="setKovRezim('vlastni',this)">Vlastni vyber</button>
             </div>
-            <div id="kovSystemy"><div id="kovSystemyList"></div><div id="kovSystemDetail"></div></div>
-            <div id="kovVlastni" style="display:none;">
+            <div class="v2-reserve-pills"><span class="v2-topbar-label">REZERVA</span><div class="toggle-btns" id="kovRezervaToggles">
+              <button class="toggle-btn" onclick="setKovRezerva(0,this)">0%</button>
+              <button class="toggle-btn active" onclick="setKovRezerva(10,this)">10%</button>
+              <button class="toggle-btn" onclick="setKovRezerva(15,this)">15%</button>
+              <button class="toggle-btn" onclick="setKovRezerva(20,this)">20%</button>
+            </div></div>
+          </div>
+          <input type="hidden" id="kovRezerva" value="10">
+          <div id="kovSystemy"><div id="kovSystemyList" class="v2-systems-grid"></div></div>
+          <div id="kovVlastni" style="display:none;">
+            <div class="card v2-topbar">
               <div class="form-group"><label class="form-label">Zaklad</label><select class="form-select" id="kovZaklad" onchange="vypoctiKov()"></select></div>
               <div class="form-group"><label class="form-label">Vrchni</label><select class="form-select" id="kovVrchni" onchange="vypoctiKov()"></select></div>
             </div>
-            <div class="reserve-row"><span class="reserve-label">Rezerva:</span><select class="reserve-select" id="kovRezerva" onchange="vypoctiKov()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
           </div>
           <div id="kovResult"></div>
         </div>
@@ -1578,18 +1624,14 @@ function setKovTyp(typ, el) {
   vypoctiKov();
 }
 function setKovRezim(rezim, el) { kovRezim = rezim; el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); document.getElementById('kovSystemy').style.display = rezim === 'system' ? 'block' : 'none'; document.getElementById('kovVlastni').style.display = rezim === 'vlastni' ? 'block' : 'none'; vypoctiKov(); }
+var kovAbbrs = {interier:'INT',exterier:'EXT',rychly:'RYC',prumysl:'PRU',voda_interier:'INT',voda_exterier:'EXT',voda_zaklad:'ZAK',voda_rychly:'RYC'};
+var kovDescs = {interier:'Vnitni prostory, obytne mistnosti',exterier:'Venkovni fasady, ploty, brany',rychly:'Jednovrstvovy system',prumysl:'Tezke korozni podminky',voda_interier:'Radiatory bez zapachu',voda_exterier:'Okapy, strechy, parapety',voda_zaklad:'Vyssi ochrana se zakladem',voda_rychly:'Rychle strikani'};
 function renderKovSystemy() {
   const systemy = kovTyp === 'voda' ? vitonProdukty.vodaSystemy : vitonProdukty.systemy;
-  document.getElementById('kovSystemyList').innerHTML = systemy.map(s => '<div class="option ' + (kovSystem === s.id ? 'active' : '') + '" onclick="selectKovSystem(\'' + s.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + s.nazev + infoTooltip(s.popis) + '</div></div><div class="option-meta">' + (s.je2K ? '<span class="badge">2K</span>' : '') + (s.jeVoda ? '<span class="badge badge-blue">H2O</span>' : '') + '<span class="option-vrstvy">' + s.vrstvy + 'v</span></div></div>').join('');
-  renderKovSystemDetail();
+  document.getElementById('kovSystemyList').innerHTML = systemy.map(s => '<div class="v2-system-card ' + (kovSystem === s.id ? 'active' : '') + '" onclick="selectKovSystem(\'' + s.id + '\')"><div class="v2-abbr">' + (kovAbbrs[s.id]||s.id.substring(0,3).toUpperCase()) + '</div>' + (s.je2K ? ' <span class="badge" style="font-size:9px;vertical-align:middle;">2K</span>' : '') + '<div class="v2-sys-name">' + s.nazev.split('(')[0].trim() + '</div><div class="v2-sys-desc">' + (kovDescs[s.id]||s.popis||'') + '</div></div>').join('');
 }
 function selectKovSystem(id) { kovSystem = id; renderKovSystemy(); vypoctiKov(); }
-function renderKovSystemDetail() {
-  const systemy = kovTyp === 'voda' ? vitonProdukty.vodaSystemy : vitonProdukty.systemy;
-  const s = systemy.find(x => x.id === kovSystem);
-  if (!s) return;
-  document.getElementById('kovSystemDetail').innerHTML = '<div class="detail-panel"><div class="detail-panel-title">Postup aplikace</div><div class="detail-row"><span class="detail-label">Priprava</span><span class="detail-value">' + s.priprava + '</span></div><div class="detail-row"><span class="detail-label">Brouseni</span><span class="detail-value">' + s.brouseni + '</span></div><div class="detail-row"><span class="detail-label">Postup (' + s.vrstvy + ' vrstvy)</span><span class="detail-value">' + s.postup + '</span></div><div class="detail-row"><span class="detail-label">Mezi vrstvami</span><span class="detail-value">' + s.schnutiMeziVrstvami + '</span></div><div class="detail-row"><span class="detail-label">Konecne schnuti</span><span class="detail-value">' + s.schnutiKonecne + '</span></div>' + (s.je2K ? '<div class="detail-warning">2K system - nutne tuzidlo, dodrzet pomer michani a dobu zpracovani!</div>' : '') + (s.jeVoda ? '<div class="detail-warning" style="background:rgba(59,130,246,0.1);border-color:#93c5fd;color:#3b82f6;">Vodouredelna barva - bez zapachu, reditelna vodou, eko!</div>' : '') + '</div>';
-}
+function setKovRezerva(val, el) { document.getElementById('kovRezerva').value = val; el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); vypoctiKov(); }
 function renderKovVlastni() {
   if (kovTyp === 'voda') {
     document.getElementById('kovZaklad').innerHTML = '<option value="zadny">Bez zakladu (pouzit 3v1)</option>' + vitonProdukty.vodaBarvy.filter(b => b.je2v1).map(z => '<option value="' + z.id + '">' + z.nazev + '</option>').join('');
@@ -1652,7 +1694,29 @@ function vypoctiKov() {
     celkem += bal.cena;
     celkemSpotrebaKc += cenaSpotrebaKc;
   }
-  document.getElementById('kovResult').innerHTML = '<div class="result"><div class="card-title">Kalkulace' + (kovTyp === 'voda' ? ' (vodouredelne)' : '') + '</div>' + polozky.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + (p.url ? '<a href="' + p.url + '" target="_blank" style="color:inherit;text-decoration:underline;">' + p.nazev + '</a>' : p.nazev) + infoTooltip(p.popis) + '</div><div class="result-item-detail">' + p.potreba + (kovTyp === 'voda' ? 'kg' : 'l') + ' (koupit ' + p.baleni + ')</div><div class="result-item-schnuti">Schnuti: ' + p.schnutiDotyk + ' dotyk | ' + p.schnutiDalsiVrstva + ' dalsi vrstva</div><div class="result-item-badges">' + (p.je2K ? '<span class="badge badge-yellow">2K + ' + p.tuzidlo + '</span>' : '') + (p.je1K ? '<span class="badge badge-blue">1K</span>' : '') + (p.je3v1 ? '<span class="badge badge-green">3v1</span>' : '') + (p.je2v1 ? '<span class="badge badge-green">2v1</span>' : '') + (p.jeVoda ? '<span class="badge badge-blue">H2O</span>' : '') + '</div></div><div class="result-item-price">' + formatCena(p.cenaSpotrebaKc) + '</div></div>').join('') + '<div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(celkemSpotrebaKc) + '</span></div><div class="result-per-m2">' + Math.round(celkemSpotrebaKc / plocha) + ' Kc/m2</div><div style="text-align:center;margin-top:8px;font-size:11px;color:#888;">Nakup: ' + formatCena(celkem) + ' (min. baleni)</div><div style="text-align:center;margin-top:8px;"><a href="' + vitonProdukty.eshopUrl + '" target="_blank" style="color:var(--gold-dark);font-size:11px;">Koupit na Barvissimo.cz</a></div></div>';
+  // Get postup from system
+  const systemy = kovTyp === 'voda' ? vitonProdukty.vodaSystemy : vitonProdukty.systemy;
+  const sys = systemy.find(x => x.id === kovSystem);
+  const badgeTypes = {zaklad:'ZAK',vrchni:'VRC',penetrace:'PEN'};
+  const badgeColors = {zaklad:'rgba(201,162,112,0.15)',vrchni:'rgba(59,130,246,0.15)'};
+  const badgeTextColors = {zaklad:'#c9a270',vrchni:'#3b82f6'};
+  // Build products HTML
+  let produktyHtml = polozky.map((p,i) => {
+    const typ = i===0 && polozky.length>1 ? 'zaklad' : 'vrchni';
+    const badge = badgeTypes[typ]||'';
+    return '<div class="v2-product-row"><div class="v2-product-badge" style="background:' + (badgeColors[typ]||'rgba(255,255,255,0.08)') + ';color:' + (badgeTextColors[typ]||'#888') + ';">' + badge + '</div><div class="v2-product-info"><div class="v2-product-name">' + p.nazev + '</div><div class="v2-product-detail">' + (i===0&&polozky.length>1?'Zakladni nater':'Vrchni nater') + ' &bull; Baleni ' + p.baleni + '</div></div><div class="v2-product-amount">' + (polozky.length>1&&i===0?'1x':''+Math.max(1,parseInt(p.baleni))+'x') + ' baleni</div><div class="v2-product-price">' + formatCena(p.cenaSpotrebaKc) + '</div></div>';
+  }).join('');
+  // Build postup table
+  let postupHtml = '';
+  if (sys && kovRezim === 'system') {
+    let steps = [];
+    if (sys.zaklad && zaklad) steps.push({krok:'Zakladni nater',produkt:zaklad.nazev.split(' ')[0]+' '+zaklad.nazev.split(' ')[1],aplikace:'stetec / valecek',redeni:'S 6005 / 10%',schnuti:'6 hod'});
+    const vrchniName = vrchni ? vrchni.nazev.split(' ')[0]+' '+vrchni.nazev.split(' ')[1] : '';
+    const pocetVrchnich = zaklad ? vrstvy-1 : vrstvy;
+    for(let i=1;i<=pocetVrchnich;i++) steps.push({krok:i+'. vrstva vrchniho',produkt:vrchniName,aplikace:'stetec / valecek',redeni:'S 6005 / '+(i===pocetVrchnich?'5':'10')+'%',schnuti:(i===pocetVrchnich?'24':'8')+' hod'});
+    postupHtml = '<table class="v2-postup-table"><tr><th>KROK</th><th>PRODUKT</th><th>APLIKACE</th><th>REDENI</th><th>SCHNUTI</th></tr>' + steps.map((st,i) => '<tr><td><span class="v2-step-badge">' + (i+1) + '</span></td><td>' + st.krok + '</td><td>' + st.aplikace + '</td><td>' + st.redeni + '</td><td>' + st.schnuti + '</td></tr>').join('') + '</table>';
+  }
+  document.getElementById('kovResult').innerHTML = '<div class="v2-result-grid"><div class="v2-result-section"><div class="v2-result-title">PRODUKTY</div>' + produktyHtml + '</div><div class="v2-result-section"><div class="v2-result-title">POSTUP APLIKACE</div>' + postupHtml + '</div></div><div class="v2-total-banner"><div><div class="v2-total-label">Celkova cena s ' + rezerva + '% rezervou</div><div class="v2-total-sub">Nakup: ' + formatCena(celkem) + ' (min. baleni)</div></div><div class="v2-total-value">' + formatCena(celkemSpotrebaKc) + '</div></div>';
 }
 
 // === STĚNY ===
