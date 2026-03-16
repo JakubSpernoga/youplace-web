@@ -174,8 +174,8 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #2a2a38; border-radius: 10px; }
-    .content { background: #141420; }
-    .logo-section { background: #141420; }
+    .content { background: transparent; }
+    .logo-section { background: transparent; }
     .menu-icon svg { stroke: #c9a270; }
     .back-btn svg { stroke: #c9a270; }
     .header-title { color: #e8e8ec; }
@@ -231,27 +231,27 @@
     .print-btn:hover { background: rgba(201,162,112,0.2); }
     .print-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
     /* EMBEDDED MODE - matches YouPlace main app theme */
-    body.embedded { background:#0e0e0e; }
-    body.embedded .app-container { background:#0e0e0e;max-width:520px;margin:0 auto; }
+    body.embedded { background:transparent; }
+    body.embedded .app-container { background:transparent;max-width:520px;margin:0 auto; }
     body.embedded .header { display:none!important; }
-    body.embedded .content { background:#0e0e0e;padding:20px 8px; }
-    body.embedded .card { background:#161616;border-color:#1e1e1e; }
-    body.embedded .option { background:#161616;border-color:#1e1e1e; }
+    body.embedded .content { background:transparent;padding:20px 8px;overflow:visible; }
+    body.embedded .card { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);backdrop-filter:blur(8px); }
+    body.embedded .option { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12); }
     body.embedded .option.active { background:rgba(201,162,112,0.06);border-color:#c9a270; }
-    body.embedded .tab { background:#161616;border-color:#1e1e1e;color:rgba(255,255,255,0.3); }
+    body.embedded .tab { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.3); }
     body.embedded .tab.active { background:#c9a270;color:#0e0e0e;border-color:#c9a270; }
-    body.embedded .toggle-btn { background:#161616;border-color:#1e1e1e;color:rgba(255,255,255,0.3); }
+    body.embedded .toggle-btn { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.3); }
     body.embedded .toggle-btn.active { background:rgba(201,162,112,0.12);color:#c9a270;border-color:#c9a270; }
-    body.embedded .form-input,body.embedded .form-select { background:#161616;border-color:#1e1e1e;color:#fff; }
+    body.embedded .form-input,body.embedded .form-select { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:#fff; }
     body.embedded .form-input:focus,body.embedded .form-select:focus { border-color:#c9a270;box-shadow:0 0 0 3px rgba(201,162,112,0.1); }
-    body.embedded .result { background:rgba(201,162,112,0.04);border-color:#1e1e1e; }
-    body.embedded .result-item { background:#161616;border-color:#1e1e1e; }
-    body.embedded .detail-panel { background:#111; }
-    body.embedded .option-dot { border-color:#2a2a2a; }
-    body.embedded .section-title::after { background:#1e1e1e; }
-    body.embedded .summary-box { background:rgba(201,162,112,0.06);border-color:#1e1e1e; }
-    body.embedded .mistnost-card { background:#161616;border-color:#1e1e1e; }
-    body.embedded .podklad-item { background:#161616;border-color:#1e1e1e; }
+    body.embedded .result { background:rgba(201,162,112,0.04);border-color:rgba(255,255,255,0.1); }
+    body.embedded .result-item { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
+    body.embedded .detail-panel { background:rgba(0,0,0,0.3); }
+    body.embedded .option-dot { border-color:rgba(255,255,255,0.15); }
+    body.embedded .section-title::after { background:rgba(255,255,255,0.1); }
+    body.embedded .summary-box { background:rgba(201,162,112,0.06);border-color:rgba(255,255,255,0.1); }
+    body.embedded .mistnost-card { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
+    body.embedded .podklad-item { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1); }
     body.embedded .podklad-item.active { background:rgba(201,162,112,0.06);border-color:#c9a270; }
     body.embedded .klima-jednotka { background:#161616;border-color:#1e1e1e; }
     body.embedded .klima-spec { background:#111; }
