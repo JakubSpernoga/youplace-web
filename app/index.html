@@ -676,22 +676,16 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .numpad{max-width:210px;gap:10px}
 .admin-footer{font-size:10px}
 }
-/* === KALKULACKY v2 — glass morphism design === */
+/* === KALKULACKY v2 — 1:1 glass morphism === */
 
-/* --- GLASS FOUNDATION — stronger for photo backgrounds --- */
+/* Keep calc grid styling for calculator selection page */
 #page-kalkulacky .calc-grid{gap:16px;padding:10px 0}
 #page-kalkulacky .calc-item{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:16px;padding:28px 18px;
-  transition:all 0.2s;
+  background:rgba(255,255,255,0.05);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 18px;transition:all 0.2s;
 }
 #page-kalkulacky .calc-item:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12)}
-#page-kalkulacky .calc-item.a{
-  background:rgba(201,162,112,0.1);
-  border-color:rgba(201,162,112,0.3);
-}
+#page-kalkulacky .calc-item.a{background:rgba(201,162,112,0.1);border-color:rgba(201,162,112,0.3)}
 #page-kalkulacky .calc-item-icon svg{stroke:rgba(255,255,255,0.35);stroke-width:1.5}
 #page-kalkulacky .calc-item.a .calc-item-icon svg{stroke:#c9a270}
 #page-kalkulacky .calc-item-name{color:rgba(255,255,255,0.55);font-weight:600}
@@ -699,331 +693,165 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 #page-kalkulacky .calc-item-desc{color:rgba(255,255,255,0.25)}
 #page-kalkulacky .calc-item.a .calc-item-desc{color:rgba(201,162,112,0.6)}
 
-/* --- CALC DETAIL PAGES — all calculators --- */
 #page-kalkulacky-detail{background:transparent}
 #page-kalkulacky-detail .back{color:rgba(255,255,255,0.5);transition:color 0.2s}
 #page-kalkulacky-detail .back:hover{color:#fff}
 
-/* Tabs — glass pill container */
-#calcContent .tabs{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,0.07);
-  border-radius:12px;padding:4px;margin-bottom:16px;
-}
-#calcContent .tab{border:none;border-radius:10px}
-#calcContent .tab.active{background:rgba(201,162,112,0.2);color:#c9a270}
+/* GLASS */
+#calcContent .glass{background:rgba(255,255,255,0.035);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.07);border-radius:14px}
+#calcContent .glass-strong{background:rgba(255,255,255,0.05);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid rgba(255,255,255,0.08);border-radius:14px}
 
-/* Cards — strong glass for photo background */
-#calcContent .card{
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(30px) !important;-webkit-backdrop-filter:blur(30px) !important;
-  border:1px solid rgba(255,255,255,0.08) !important;
-  border-radius:14px !important;padding:18px 20px !important;margin-bottom:14px !important;
-}
+/* CALC PAGE */
+#calcContent .calc-page{font-family:'Poppins',sans-serif;color:#e8e8ec}
+#calcContent .calc-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-bottom:-8px}
+
+/* TOP BAR */
+#calcContent .top-bar{display:flex;align-items:center;padding:14px 24px;gap:24px;flex-shrink:0;flex-wrap:wrap}
+#calcContent .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+#calcContent .brand-dot{width:10px;height:10px;border-radius:50%}
+#calcContent .brand-name{font-size:15px;font-weight:600;letter-spacing:1px}
+#calcContent .brand-name span{color:#c9a270}
+#calcContent .brand-sub{font-size:10px;color:rgba(255,255,255,0.35)}
+#calcContent .divider-v{width:1px;height:28px;background:rgba(255,255,255,0.08);flex-shrink:0}
+#calcContent .field-inline{display:flex;align-items:center;gap:8px}
+#calcContent .field-inline label{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.4);white-space:nowrap;font-weight:500}
+#calcContent .field-inline .val{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 12px;font-size:16px;font-weight:600;color:#fff;min-width:60px;text-align:center}
+#calcContent .field-inline .unit{font-size:11px;color:rgba(255,255,255,0.35);margin-left:-4px}
+
+/* PILLS */
+#calcContent .pill-group{display:flex;gap:3px;background:rgba(255,255,255,0.03);border-radius:8px;padding:3px;border:1px solid rgba(255,255,255,0.05)}
+#calcContent .pill{padding:6px 14px;border-radius:6px;font-size:11px;font-weight:500;cursor:pointer;color:rgba(255,255,255,0.4);white-space:nowrap;transition:all 0.2s;border:none;background:transparent;font-family:inherit}
+#calcContent .pill.active{background:rgba(201,162,112,0.2);color:#c9a270}
+#calcContent .reserve-pills{display:flex;gap:2px;margin-left:auto;align-items:center}
+#calcContent .reserve-pill{padding:5px 10px;border-radius:6px;font-size:10px;color:rgba(255,255,255,0.35);cursor:pointer;border:1px solid rgba(255,255,255,0.05);background:transparent;font-family:inherit;transition:all 0.2s}
+#calcContent .reserve-pill.active{background:rgba(201,162,112,0.15);border-color:rgba(201,162,112,0.3);color:#c9a270}
+
+/* SYSTEM CARDS */
+#calcContent .systems-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;flex-shrink:0}
+#calcContent .sys-card{padding:18px 20px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+#calcContent .sys-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:transparent;transition:background 0.2s}
+#calcContent .sys-card.active::before{background:linear-gradient(90deg,#c9a270,rgba(201,162,112,0.3))}
+#calcContent .sys-card.active{background:rgba(201,162,112,0.08)!important;border-color:rgba(201,162,112,0.25)!important}
+#calcContent .sys-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-bottom:10px;color:rgba(255,255,255,0.5)}
+#calcContent .sys-card.active .sys-icon{background:rgba(201,162,112,0.15);color:#c9a270}
+#calcContent .sys-name{font-size:13px;font-weight:600;margin-bottom:2px}
+#calcContent .sys-card.active .sys-name{color:#c9a270}
+#calcContent .sys-desc{font-size:10px;color:rgba(255,255,255,0.3)}
+
+/* RESULTS */
+#calcContent .results-area{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;flex:1;min-height:0}
+#calcContent .results-area.single{grid-template-columns:1fr}
+#calcContent .section-head{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,0.35);font-weight:500;margin-bottom:14px}
+#calcContent .product-row{display:flex;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+#calcContent .product-row:last-of-type{border-bottom:none}
+#calcContent .product-badge{width:36px;height:36px;border-radius:8px;background:rgba(201,162,112,0.1);border:1px solid rgba(201,162,112,0.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#c9a270;margin-right:14px;flex-shrink:0}
+#calcContent .product-info{flex:1}
+#calcContent .product-name{font-size:14px;font-weight:500}
+#calcContent .product-detail{font-size:10px;color:rgba(255,255,255,0.35)}
+#calcContent .product-qty{font-size:12px;color:rgba(255,255,255,0.5);margin-right:24px;text-align:center;min-width:50px}
+#calcContent .product-price{font-size:16px;font-weight:600;color:#c9a270;text-align:right;min-width:90px}
+#calcContent .total-banner{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05));border:1px solid rgba(201,162,112,0.2)}
+#calcContent .total-label{font-size:12px;color:rgba(255,255,255,0.6)}
+#calcContent .total-amount{font-size:26px;font-weight:700;color:#c9a270}
+#calcContent .total-amount small{font-size:13px;font-weight:400}
+
+/* POSTUP TABLE */
+#calcContent .postup-table{width:100%;border-collapse:collapse}
+#calcContent .postup-table th{font-size:9px;text-transform:uppercase;letter-spacing:0.7px;color:rgba(255,255,255,0.25);font-weight:500;text-align:left;padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.06)}
+#calcContent .postup-table td{padding:9px 8px;font-size:11px;color:rgba(255,255,255,0.6);border-bottom:1px solid rgba(255,255,255,0.03)}
+#calcContent .step-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:rgba(201,162,112,0.12);color:#c9a270;font-size:10px;font-weight:600}
+
+/* SUMMARY BOXES */
+#calcContent .summary-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+#calcContent .summary-box{padding:14px 18px}
+#calcContent .summary-box .s-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.35)}
+#calcContent .summary-box .s-value{font-size:22px;font-weight:700;color:#c9a270;margin-top:4px}
+#calcContent .summary-box .s-unit{font-size:11px;font-weight:400;color:rgba(255,255,255,0.4)}
+
+/* CARD SECTION */
+#calcContent .card-section{padding:20px 24px}
+#calcContent .card-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.35);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 #calcContent .card-title::before{content:'';width:3px;height:14px;background:#c9a270;border-radius:2px}
 
-/* v2-topbar — more spacing like reference */
-.v2-topbar{
-  padding:14px 24px !important;gap:12px 28px !important;
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(30px) !important;-webkit-backdrop-filter:blur(30px) !important;
-  border:1px solid rgba(255,255,255,0.08) !important;border-radius:14px !important;
-  margin-bottom:16px !important;
-}
+/* FORM FIELDS */
+#calcContent .form-row{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end}
+#calcContent .form-group{display:flex;flex-direction:column;gap:4px}
+#calcContent .form-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.4)}
+#calcContent .form-val{display:inline-flex;align-items:center;padding:7px 14px;font-size:14px;font-weight:600;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;min-width:50px;justify-content:center}
+#calcContent .form-pick{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;font-size:12px;font-weight:500;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:rgba(255,255,255,0.7)}
+#calcContent .form-pick::after{content:'';width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid rgba(255,255,255,0.25);margin-left:4px}
+#calcContent .form-hint{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px}
 
-/* System cards — bigger, stronger glass */
-.v2-systems-grid{gap:12px !important;margin-bottom:16px !important}
-.v2-system-card{
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,0.08) !important;
-  border-radius:14px !important;padding:18px 20px !important;
-}
-.v2-system-card:hover{background:rgba(255,255,255,0.08) !important;border-color:rgba(255,255,255,0.12) !important}
-.v2-system-card.active{
-  background:rgba(201,162,112,0.1) !important;
-  border-color:rgba(201,162,112,0.3) !important;
-  border-top:3px solid #c9a270 !important;
-}
-
-/* Result sections — strong glass panels */
-.v2-result-grid{gap:16px !important}
-.v2-result-section{
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(30px) !important;-webkit-backdrop-filter:blur(30px) !important;
-  border:1px solid rgba(255,255,255,0.08) !important;
-  border-radius:14px !important;padding:20px 24px !important;
-}
-
-/* Product rows — clean like v2 reference (no individual cards) */
-.v2-product-row{
-  background:transparent !important;border:none !important;border-radius:0 !important;
-  padding:12px 0 !important;margin-bottom:0 !important;
-  border-bottom:1px solid rgba(255,255,255,0.05) !important;
-}
-.v2-product-row:last-of-type{border-bottom:none !important}
-
-/* Total banner */
-.v2-total-banner{
-  background:linear-gradient(135deg,rgba(201,162,112,0.14),rgba(201,162,112,0.05)) !important;
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(201,162,112,0.25) !important;
-  border-radius:12px !important;padding:16px 22px !important;margin-top:12px !important;
-}
-
-/* All other result/summary boxes — strong glass */
-#calcContent .result{
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(30px) !important;-webkit-backdrop-filter:blur(30px) !important;
-  border:1px solid rgba(255,255,255,0.08) !important;
-  border-radius:14px !important;padding:18px 20px !important;
-}
-#calcContent .summary-box,.v2-summary-box{
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(30px) !important;-webkit-backdrop-filter:blur(30px) !important;
-  border:1px solid rgba(255,255,255,0.08) !important;
-  border-radius:12px !important;
-}
-#calcContent .result-total{
-  background:linear-gradient(135deg,rgba(201,162,112,0.14),rgba(201,162,112,0.05)) !important;
-  border:1px solid rgba(201,162,112,0.25) !important;
-  border-radius:10px !important;padding:14px 18px !important;
-}
-
-/* Options — glass with gold active state */
-#calcContent .option{
-  background:rgba(255,255,255,0.04) !important;
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.07) !important;
-  border-radius:12px !important;
-}
-#calcContent .option:hover{background:rgba(255,255,255,0.07) !important}
-#calcContent .option.active{
-  background:rgba(201,162,112,0.08) !important;
-  border-color:rgba(201,162,112,0.35) !important;
-}
-
-/* Podklad items — glass */
-#calcContent .podklady-grid{gap:8px !important}
-#calcContent .podklad-item{
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.07) !important;
-  border-radius:10px !important;padding:10px !important;
-  transition:all 0.2s;
-}
-#calcContent .podklad-item:hover{background:rgba(255,255,255,0.08) !important}
-#calcContent .podklad-item.active{
-  background:rgba(201,162,112,0.1) !important;
-  border-color:rgba(201,162,112,0.35) !important;
-}
-
-/* Mistnost/klima cards — glass */
-#calcContent .mistnost-card,
-#calcContent .klima-jednotka{
-  background:rgba(255,255,255,0.05) !important;
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,0.08) !important;
-  border-radius:14px !important;padding:14px !important;
-}
-
-/* Form inputs — glass style, hide native spinners */
-#calcContent .form-input,#calcContent input[type="number"],#calcContent input[type="text"],
-.calc-page input[type="number"],.calc-page input[type="text"]{
-  background:rgba(255,255,255,0.06) !important;
-  border:1px solid rgba(255,255,255,0.1) !important;
-  border-radius:8px !important;color:#fff !important;
-  font-family:'Poppins',sans-serif !important;font-size:13px !important;
-  padding:8px 12px !important;outline:none !important;
-  -moz-appearance:textfield !important;
+/* Make native inputs look like .form-val */
+#calcContent input[type="number"],
+#calcContent input[type="text"]{
+  display:inline-flex;align-items:center;padding:7px 14px;font-size:14px;font-weight:600;
+  background:rgba(255,255,255,0.06)!important;border:1px solid rgba(255,255,255,0.1)!important;border-radius:8px!important;
+  color:#fff!important;min-width:50px;text-align:center;outline:none!important;
+  font-family:'Poppins',sans-serif!important;-moz-appearance:textfield!important;-webkit-appearance:none!important;
 }
 #calcContent input[type="number"]::-webkit-inner-spin-button,
-#calcContent input[type="number"]::-webkit-outer-spin-button,
-.calc-page input[type="number"]::-webkit-inner-spin-button,
-.calc-page input[type="number"]::-webkit-outer-spin-button{
-  -webkit-appearance:none !important;margin:0 !important;
-}
-#calcContent .form-input:focus,#calcContent input[type="number"]:focus,
-.calc-page input[type="number"]:focus,.calc-page input[type="text"]:focus{
-  border-color:#c9a270 !important;box-shadow:0 0 0 2px rgba(201,162,112,0.1) !important;
-}
-#calcContent .form-select,#calcContent select,
-.calc-page select{
-  background:rgba(255,255,255,0.06) !important;
-  border:1px solid rgba(255,255,255,0.1) !important;
-  border-radius:8px !important;color:#fff !important;
-  font-family:'Poppins',sans-serif !important;font-size:12px !important;
-  padding:8px 30px 8px 12px !important;outline:none !important;
-  -webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
-  background-repeat:no-repeat !important;background-position:right 10px center !important;
-  background-size:12px !important;cursor:pointer !important;
-}
-#calcContent .form-select option,#calcContent select option,
-.calc-page select option{background:#1a1a1a !important;color:#fff !important}
-/* Checkbox styling */
-#calcContent input[type="checkbox"],.calc-page input[type="checkbox"]{
-  width:18px !important;height:18px !important;border-radius:4px !important;
-  accent-color:#c9a270 !important;cursor:pointer !important;
-}
+#calcContent input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none!important;display:none!important;margin:0!important}
+#calcContent input:focus{border-color:#c9a270!important;box-shadow:0 0 0 2px rgba(201,162,112,0.1)!important}
 
-/* Toggle buttons — pill groups */
-#calcContent .toggle-btns{
-  background:rgba(255,255,255,0.04) !important;
-  border:1px solid rgba(255,255,255,0.06) !important;
-  border-radius:10px !important;padding:3px !important;
+/* Make native selects look like .form-pick */
+#calcContent select{
+  display:inline-flex;align-items:center;padding:7px 14px 7px 14px;font-size:12px;font-weight:500;
+  background:rgba(255,255,255,0.04)!important;border:1px solid rgba(255,255,255,0.08)!important;border-radius:8px!important;
+  color:rgba(255,255,255,0.7)!important;outline:none!important;
+  font-family:'Poppins',sans-serif!important;cursor:pointer;
+  -webkit-appearance:none!important;-moz-appearance:none!important;appearance:none!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 4 4-4' fill='none' stroke='rgba(255,255,255,0.25)' stroke-width='1.5'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;background-position:right 10px center!important;background-size:8px!important;
+  padding-right:28px!important;
 }
-#calcContent .toggle-btn{border-radius:8px !important}
-#calcContent .toggle-btn.active{background:rgba(201,162,112,0.2) !important;color:#c9a270 !important}
+#calcContent select option{background:#1a1a1a!important;color:#fff!important}
+#calcContent select:focus{border-color:#c9a270!important;box-shadow:0 0 0 2px rgba(201,162,112,0.1)!important}
 
-/* Detail panels — glass */
-#calcContent .detail-panel{
-  background:rgba(255,255,255,0.04) !important;
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.07) !important;
-  border-radius:12px !important;
-}
+/* Checkbox */
+#calcContent input[type="checkbox"]{width:18px!important;height:18px!important;border-radius:4px!important;accent-color:#c9a270!important;cursor:pointer!important}
 
-/* Special items (Elektro, SDK etc.) */
-#calcContent .special-item,#calcContent .vyvod-item{
-  background:rgba(255,255,255,0.04) !important;
-  border:1px solid rgba(255,255,255,0.07) !important;
-  border-radius:10px !important;
-}
-#calcContent .special-item.active,#calcContent .vyvod-item.active{
-  background:rgba(201,162,112,0.08) !important;
-  border-color:rgba(201,162,112,0.3) !important;
-}
+/* OPTIONS GRID */
+#calcContent .options-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+#calcContent .option-card{padding:14px 16px;cursor:pointer;transition:all 0.2s;position:relative}
+#calcContent .option-card:hover{background:rgba(255,255,255,0.06)!important;border-color:rgba(255,255,255,0.12)!important}
+#calcContent .option-card.active{background:rgba(201,162,112,0.08)!important;border-color:rgba(201,162,112,0.3)!important}
+#calcContent .option-card .o-name{font-size:13px;font-weight:600;margin-bottom:2px}
+#calcContent .option-card.active .o-name{color:#c9a270}
+#calcContent .option-card .o-desc{font-size:10px;color:rgba(255,255,255,0.35);line-height:1.4}
+#calcContent .option-card .o-price{font-size:12px;font-weight:600;color:#c9a270;margin-top:6px}
+#calcContent .option-card .o-badge{display:inline-block;font-size:9px;font-weight:600;padding:3px 7px;border-radius:6px;background:rgba(201,162,112,0.15);color:#c9a270;margin-bottom:6px}
 
-/* Section titles — consistent */
-#calcContent .section-title{
-  font-size:10px !important;font-weight:600 !important;
-  text-transform:uppercase !important;letter-spacing:1px !important;
-  color:rgba(255,255,255,0.35) !important;margin:12px 0 8px !important;
-}
-
-/* Footer note */
-#calcContent .footer-note,.v2-info{
-  font-size:10px;color:rgba(255,255,255,0.3);text-align:center;margin-top:16px;
-}
-
-/* === KALKULACKY v2 native === */
-.calc-page{font-family:'Poppins',sans-serif;color:#e8e8ec}
-.calc-tabs{display:flex;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:3px;margin-bottom:12px}
-.calc-tab{flex:1;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.4);border:none;background:transparent;cursor:pointer;text-align:center;font-family:inherit;transition:all 0.2s}
-.calc-tab.active{background:rgba(201,162,112,0.2);color:#c9a270}
-.v2-topbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:12px 16px;background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;margin-bottom:12px}
-.v2-brand{font-size:14px;color:#e8e8ec;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.v2-brand strong{font-weight:700}
-.v2-brand-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-.v2-topbar-group{display:flex;align-items:center;gap:6px;white-space:nowrap}
-.v2-topbar-label{font-size:9px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,0.4);text-transform:uppercase}
-.v2-topbar-unit{font-size:11px;color:rgba(255,255,255,0.4)}
-.v2-reserve-pills{display:flex;align-items:center;gap:8px;margin-left:auto}
-.v2-toggle{display:inline-flex;gap:2px;background:rgba(255,255,255,0.04);border-radius:8px;padding:3px;border:1px solid rgba(255,255,255,0.06)}
-.v2-pill{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.4);border:none;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.2s}
-.v2-pill.active{background:rgba(201,162,112,0.2);color:#c9a270}
-.v2-systems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:12px}
-.v2-system-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s}
-.v2-system-card:hover{border-color:rgba(201,162,112,0.3)}
-.v2-system-card.active{border-color:rgba(201,162,112,0.5);border-top:3px solid #c9a270;background:rgba(201,162,112,0.06)}
-.v2-system-card .v2-abbr{display:inline-block;font-size:12px;font-weight:700;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);margin-bottom:8px}
-.v2-system-card.active .v2-abbr{background:rgba(201,162,112,0.15);color:#c9a270}
-.v2-system-card .v2-sys-name{font-size:14px;font-weight:600;color:#e8e8ec;margin-bottom:4px}
-.v2-system-card.active .v2-sys-name{color:#c9a270}
-.v2-system-card .v2-sys-desc{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.4}
-.v2-result-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;align-items:start}
-.v2-result-section{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;backdrop-filter:blur(20px)}
-.v2-result-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.35);margin-bottom:12px}
-.v2-product-row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:6px;border:1px solid rgba(255,255,255,0.05)}
-.v2-product-badge{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;font-size:10px;font-weight:700;margin-right:12px;flex-shrink:0}
-.v2-product-info{flex:1;min-width:0}
-.v2-product-name{font-size:13px;font-weight:600;color:#e8e8ec}
-.v2-product-detail{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
-.v2-product-amount{font-size:11px;color:rgba(255,255,255,0.5);margin-right:16px;white-space:nowrap}
-.v2-product-price{font-size:16px;font-weight:700;color:#c9a270;white-space:nowrap}
-.v2-postup-table{width:100%;border-collapse:separate;border-spacing:0 4px}
-.v2-postup-table th{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.3);padding:4px 8px;text-align:left}
-.v2-postup-table td{font-size:11px;color:rgba(255,255,255,0.7);padding:8px;background:rgba(255,255,255,0.03);border:none}
-.v2-postup-table tr td:first-child{border-radius:6px 0 0 6px}
-.v2-postup-table tr td:last-child{border-radius:0 6px 6px 0}
-.v2-step-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:rgba(201,162,112,0.15);color:#c9a270;font-size:11px;font-weight:700}
-.v2-total-banner{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-radius:10px;background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.04));border:1px solid rgba(201,162,112,0.2);margin-top:8px}
-.v2-total-label{font-size:12px;font-weight:500;color:rgba(255,255,255,0.6)}
-.v2-total-value{font-size:22px;font-weight:700;color:#c9a270}
-.v2-total-sub{font-size:10px;color:rgba(255,255,255,0.3)}
-.v2-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;margin-bottom:10px}
-.v2-card-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.35);margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.v2-card-title::before{content:'';width:3px;height:14px;background:#c9a270;border-radius:2px}
-.v2-input{padding:6px 10px;font-size:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-family:inherit;outline:none;transition:border-color 0.2s}
-.v2-input:focus{border-color:#c9a270;box-shadow:0 0 0 2px rgba(201,162,112,0.1)}
-.v2-input.large{font-size:16px;font-weight:600;padding:6px 12px;text-align:center;width:80px}
-.v2-select{padding:6px 8px;font-size:11px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-family:inherit;outline:none}
-.v2-select option{background:#1a1a2e}
-.v2-option{display:flex;align-items:center;padding:10px 12px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;transition:all 0.15s;background:rgba(255,255,255,0.04);margin-bottom:6px;gap:10px}
-.v2-option.active{border-color:rgba(201,162,112,0.4);background:rgba(201,162,112,0.06)}
-.v2-option-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
-.v2-option.active .v2-option-dot{border-color:#c9a270;background:#c9a270}
-.v2-option-name{font-size:12px;font-weight:500;color:#e8e8ec}
-.v2-option-desc{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
-.v2-option-price{font-size:12px;font-weight:600;color:#c9a270;margin-left:auto;white-space:nowrap}
-.v2-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:12px}
-.v2-summary-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-radius:10px;padding:10px 14px}
-.v2-summary-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.35)}
-.v2-summary-value{font-size:18px;font-weight:700;color:#c9a270;margin-top:2px}
-.v2-form-row{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-bottom:8px}
-.v2-form-group{display:flex;flex-direction:column;gap:2px}
-.v2-form-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.4)}
-.v2-options-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:10px}
-.v2-detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:11px}
-.v2-detail-label{color:rgba(255,255,255,0.5)}
-.v2-detail-value{color:#e8e8ec;text-align:right}
-.v2-info{font-size:10px;color:rgba(255,255,255,0.35);text-align:center;margin-top:16px}
-/* Map old kalkulacky classes to v2 inside calcContent */
-#calcContent .tabs{display:flex;gap:2px;background:rgba(255,255,255,0.05);border-radius:10px;padding:3px;margin-bottom:12px}
-#calcContent .tab{flex:1;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.4);border:none;background:transparent;cursor:pointer;text-align:center;font-family:inherit;transition:all 0.2s}
-#calcContent .tab.active{background:rgba(201,162,112,0.2);color:#c9a270}
-#calcContent .card{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
-#calcContent .card-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.35);width:100%;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-#calcContent .card-title::before{content:'';width:3px;height:14px;background:#c9a270;border-radius:2px}
-#calcContent .form-group{margin-bottom:0;flex:0 0 auto}
-#calcContent .form-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.4);margin-bottom:2px;display:block}
-#calcContent .form-input{padding:6px 10px;font-size:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-family:inherit;outline:none;width:auto;min-width:60px}
-#calcContent .form-input:focus{border-color:#c9a270;box-shadow:0 0 0 2px rgba(201,162,112,0.1)}
-#calcContent .form-input.large{font-size:16px;font-weight:600;padding:6px 12px;text-align:center;width:80px}
-#calcContent .form-select{padding:6px 8px;font-size:11px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-family:inherit}
-#calcContent .form-select option{background:#1a1a2e}
-#calcContent .toggle-btns{display:inline-flex;gap:2px;background:rgba(255,255,255,0.04);border-radius:8px;padding:3px;border:1px solid rgba(255,255,255,0.06);margin-bottom:0}
-#calcContent .toggle-btn{padding:5px 12px;border-radius:6px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.4);border:none;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all 0.2s}
-#calcContent .toggle-btn.active{background:rgba(201,162,112,0.2);color:#c9a270}
-#calcContent .option{display:flex;align-items:center;padding:10px 12px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;transition:all 0.15s;background:rgba(255,255,255,0.04);margin-bottom:6px;gap:10px}
-#calcContent .option.active{border-color:rgba(201,162,112,0.4);background:rgba(201,162,112,0.06)}
-#calcContent .option-dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-#calcContent .option.active .option-dot{border-color:#c9a270;background:#c9a270}
-#calcContent .option-dot svg{width:10px;height:10px;stroke:#fff;stroke-width:3;fill:none;display:none}
-#calcContent .option.active .option-dot svg{display:block}
-#calcContent .option-text{flex:1}
-#calcContent .option-title{font-size:12px;font-weight:500;color:#e8e8ec}
-#calcContent .option-desc{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
-#calcContent .option-meta{display:flex;gap:4px;align-items:center;margin-left:auto}
-#calcContent .option-vrstvy{font-size:10px;color:rgba(255,255,255,0.4)}
-#calcContent .badge{font-size:9px;font-weight:600;padding:3px 7px;border-radius:6px;background:rgba(201,162,112,0.15);color:#c9a270}
-#calcContent .badge-blue{background:rgba(59,130,246,0.15);color:#3b82f6}
-#calcContent .badge-green{background:rgba(34,197,94,0.15);color:#22c55e}
-#calcContent .badge-yellow{background:rgba(234,179,8,0.15);color:#ca8a04}
-#calcContent .section-title{font-size:9px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.5px;margin:8px 0 6px}
-#calcContent .section-title::after{display:none}
-#calcContent .reserve-row{font-size:10px;color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:8px;width:100%;margin-top:4px}
-#calcContent .reserve-select{background:rgba(201,162,112,0.15);border:1px solid rgba(201,162,112,0.3);color:#c9a270;border-radius:6px;padding:4px 8px;font-size:10px;font-family:inherit}
-#calcContent .detail-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;font-size:10px;margin-top:8px;width:100%}
-#calcContent .detail-panel-title{font-size:9px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:8px}
-#calcContent .detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:11px;gap:12px}
+/* DETAIL ROW */
+#calcContent .detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px}
 #calcContent .detail-row:last-child{border-bottom:none}
-#calcContent .detail-label{color:rgba(255,255,255,0.5)}
-#calcContent .detail-value{color:#e8e8ec;text-align:right}
-#calcContent .detail-warning{background:rgba(201,162,112,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:8px;font-size:10px;padding:8px;margin-top:6px;width:100%}
+#calcContent .detail-row .d-label{color:rgba(255,255,255,0.45)}
+#calcContent .detail-row .d-value{color:#e8e8ec;font-weight:500}
+
+/* ROOMS */
+#calcContent .room-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+#calcContent .room-card{padding:14px 16px}
+#calcContent .room-card .r-name{font-size:12px;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between}
+#calcContent .room-card .r-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;color:rgba(255,255,255,0.5)}
+#calcContent .room-card .r-row span:last-child{color:#e8e8ec;font-weight:500}
+
+/* TOGGLE TABS */
+#calcContent .tab-bar{display:flex;gap:2px;background:rgba(255,255,255,0.03);border-radius:10px;padding:3px;border:1px solid rgba(255,255,255,0.05);align-self:flex-start}
+#calcContent .tab-item{padding:8px 20px;border-radius:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.4);cursor:pointer;transition:all 0.2s;border:none;background:transparent;font-family:inherit}
+#calcContent .tab-item.active{background:rgba(201,162,112,0.2);color:#c9a270}
+
+/* CHIP */
+#calcContent .chip{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:11px;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.08);cursor:pointer;transition:all 0.2s;background:transparent;font-family:inherit}
+#calcContent .chip:hover{border-color:rgba(255,255,255,0.15)}
+#calcContent .chip.active{background:rgba(201,162,112,0.15);border-color:rgba(201,162,112,0.3);color:#c9a270}
+#calcContent .chips-row{display:flex;flex-wrap:wrap;gap:6px}
+
+/* FOOTER */
+#calcContent .calc-footer{font-size:10px;color:rgba(255,255,255,0.25);text-align:center;padding:8px 0}
+
+/* Legacy class support for JS-generated content */
 #calcContent .result{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;margin-top:10px}
+#calcContent .result:empty{display:none}
 #calcContent .result-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
 #calcContent .result-item:last-child{border-bottom:none}
 #calcContent .result-item-info{flex:1}
@@ -1034,106 +862,46 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 #calcContent .result-total-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.6)}
 #calcContent .result-total-value{font-size:18px;font-weight:700;color:#c9a270}
 #calcContent .result-per-m2{font-size:10px;color:rgba(255,255,255,0.4);text-align:center;margin-top:4px}
-#calcContent .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:12px}
-#calcContent .summary-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-radius:10px;padding:10px 14px}
-#calcContent .summary-box-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.35)}
-#calcContent .summary-box-value{font-size:18px;font-weight:700;color:#c9a270;margin-top:2px}
 #calcContent .info-box{background:rgba(201,162,112,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 10px;font-size:10px;color:rgba(255,255,255,0.5);width:100%;margin-top:4px}
 #calcContent .print-btn{display:none}
-#calcContent .footer-note{font-size:10px;color:rgba(255,255,255,0.3);text-align:center;margin-top:16px}
-#calcContent .checkbox-label{font-size:11px;color:#e8e8ec;display:flex;align-items:center;gap:6px}
+
+/* Legacy class mappings for JS-generated elements */
+#calcContent .mistnost-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;margin-bottom:8px}
+#calcContent .klima-jednotka{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;margin-bottom:8px;font-size:11px}
+#calcContent .special-item,#calcContent .vyvod-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px}
+#calcContent .special-item.active,#calcContent .vyvod-item.active{background:rgba(201,162,112,0.08)!important;border-color:rgba(201,162,112,0.3)!important}
 #calcContent .podklady-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
 #calcContent .podklad-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px;font-size:11px;cursor:pointer;text-align:center;transition:all 0.15s}
 #calcContent .podklad-item.active{background:rgba(201,162,112,0.06);border-color:rgba(201,162,112,0.4)}
-#calcContent .mistnost-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;margin-bottom:8px}
-#calcContent .klima-jednotka{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;margin-bottom:8px;font-size:11px}
+#calcContent .detail-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;font-size:10px;margin-top:8px;width:100%}
+#calcContent .detail-panel-title{font-size:9px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:8px}
+#calcContent .detail-warning{background:rgba(201,162,112,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:8px;font-size:10px;padding:8px;margin-top:6px;width:100%}
+#calcContent .badge{font-size:9px;font-weight:600;padding:3px 7px;border-radius:6px;background:rgba(201,162,112,0.15);color:#c9a270}
+#calcContent .section-title{font-size:9px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.5px;margin:8px 0 6px}
+#calcContent .section-title::after{display:none}
 #calcContent [id$="List"]{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
 #calcContent [id$="Content"]{margin-bottom:8px}
-#calcContent .result:empty{display:none}
-#calcContent .card > div[style*="margin-bottom"]{margin-bottom:0!important}
-.v2-badge{font-size:9px;font-weight:600;padding:3px 7px;border-radius:6px;display:inline-block}
-.v2-badge-gold{background:rgba(201,162,112,0.15);color:#c9a270}
-.v2-badge-blue{background:rgba(59,130,246,0.15);color:#3b82f6}
-.v2-badge-green{background:rgba(34,197,94,0.15);color:#22c55e}
-/* === GLOBAL FORM RESET for all calc pages === */
-.calc-page input[type="number"],
-.calc-page input[type="text"],
-#calcContent input[type="number"],
-#calcContent input[type="text"]{
-  -moz-appearance:textfield !important;
-  -webkit-appearance:none !important;
-  background:rgba(255,255,255,0.06) !important;
-  border:1px solid rgba(255,255,255,0.1) !important;
-  border-radius:8px !important;
-  color:#fff !important;
-  font-family:'Poppins',sans-serif !important;
-  font-size:13px !important;
-  padding:8px 12px !important;
-  outline:none !important;
-}
-.calc-page input[type="number"]::-webkit-inner-spin-button,
-.calc-page input[type="number"]::-webkit-outer-spin-button,
-#calcContent input[type="number"]::-webkit-inner-spin-button,
-#calcContent input[type="number"]::-webkit-outer-spin-button{
-  -webkit-appearance:none !important;display:none !important;margin:0 !important;
-}
-.calc-page select,
-#calcContent select{
-  -webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;
-  background:rgba(255,255,255,0.06) !important;
-  border:1px solid rgba(255,255,255,0.1) !important;
-  border-radius:8px !important;
-  color:#fff !important;
-  font-family:'Poppins',sans-serif !important;
-  font-size:12px !important;
-  padding:8px 32px 8px 12px !important;
-  outline:none !important;
-  cursor:pointer !important;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
-  background-repeat:no-repeat !important;background-position:right 10px center !important;
-  background-size:12px !important;
-}
-.calc-page select option,
-#calcContent select option{
-  background:#1a1a1a !important;color:#fff !important;
-}
-.calc-page input[type="checkbox"],
-#calcContent input[type="checkbox"]{
-  width:18px !important;height:18px !important;
-  accent-color:#c9a270 !important;cursor:pointer !important;
-  border-radius:4px !important;
-}
-.calc-page button,
-#calcContent button:not(.toggle-btn):not(.tab):not(.calc-tab){
-  font-family:'Poppins',sans-serif !important;
-}
-/* Inline style buttons — glass */
+
+/* Button styling */
+#calcContent button,
+.calc-page button{font-family:'Poppins',sans-serif!important}
 .calc-page button[onclick*="Pridat"],
-.calc-page button[onclick*="pridat"],
-#calcContent button[style*="background"]{
-  background:rgba(255,255,255,0.06) !important;
-  border:1px solid rgba(255,255,255,0.1) !important;
-  border-radius:8px !important;
-  color:rgba(255,255,255,0.6) !important;
-  font-family:'Poppins',sans-serif !important;
-  cursor:pointer !important;
-  transition:all 0.2s !important;
+.calc-page button[onclick*="pridat"]{
+  background:rgba(255,255,255,0.06)!important;border:1px solid rgba(255,255,255,0.1)!important;
+  border-radius:8px!important;color:rgba(255,255,255,0.6)!important;cursor:pointer!important;transition:all 0.2s!important;
 }
 .calc-page button[onclick*="Pridat"]:hover,
-.calc-page button[onclick*="pridat"]:hover{
-  background:rgba(255,255,255,0.1) !important;
-  color:#fff !important;
-}
-/* Scrollbar for calc content */
+.calc-page button[onclick*="pridat"]:hover{background:rgba(255,255,255,0.1)!important;color:#fff!important}
+
+/* Scrollbar */
 #calcContent,#calcContent *,.calc-page,.calc-page *{scrollbar-width:none}
 #calcContent::-webkit-scrollbar,#calcContent *::-webkit-scrollbar,.calc-page::-webkit-scrollbar,.calc-page *::-webkit-scrollbar{display:none}
 
-@media(max-width:700px){
-.v2-result-grid{grid-template-columns:1fr}
-.v2-systems-grid{grid-template-columns:1fr 1fr}
-.v2-summary-grid{grid-template-columns:1fr 1fr}
-.v2-topbar{flex-direction:column;align-items:stretch}
-.v2-reserve-pills{margin-left:0}
+@media(max-width:900px){
+  #calcContent .results-area{grid-template-columns:1fr}
+  #calcContent .top-bar{padding:12px 16px;gap:12px}
+  #calcContent .systems-row{grid-template-columns:1fr 1fr}
+  #calcContent .summary-row{grid-template-columns:1fr 1fr}
 }
 </style></head>
 <body>
@@ -2252,1002 +2020,844 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="back" onclick="nav('kalkulacky')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>Zpet na kalkulacky</div>
 <div id="calcContent" style="padding:0 20px 40px;">
 <div class="calc-page" id="calc-barvy" style="display:none">
-        <div class="tabs">
-          <button class="tab active" onclick="selectBarvyTab('kov', this)">Kov</button>
-          <button class="tab" onclick="selectBarvyTab('steny', this)">Stěny</button>
-          <button class="tab" onclick="selectBarvyTab('drevo', this)">Dřevo</button>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="tab-bar">
+    <button class="tab-item active" onclick="selectBarvyTab('kov', this)">Kov</button>
+    <button class="tab-item" onclick="selectBarvyTab('steny', this)">Stěny</button>
+    <button class="tab-item" onclick="selectBarvyTab('drevo', this)">Dřevo</button>
+  </div>
+  <!-- KOV -->
+  <div id="kovContent">
+    <div class="top-bar glass">
+      <div class="brand"><div class="brand-dot" style="background:#e31e24"></div><div class="brand-name"><span>VITON</span> Barvy</div></div>
+      <div class="divider-v"></div>
+      <div class="field-inline"><label>Plocha</label><input type="number" class="val" id="kovPlocha" placeholder="0" oninput="vypoctiKov()"><span class="unit">m²</span></div>
+      <div class="divider-v"></div>
+      <div class="pill-group">
+        <button class="pill" onclick="setKovTyp('rozpoustedlo',this)" id="kovTypRozp">Rozpouštědlové</button>
+        <button class="pill active" onclick="setKovTyp('voda',this)" id="kovTypVoda">Vodouředitelné</button>
+      </div>
+      <div class="pill-group">
+        <button class="pill active" onclick="setKovRezim('system',this)">Doporučené systémy</button>
+        <button class="pill" onclick="setKovRezim('vlastni',this)">Vlastní výběr</button>
+      </div>
+      <div class="divider-v"></div>
+      <div class="field-inline"><label>Rezerva</label>
+        <div class="reserve-pills" id="kovRezervaToggles">
+          <button class="reserve-pill pill" onclick="setKovRezerva(0,this)">0%</button>
+          <button class="reserve-pill pill active" onclick="setKovRezerva(10,this)">10%</button>
+          <button class="reserve-pill pill" onclick="setKovRezerva(15,this)">15%</button>
+          <button class="reserve-pill pill" onclick="setKovRezerva(20,this)">20%</button>
         </div>
-        
-        <!-- KOV -->
-        <div id="kovContent">
-          <div class="card v2-topbar">
-            <div class="v2-brand"><span class="v2-brand-dot" style="background:#e31e24;"></span> <strong>VITON</strong> BARVY</div>
-            <div class="v2-topbar-group"><span class="v2-topbar-label">PLOCHA</span><input type="number" class="form-input large" id="kovPlocha" placeholder="0" oninput="vypoctiKov()"> <span class="v2-topbar-unit">m2</span></div>
-            <div class="toggle-btns">
-              <button class="toggle-btn active" onclick="setKovTyp('rozpoustedlo',this)" id="kovTypRozp">Rozpoustedlove</button>
-              <button class="toggle-btn" onclick="setKovTyp('voda',this)" id="kovTypVoda">Vodouredelne</button>
-            </div>
-            <div class="toggle-btns">
-              <button class="toggle-btn active" onclick="setKovRezim('system',this)">Doporucene systemy</button>
-              <button class="toggle-btn" onclick="setKovRezim('vlastni',this)">Vlastni vyber</button>
-            </div>
-            <div class="v2-reserve-pills"><span class="v2-topbar-label">REZERVA</span><div class="toggle-btns" id="kovRezervaToggles">
-              <button class="toggle-btn" onclick="setKovRezerva(0,this)">0%</button>
-              <button class="toggle-btn active" onclick="setKovRezerva(10,this)">10%</button>
-              <button class="toggle-btn" onclick="setKovRezerva(15,this)">15%</button>
-              <button class="toggle-btn" onclick="setKovRezerva(20,this)">20%</button>
-            </div></div>
-          </div>
-          <input type="hidden" id="kovRezerva" value="10">
-          <div id="kovSystemy"><div id="kovSystemyList" class="v2-systems-grid"></div></div>
-          <div id="kovVlastni" style="display:none;">
-            <div class="card v2-topbar">
-              <div class="form-group"><label class="form-label">Zaklad</label><select class="form-select" id="kovZaklad" onchange="vypoctiKov()"></select></div>
-              <div class="form-group"><label class="form-label">Vrchni</label><select class="form-select" id="kovVrchni" onchange="vypoctiKov()"></select></div>
-            </div>
-          </div>
-          <div id="kovResult"></div>
+      </div>
+    </div>
+    <input type="hidden" id="kovRezerva" value="10">
+    <div id="kovSystemy"><div id="kovSystemyList" class="systems-row"></div></div>
+    <div id="kovVlastni" style="display:none;">
+      <div class="card-section glass-strong">
+        <div class="form-row">
+          <div class="form-group"><div class="form-label">Základ</div><select id="kovZaklad" onchange="vypoctiKov()"></select></div>
+          <div class="form-group"><div class="form-label">Vrchní</div><select id="kovVrchni" onchange="vypoctiKov()"></select></div>
         </div>
-        
-        <!-- STENY -->
-        <div id="stenyContent" style="display:none;">
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-              <img src="https://www.jub.cz/themes/developer/img/logo.svg" alt="JUB" style="height:24px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-              <span style="display:none;font-size:18px;font-weight:700;color:#e4002b;">JUB</span>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4);">JUPOL barvy | jub.cz</div>
-            </div>
-            <div class="form-group"><label class="form-label">Plocha (m²)</label><input type="number" class="form-input large" id="stenyPlocha" placeholder="0" oninput="vypoctiSteny()"></div>
-            <div class="section-title">Podklad</div>
-            <div class="podklady-grid" id="stenyPodkladyList"></div>
-            <div id="stenyPodkladDetail"></div>
-            <div class="section-title" style="margin-top:16px;">Barva</div>
-            <div id="stenyBarvyList"></div>
-            <div id="stenyPenetraceSection" style="display:none;"><div class="section-title">Penetrace</div><select class="form-select" id="stenyPenetrace" onchange="vypoctiSteny()"></select></div>
-            <div class="reserve-row"><span class="reserve-label">Rezerva:</span><select class="reserve-select" id="stenyRezerva" onchange="vypoctiSteny()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
-          </div>
-          <div id="stenyResult"></div>
-        </div>
-        
-        <!-- DREVO -->
-        <div id="drevoContent" style="display:none;">
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-              <img src="https://www.icla.cz/wp-content/uploads/2020/01/logo-icla.png" alt="ICLA" style="height:24px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-              <span style="display:none;font-size:18px;font-weight:700;color:#1a4d8f;">ICLA</span>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4);">Profesionální barvy | icla.cz</div>
-            </div>
-            <div class="form-group"><label class="form-label">Plocha (m²)</label><input type="number" class="form-input large" id="drevoPlocha" placeholder="0" oninput="vypoctiDrevo()"></div>
-            <div class="toggle-btns">
-              <button class="toggle-btn active" onclick="setDrevoRezim('system',this)">Podle použití</button>
-              <button class="toggle-btn" onclick="setDrevoRezim('vlastni',this)">Vlastní výběr</button>
-            </div>
-            <div id="drevoSystemy"><div id="drevoSystemyList"></div><div id="drevoSystemDetail"></div></div>
-            <div id="drevoVlastni" style="display:none;"><div class="form-group"><label class="form-label">Produkt</label><select class="form-select" id="drevoProdukt" onchange="vypoctiDrevo()"></select></div></div>
-            <div class="reserve-row"><span class="reserve-label">Rezerva:</span><select class="reserve-select" id="drevoRezerva" onchange="vypoctiDrevo()"><option value="10">10%</option><option value="15" selected>15%</option><option value="20">20%</option></select></div>
-          </div>
-          <div id="drevoResult"></div>
-        </div>
-        
-        <div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-top:16px;padding-bottom:20px;">Ceny orientační | Pouze ověřené produkty z oficiálních zdrojů</div>
+      </div>
+    </div>
+    <div id="kovResult"></div>
+  </div>
+  <!-- STENY -->
+  <div id="stenyContent" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="brand" style="margin-bottom:12px"><img src="https://www.jub.cz/themes/developer/img/logo.svg" alt="JUB" style="height:24px;" onerror="this.style.display='none'"><div class="brand-sub">JUPOL barvy | jub.cz</div></div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Plocha (m²)</div><input type="number" class="val" id="stenyPlocha" placeholder="0" oninput="vypoctiSteny()"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Podklad</div>
+      <div id="stenyPodkladyList" class="options-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))"></div>
+      <div id="stenyPodkladDetail"></div>
+      <div class="section-head" style="margin-top:16px">Barva</div>
+      <div id="stenyBarvyList"></div>
+      <div id="stenyPenetraceSection" style="display:none;"><div class="section-head">Penetrace</div><select id="stenyPenetrace" onchange="vypoctiSteny()"></select></div>
+      <div class="field-inline" style="margin-top:12px"><label>Rezerva</label>
+        <select id="stenyRezerva" onchange="vypoctiSteny()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select>
+      </div>
+    </div>
+    <div id="stenyResult"></div>
+  </div>
+  <!-- DREVO -->
+  <div id="drevoContent" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="brand" style="margin-bottom:12px"><img src="https://www.icla.cz/wp-content/uploads/2020/01/logo-icla.png" alt="ICLA" style="height:24px;" onerror="this.style.display='none'"><div class="brand-sub">Profesionální barvy | icla.cz</div></div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Plocha (m²)</div><input type="number" class="val" id="drevoPlocha" placeholder="0" oninput="vypoctiDrevo()"></div>
+      </div>
+      <div class="pill-group" style="margin:12px 0">
+        <button class="pill active" onclick="setDrevoRezim('system',this)">Podle použití</button>
+        <button class="pill" onclick="setDrevoRezim('vlastni',this)">Vlastní výběr</button>
+      </div>
+      <div id="drevoSystemy"><div id="drevoSystemyList"></div><div id="drevoSystemDetail"></div></div>
+      <div id="drevoVlastni" style="display:none;"><div class="form-group"><div class="form-label">Produkt</div><select id="drevoProdukt" onchange="vypoctiDrevo()"></select></div></div>
+      <div class="field-inline" style="margin-top:12px"><label>Rezerva</label>
+        <select id="drevoRezerva" onchange="vypoctiDrevo()"><option value="10">10%</option><option value="15" selected>15%</option><option value="20">20%</option></select>
+      </div>
+    </div>
+    <div id="drevoResult"></div>
+  </div>
+  <div class="calc-footer">Ceny orientační | Pouze ověřené produkty z oficiálních zdrojů</div>
 </div>
 <div class="calc-page" id="calc-zaklady" style="display:none">
-        
-        <!-- SOUHRN NAHOŘE -->
-        <div class="summary-grid">
-          <div class="summary-box"><div class="summary-box-label">Beton</div><div class="summary-box-value" id="zakladySumBeton">0 Kč</div></div>
-          <div class="summary-box"><div class="summary-box-label">Výztuž</div><div class="summary-box-value" id="zakladySumVyztuz">0 Kč</div></div>
-          <div class="summary-box"><div class="summary-box-label">Hydro</div><div class="summary-box-value" id="zakladySumHydro">0 Kč</div></div>
-          <div class="summary-box"><div class="summary-box-label">Celkem</div><div class="summary-box-value" id="zakladySumCelkem">0 Kč</div></div>
-        </div>
-        
-        <!-- PASY -->
-        <div class="card">
-          <div class="card-title">Základové pasy</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Délka (m)</label><input type="number" class="form-input" id="zakladyDelkaPasu" value="52" oninput="vypoctiZaklady()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Šířka (m)</label><input type="number" class="form-input" id="zakladySirkaPasu" value="0.5" step="0.05" oninput="vypoctiZaklady()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Hloubka (m)</label><input type="number" class="form-input" id="zakladyHloubkaPasu" value="0.8" step="0.1" oninput="vypoctiZaklady()"></div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Beton</label><select class="form-select" id="zakladyBetonPasy" onchange="vypoctiZaklady()"></select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Konzistence</label><select class="form-select" id="zakladyKonzPasy" onchange="vypoctiZaklady()"></select></div>
-          </div>
-          <div id="zakladyPasyInfo" class="info-box"></div>
-        </div>
-        
-        <!-- ZTRACENE BEDNENI -->
-        <div class="card">
-          <div class="card-title">Ztracené bednění</div>
-          <label class="checkbox-label">
-            <input type="checkbox" id="zakladyPouzitZB" checked onchange="toggleZakladyZB()">
-            Použít ZB (nadezdívka pasů)
-          </label>
-          <div id="zakladyZBContent">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Typ tvarovky</label><select class="form-select" id="zakladyTypZB" onchange="vypoctiZaklady()"></select></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Počet řad</label><input type="number" class="form-input" id="zakladyRadyZB" value="3" min="1" max="10" oninput="vypoctiZaklady()"></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Roxory</label><select class="form-select" id="zakladyRoxorZB" onchange="vypoctiZaklady()"></select></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Beton do ZB</label><select class="form-select" id="zakladyBetonZB" onchange="vypoctiZaklady()"></select></div>
-            </div>
-            <div id="zakladyZBInfo" class="info-box"></div>
-          </div>
-        </div>
-        
-        <!-- DESKA -->
-        <div class="card">
-          <div class="card-title">Základová deska</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Plocha (m²)</label><input type="number" class="form-input" id="zakladyPlochaDesky" value="120" oninput="vypoctiZaklady()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Tloušťka (m)</label><input type="number" class="form-input" id="zakladyTloustkaDesky" value="0.15" step="0.01" oninput="vypoctiZaklady()"></div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Beton</label><select class="form-select" id="zakladyBetonDeska" onchange="vypoctiZaklady()"></select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Konzistence</label><select class="form-select" id="zakladyKonzDeska" onchange="vypoctiZaklady()"></select></div>
-          </div>
-          <div class="form-group" style="margin-top:8px;margin-bottom:0;"><label class="form-label">KARI síť</label><select class="form-select" id="zakladyTypKari" onchange="vypoctiZaklady()"></select></div>
-          <label class="checkbox-label">
-            <input type="checkbox" id="zakladyDvojiteKari" onchange="vypoctiZaklady()">
-            Dvojité KARI (2 vrstvy)
-          </label>
-          <div id="zakladyDeskaInfo" class="info-box"></div>
-        </div>
-        
-        <!-- PODKLAD -->
-        <div class="card">
-          <div class="card-title">Podklad a podsyp</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Typ podsypu</label><select class="form-select" id="zakladyTypPodsypu" onchange="vypoctiZaklady()"></select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Tloušťka (m)</label><input type="number" class="form-input" id="zakladyTloustkaPodsypu" value="0.2" step="0.05" oninput="vypoctiZaklady()"></div>
-          </div>
-          <label class="checkbox-label">
-            <input type="checkbox" id="zakladyPodkladniBeton" checked onchange="toggleZakladyPodklad()">
-            Podkladní beton C12/15
-          </label>
-          <div id="zakladyPodkladContent" style="margin-top:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Tloušťka podkl. betonu (m)</label><input type="number" class="form-input" id="zakladyTloustkaPodklad" value="0.1" step="0.05" oninput="vypoctiZaklady()"></div>
-          </div>
-        </div>
-        
-        <!-- HYDROIZOLACE -->
-        <div class="card">
-          <div class="card-title">Hydroizolace</div>
-          <div class="form-group" style="margin-bottom:8px;"><label class="form-label">Typ pásu</label><select class="form-select" id="zakladyTypHydro" onchange="vypoctiZaklady()"></select></div>
-          <label class="checkbox-label">
-            <input type="checkbox" id="zakladyDvouvrstva" onchange="vypoctiZaklady()">
-            Dvouvrstvá (střední/vysoké namáhání)
-          </label>
-          <div id="zakladyHydroInfo" class="info-box"></div>
-        </div>
-        
-        <!-- ZEMNENI -->
-        <div class="card">
-          <div class="card-title">Zemnění (hromosvod)</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Délka pásku (m)</label><input type="number" class="form-input" id="zakladyDelkaZemneni" value="60" step="5" oninput="vypoctiZaklady()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Počet svorek</label><input type="number" class="form-input" id="zakladyPocetSvorek" value="8" min="2" oninput="vypoctiZaklady()"></div>
-          </div>
-          <div class="info-box">FeZn 30×4 po obvodu, hloubka min. 0,6m. Ukládat PŘED betonáží!</div>
-        </div>
-        
-        <!-- PROSTUPY -->
-        <div class="card">
-          <div class="card-title">Prostupy (chráničky)</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Kanalizace DN160</label><input type="number" class="form-input" id="zakladyProstupyKanal" value="2" min="0" oninput="vypoctiZaklady()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Voda DN50</label><input type="number" class="form-input" id="zakladyProstupyVoda" value="1" min="0" oninput="vypoctiZaklady()"></div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Elektro DN63</label><input type="number" class="form-input" id="zakladyProstupyElektro" value="2" min="0" oninput="vypoctiZaklady()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Plyn DN40</label><input type="number" class="form-input" id="zakladyProstupyPlyn" value="1" min="0" oninput="vypoctiZaklady()"></div>
-          </div>
-        </div>
-        
-        <!-- CERPADLO -->
-        <div class="card">
-          <div class="card-title">Čerpadlo a nářadí</div>
-          <div class="form-group" style="margin-bottom:8px;"><label class="form-label">Typ čerpadla</label><select class="form-select" id="zakladyTypCerpadla" onchange="toggleZakladyCerpadlo()"><option value="zadne">Bez čerpadla (z mixu)</option><option value="male" selected>Pístové (do 20m)</option><option value="velke">Ramenové (24-47m)</option></select></div>
-          <div id="zakladyCerpadloContent">
-            <div class="form-group" style="margin-bottom:8px;"><label class="form-label">Hodiny čerpání</label><input type="number" class="form-input" id="zakladyHodinyPumpy" value="4" min="2" oninput="vypoctiZaklady()"></div>
-          </div>
-          <label class="checkbox-label">
-            <input type="checkbox" id="zakladyPronajemVibr" checked onchange="toggleZakladyVibrator()">
-            Pronájem vibrátorů
-          </label>
-          <div id="zakladyVibratorContent" style="margin-top:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Dny práce</label><input type="number" class="form-input" id="zakladyDnyPrace" value="3" min="1" oninput="vypoctiZaklady()"></div>
-          </div>
-        </div>
-        
-        <div id="zakladyResult"></div>
-        
-        <!-- POSTUP PRACI -->
-        <div class="card" style="margin-top:16px;">
-          <div class="card-title">Doporučený postup prací</div>
-          <div class="flow-steps">
-            <span class="flow-step">1. Výkop rýh</span><span class="flow-arrow">→</span>
-            <span class="flow-step">2. Betonáž pasů</span><span class="flow-arrow">→</span>
-            <span class="flow-step">3. Ztracené bednění</span><span class="flow-arrow">→</span>
-            <span class="flow-step">4. Podsyp + zhutnění</span><span class="flow-arrow">→</span>
-            <span class="flow-step">5. Podkladní beton</span><span class="flow-arrow">→</span>
-            <span class="flow-step">6. Zemnění + prostupy</span><span class="flow-arrow">→</span>
-            <span class="flow-step">7. KARI sítě</span><span class="flow-arrow">→</span>
-            <span class="flow-step">8. Betonáž desky</span><span class="flow-arrow">→</span>
-            <span class="flow-step">9. Hydroizolace (28 dní)</span>
-          </div>
-        </div>
-        
-        <div class="footer-note">Ceny orientační bez DPH | Beton C12/15 až C25/30 | Hydroizolace DEK | 01/2025</div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="summary-row">
+    <div class="summary-box glass"><div class="s-label">Beton</div><div class="s-value" id="zakladySumBeton">0 Kč</div></div>
+    <div class="summary-box glass"><div class="s-label">Výztuž</div><div class="s-value" id="zakladySumVyztuz">0 Kč</div></div>
+    <div class="summary-box glass"><div class="s-label">Výkop</div><div class="s-value" id="zakladySumHydro">0 Kč</div></div>
+    <div class="summary-box glass" style="background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05))!important;border-color:rgba(201,162,112,0.2)!important"><div class="s-label">Celkem</div><div class="s-value" id="zakladySumCelkem">0 Kč</div></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Základové pasy</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Délka (m)</div><input type="number" id="zakladyDelkaPasu" value="52" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Šířka (m)</div><input type="number" id="zakladySirkaPasu" value="0.5" step="0.05" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Hloubka (m)</div><input type="number" id="zakladyHloubkaPasu" value="0.8" step="0.1" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Beton</div><select id="zakladyBetonPasy" onchange="vypoctiZaklady()"></select></div>
+      <div class="form-group"><div class="form-label">Konzistence</div><select id="zakladyKonzPasy" onchange="vypoctiZaklady()"></select></div>
+    </div>
+    <div id="zakladyPasyInfo" class="form-hint"></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Ztracené bednění</div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;margin-bottom:12px;cursor:pointer">
+      <input type="checkbox" id="zakladyPouzitZB" checked onchange="toggleZakladyZB()"> Použít ZB (nadezdívka pasů)
+    </label>
+    <div id="zakladyZBContent">
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Typ tvarovky</div><select id="zakladyTypZB" onchange="vypoctiZaklady()"></select></div>
+        <div class="form-group"><div class="form-label">Počet řad</div><input type="number" id="zakladyRadyZB" value="3" min="1" max="10" oninput="vypoctiZaklady()"></div>
+        <div class="form-group"><div class="form-label">Roxory</div><select id="zakladyRoxorZB" onchange="vypoctiZaklady()"></select></div>
+        <div class="form-group"><div class="form-label">Beton do ZB</div><select id="zakladyBetonZB" onchange="vypoctiZaklady()"></select></div>
+      </div>
+      <div id="zakladyZBInfo" class="form-hint"></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Základová deska</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Plocha (m²)</div><input type="number" id="zakladyPlochaDesky" value="120" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Tloušťka (m)</div><input type="number" id="zakladyTloustkaDesky" value="0.15" step="0.01" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Beton</div><select id="zakladyBetonDeska" onchange="vypoctiZaklady()"></select></div>
+      <div class="form-group"><div class="form-label">Konzistence</div><select id="zakladyKonzDeska" onchange="vypoctiZaklady()"></select></div>
+      <div class="form-group"><div class="form-label">KARI síť</div><select id="zakladyTypKari" onchange="vypoctiZaklady()"></select></div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;margin-top:8px;cursor:pointer">
+      <input type="checkbox" id="zakladyDvojiteKari" onchange="vypoctiZaklady()"> Dvojité KARI (2 vrstvy)
+    </label>
+    <div id="zakladyDeskaInfo" class="form-hint"></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Podklad a podsyp</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Typ podsypu</div><select id="zakladyTypPodsypu" onchange="vypoctiZaklady()"></select></div>
+      <div class="form-group"><div class="form-label">Tloušťka (m)</div><input type="number" id="zakladyTloustkaPodsypu" value="0.2" step="0.05" oninput="vypoctiZaklady()"></div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;margin-top:8px;cursor:pointer">
+      <input type="checkbox" id="zakladyPodkladniBeton" checked onchange="toggleZakladyPodklad()"> Podkladní beton C12/15
+    </label>
+    <div id="zakladyPodkladContent" style="margin-top:8px;">
+      <div class="form-group"><div class="form-label">Tloušťka podkl. betonu (m)</div><input type="number" id="zakladyTloustkaPodklad" value="0.1" step="0.05" oninput="vypoctiZaklady()"></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Hydroizolace</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Typ pásu</div><select id="zakladyTypHydro" onchange="vypoctiZaklady()"></select></div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;margin-top:8px;cursor:pointer">
+      <input type="checkbox" id="zakladyDvouvrstva" onchange="vypoctiZaklady()"> Dvouvrstvá (střední/vysoké namáhání)
+    </label>
+    <div id="zakladyHydroInfo" class="form-hint"></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Zemnění (hromosvod)</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Délka pásku (m)</div><input type="number" id="zakladyDelkaZemneni" value="60" step="5" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Počet svorek</div><input type="number" id="zakladyPocetSvorek" value="8" min="2" oninput="vypoctiZaklady()"></div>
+    </div>
+    <div class="form-hint">FeZn 30×4 po obvodu, hloubka min. 0,6m. Ukládat PŘED betonáží!</div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Prostupy (chráničky)</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Kanalizace DN160</div><input type="number" id="zakladyProstupyKanal" value="2" min="0" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Voda DN50</div><input type="number" id="zakladyProstupyVoda" value="1" min="0" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Elektro DN63</div><input type="number" id="zakladyProstupyElektro" value="2" min="0" oninput="vypoctiZaklady()"></div>
+      <div class="form-group"><div class="form-label">Plyn DN40</div><input type="number" id="zakladyProstupyPlyn" value="1" min="0" oninput="vypoctiZaklady()"></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Čerpadlo a nářadí</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Typ čerpadla</div><select id="zakladyTypCerpadla" onchange="toggleZakladyCerpadlo()"><option value="zadne">Bez čerpadla (z mixu)</option><option value="male" selected>Pístové (do 20m)</option><option value="velke">Ramenové (24-47m)</option></select></div>
+    </div>
+    <div id="zakladyCerpadloContent">
+      <div class="form-group" style="margin-top:8px"><div class="form-label">Hodiny čerpání</div><input type="number" id="zakladyHodinyPumpy" value="4" min="2" oninput="vypoctiZaklady()"></div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;margin-top:8px;cursor:pointer">
+      <input type="checkbox" id="zakladyPronajemVibr" checked onchange="toggleZakladyVibrator()"> Pronájem vibrátorů
+    </label>
+    <div id="zakladyVibratorContent" style="margin-top:8px;">
+      <div class="form-group"><div class="form-label">Dny práce</div><input type="number" id="zakladyDnyPrace" value="3" min="1" oninput="vypoctiZaklady()"></div>
+    </div>
+  </div>
+  <div id="zakladyResult"></div>
+  <div class="calc-footer">Ceny orientační bez DPH | Beton C12/15 až C25/30 | Hydroizolace DEK | 01/2025</div>
 </div>
 <div class="calc-page" id="calc-elektro" style="display:none">
-        
-        <!-- NASTAVENÍ -->
-        <div class="card">
-          <div class="card-title">Hlavní přívod (Bonega)</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Hlavní jistič</label><select class="form-select" id="elektroHlavniJistic" onchange="vypoctiElektro()"><option value="20">20A</option><option value="25" selected>25A</option><option value="32">32A</option><option value="40">40A</option><option value="50">50A</option><option value="63">63A</option></select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Svodič</label><select class="form-select" id="elektroSvodic" onchange="vypoctiElektro()"><option value="zadny">Bez</option><option value="t2_3n" selected>T2 3P+N</option><option value="t1t2_3n">T1+T2 (FVE)</option></select></div>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">Zásuvky a vypínače</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Výrobce</label><select class="form-select" id="elektroVyrobce" onchange="elektroZmenVyrobce()"><option value="abb">ABB</option><option value="schneider">Schneider</option><option value="legrand">Legrand</option><option value="hager">Hager</option></select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Série</label><select class="form-select" id="elektroSerie" onchange="vypoctiElektro()"></select></div>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">Smart Home</div>
-          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e8e8ec;cursor:pointer;">
-            <input type="checkbox" id="elektroGateway" checked onchange="vypoctiElektro()" style="width:18px;height:18px;">
-            Zigbee Gateway (650 Kč)
-          </label>
-          <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:4px;">Termostaty: Tuya HY607W Zigbee</div>
-        </div>
-        
-        <!-- MÍSTNOSTI -->
-        <div class="card">
-          <div class="card-title">Přidat místnost</div>
-          <div id="elektroTypyMistnosti" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-        </div>
-        
-        <div id="elektroMistnostiList"></div>
-        
-        <!-- SPECIÁLNÍ SPOTŘEBIČE -->
-        <div class="card">
-          <div class="card-title">Speciální spotřebiče</div>
-          <div id="elektroSpecialniList" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"></div>
-        </div>
-        
-        <!-- NASTAVENÍ -->
-        <div class="card">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span class="form-label" style="margin:0;">Rezerva kabelů:</span>
-            <select class="form-select" id="elektroRezerva" onchange="vypoctiElektro()" style="width:80px;"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select>
-          </div>
-        </div>
-        
-        <div id="elektroResult"></div>
-        
-        <div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-top:16px;padding-bottom:20px;">Výzbroj: Bonega | Kabely: NKT | Materiál: Kopos | Ceny 01/2025</div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Hlavní přívod (Bonega)</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Hlavní jistič</div><select id="elektroHlavniJistic" onchange="vypoctiElektro()"><option value="20">20A</option><option value="25" selected>25A</option><option value="32">32A</option><option value="40">40A</option><option value="50">50A</option><option value="63">63A</option></select></div>
+      <div class="form-group"><div class="form-label">Svodič</div><select id="elektroSvodic" onchange="vypoctiElektro()"><option value="zadny">Bez</option><option value="t2_3n" selected>T2 3P+N</option><option value="t1t2_3n">T1+T2 (FVE)</option></select></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Zásuvky a vypínače</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Výrobce</div><select id="elektroVyrobce" onchange="elektroZmenVyrobce()"><option value="abb">ABB</option><option value="schneider">Schneider</option><option value="legrand">Legrand</option><option value="hager">Hager</option></select></div>
+      <div class="form-group"><div class="form-label">Série</div><select id="elektroSerie" onchange="vypoctiElektro()"></select></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Smart Home</div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;cursor:pointer">
+      <input type="checkbox" id="elektroGateway" checked onchange="vypoctiElektro()"> Zigbee Gateway (650 Kč)
+    </label>
+    <div class="form-hint" style="margin-top:4px">Termostaty: Tuya HY607W Zigbee</div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Přidat místnost</div>
+    <div id="elektroTypyMistnosti" class="chips-row"></div>
+  </div>
+  <div id="elektroMistnostiList" class="room-grid" style="grid-template-columns:repeat(3,1fr)"></div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Speciální spotřebiče</div>
+    <div id="elektroSpecialniList" class="options-grid" style="grid-template-columns:1fr 1fr"></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Rezerva kabelů</div><select id="elektroRezerva" onchange="vypoctiElektro()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
+    </div>
+  </div>
+  <div id="elektroResult"></div>
+  <div class="calc-footer">Výzbroj: Bonega | Kabely: NKT | Materiál: Kopos | Ceny 01/2025</div>
 </div>
 <div class="calc-page" id="calc-podlahy" style="display:none">
-        <div class="card">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#d4a574,#8b6914);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:12px;">A</div>
-            <div>
-              <div style="font-weight:600;color:#e8e8ec;">ARBITON SPC Podlahy</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4);">HD Minerální jádro | 100% voděodolné | arbiton.com</div>
-            </div>
-          </div>
-          
-          <div class="section-title">Rozměry místnosti</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Plocha (m²)</label><input type="number" class="form-input" id="podlahyPlocha" placeholder="0" oninput="vypoctiPodlahy()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Obvod (bm)</label><input type="number" class="form-input" id="podlahyObvod" placeholder="0" oninput="vypoctiPodlahy()"></div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Dveře (ks)</label><input type="number" class="form-input" id="podlahyDvere" placeholder="0" oninput="vypoctiPodlahy()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Vnitř. rohy</label><input type="number" class="form-input" id="podlahyVnitrniRohy" placeholder="0" oninput="vypoctiPodlahy()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Vnějš. rohy</label><input type="number" class="form-input" id="podlahyVnejsiRohy" placeholder="0" oninput="vypoctiPodlahy()"></div>
-          </div>
-          
-          <div class="section-title" style="margin-top:12px;">Řada podlahy</div>
-          <div id="podlahyKategorieList"></div>
-          
-          <div class="section-title" style="margin-top:12px;">Typ podlahy</div>
-          <select class="form-select" id="podlahyTyp" onchange="vypoctiPodlahy()"></select>
-          <div id="podlahyTypInfo" style="margin-top:8px;"></div>
-          
-          <div class="section-title" style="margin-top:12px;">Podložka</div>
-          <div id="podlahyPodlozkaList"></div>
-          
-          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e8e8ec;cursor:pointer;margin-top:8px;">
-            <input type="checkbox" id="podlahyTopeni" onchange="vypoctiPodlahy()" style="width:18px;height:18px;">
-            Podlahové topení (max. 27°C)
-          </label>
-          <div id="podlahyTopeniWarning" style="display:none;margin-top:8px;padding:10px;background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.3);border-radius:8px;font-size:11px;color:#ca8a04;">
-            ⚠️ Pro podlahové topení volte podložku s nízkým tepelným odporem (R < 0,01 m²K/W). Doporučujeme Multiprotec Antislip nebo Super Hardlay.
-          </div>
-          
-          <div class="section-title" style="margin-top:12px;">Soklové lišty</div>
-          <div class="toggle-btns" style="margin-bottom:8px;">
-            <button class="toggle-btn active" onclick="setPodlahySoklTyp('vigo',this)">VIGO (Duropolymer)</button>
-            <button class="toggle-btn" onclick="setPodlahySoklTyp('indo',this)">INDO (MDF)</button>
-          </div>
-          <select class="form-select" id="podlahySoklVarianta" onchange="vypoctiPodlahy()"></select>
-          
-          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e8e8ec;cursor:pointer;margin-top:8px;">
-            <input type="checkbox" id="podlahyKlipy" checked onchange="vypoctiPodlahy()" style="width:18px;height:18px;">
-            Montáž na klipy (místo lepení)
-          </label>
-          
-          <div class="section-title" style="margin-top:12px;">Přechodové lišty</div>
-          <select class="form-select" id="podlahyPrechod" onchange="vypoctiPodlahy()"></select>
-          
-          <div class="section-title" style="margin-top:12px;">Nastavení</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Rezerva podlaha (%)</label><select class="form-select" id="podlahyRezervaPodlaha" onchange="vypoctiPodlahy()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Rezerva lišty (%)</label><select class="form-select" id="podlahyRezervaListy" onchange="vypoctiPodlahy()"><option value="5" selected>5%</option><option value="10">10%</option></select></div>
-          </div>
-          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e8e8ec;cursor:pointer;margin-top:8px;">
-            <input type="checkbox" id="podlahyInstalacniSada" checked onchange="vypoctiPodlahy()" style="width:18px;height:18px;">
-            Včetně instalační sady (299 Kč)
-          </label>
-        </div>
-        <div id="podlahyResult"></div>
-        
-        <div class="card" style="margin-top:16px;">
-          <div class="card-title">Technické požadavky</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div style="background:rgba(255,255,255,0.04);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.35);">Rovinnost podkladu</div><div style="font-size:13px;font-weight:500;">±2 mm / 2 m</div></div>
-            <div style="background:rgba(255,255,255,0.04);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.35);">Vlhkost cement. potěr</div><div style="font-size:13px;font-weight:500;">max. 2% CM</div></div>
-            <div style="background:rgba(255,255,255,0.04);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.35);">Vlhkost anhydrit</div><div style="font-size:13px;font-weight:500;">max. 0,5% CM</div></div>
-            <div style="background:rgba(255,255,255,0.04);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.35);">Max. bez dilatace</div><div style="font-size:13px;font-weight:500;">200 m²</div></div>
-          </div>
-        </div>
-        
-        <div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-top:16px;padding-bottom:20px;">Ceny orientační (leden 2025) | Bez práce a dopravy</div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="top-bar glass">
+    <div class="brand"><div class="brand-dot" style="background:#c9a270"></div><div class="brand-name"><span>ARBITON</span> SPC Podlahy</div><div class="brand-sub">HD Minerální jádro | 100% voděodolná</div></div>
+    <div class="divider-v"></div>
+    <div class="field-inline"><label>Plocha</label><input type="number" class="val" id="podlahyPlocha" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">m²</span></div>
+    <div class="field-inline"><label>Obvod</label><input type="number" class="val" id="podlahyObvod" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">bm</span></div>
+    <div class="divider-v"></div>
+    <div class="field-inline"><label>Dveře</label><input type="number" class="val" id="podlahyDvere" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">ks</span></div>
+    <div class="reserve-pills"><label style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:500;text-transform:uppercase;letter-spacing:0.8px">Rezerva</label><select id="podlahyRezerva" onchange="vypoctiPodlahy()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <div class="section-head">Řada podlahy</div>
+      <div id="podlahyKategorieList" class="options-grid" style="grid-template-columns:1fr 1fr"></div>
+    </div>
+    <div>
+      <div class="section-head">Typ podlahy</div>
+      <div id="podlahyTypDetail" class="card-section glass"></div>
+    </div>
+  </div>
+  <div class="section-head">Podložka</div>
+  <div id="podlahyPodlozkaList" class="options-grid" style="grid-template-columns:repeat(3,1fr)"></div>
+  <div id="podlahyResult"></div>
+  <div class="calc-footer">Ceny orientační | arbiton.com | 03/2026</div>
 </div>
 <div class="calc-page" id="calc-etics" style="display:none">
-        <div class="tabs">
-          <button class="tab active" onclick="selectEticsTab('baumit', this)">Baumit</button>
-          <button class="tab" onclick="selectEticsTab('weber', this)">Weber</button>
-        </div>
-        
-        <!-- BAUMIT -->
-        <div id="baumitContent">
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-              <div style="width:32px;height:32px;border-radius:50%;background:#f5821f;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:14px;">B</div>
-              <div>
-                <div style="font-weight:600;color:#e8e8ec;">Baumit</div>
-                <div style="font-size:11px;color:rgba(255,255,255,0.4);">Zateplovací systémy | baumit.cz</div>
-              </div>
-            </div>
-            
-            <div class="section-title">Plochy</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Fasáda (m²)</label><input type="number" class="form-input" id="baumitPlocha" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Sokl (m²)</label><input type="number" class="form-input" id="baumitSokl" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-            </div>
-            
-            <div class="section-title" style="margin-top:12px;">Rozměry pro profily</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Obvod budovy (bm)</label><input type="number" class="form-input" id="baumitObvod" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Délka rohů (bm)</label><input type="number" class="form-input" id="baumitRohy" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Počet oken/dveří</label><input type="number" class="form-input" id="baumitPocetOken" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Obvod oken (bm)</label><input type="number" class="form-input" id="baumitObvodOken" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-            </div>
-            <div class="form-group" style="margin-top:8px;"><label class="form-label">Šířka oken celkem (bm) - pro okapničky</label><input type="number" class="form-input" id="baumitSirkaOken" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Izolant fasády</div>
-            <div id="baumitIzolantList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Tloušťka izolantu</div>
-            <select class="form-select" id="baumitTloustka" onchange="vypoctiEtics('baumit')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Izolant soklu (XPS)</div>
-            <select class="form-select" id="baumitXps" onchange="vypoctiEtics('baumit')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Lepidlo a stěrka</div>
-            <div id="baumitLepidloList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Síťovina</div>
-            <div id="baumitSitovinaList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Penetrace</div>
-            <select class="form-select" id="baumitPenetrace" onchange="vypoctiEtics('baumit')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Omítka fasády</div>
-            <div id="baumitOmitkaList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Omítka soklu</div>
-            <select class="form-select" id="baumitOmitkaSokl" onchange="vypoctiEtics('baumit')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Okenní profily</div>
-            <div id="baumitOkenniProfilList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Požární pásy</div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e8e8ec;cursor:pointer;">
-              <input type="checkbox" id="baumitPozarniPasy" onchange="togglePozarniPasy('baumit')" style="width:18px;height:18px;">
-              Požární pásy z minerální vaty (povinné u h > 12m)
-            </label>
-            <div id="baumitPozarniPasyInput" style="display:none;margin-top:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Délka požárních pásů (bm)</label><input type="number" class="form-input" id="baumitPozarniPasyBm" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
-            </div>
-            
-            <div class="section-title" style="margin-top:12px;">Nastavení</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Rezerva (%)</label><select class="form-select" id="baumitRezerva" onchange="vypoctiEtics('baumit')"><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Hmoždinky (ks/m²)</label><select class="form-select" id="baumitHmozdinkyM2" onchange="vypoctiEtics('baumit')"><option value="6" selected>6 ks/m²</option><option value="8">8 ks/m²</option><option value="10">10 ks/m²</option></select></div>
-            </div>
-          </div>
-          <div id="baumitResult"></div>
-        </div>
-        
-        <!-- WEBER -->
-        <div id="weberContent" style="display:none;">
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-              <div style="width:32px;height:32px;border-radius:50%;background:#003366;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:14px;">W</div>
-              <div>
-                <div style="font-weight:600;color:#e8e8ec;">Weber Saint-Gobain</div>
-                <div style="font-size:11px;color:rgba(255,255,255,0.4);">Zateplovací systémy | weber-terranova.cz</div>
-              </div>
-            </div>
-            
-            <div class="section-title">Plochy</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Fasáda (m²)</label><input type="number" class="form-input" id="weberPlocha" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Sokl (m²)</label><input type="number" class="form-input" id="weberSokl" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-            </div>
-            
-            <div class="section-title" style="margin-top:12px;">Rozměry pro profily</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Obvod budovy (bm)</label><input type="number" class="form-input" id="weberObvod" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Délka rohů (bm)</label><input type="number" class="form-input" id="weberRohy" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Počet oken/dveří</label><input type="number" class="form-input" id="weberPocetOken" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Obvod oken (bm)</label><input type="number" class="form-input" id="weberObvodOken" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-            </div>
-            <div class="form-group" style="margin-top:8px;"><label class="form-label">Šířka oken celkem (bm) - pro okapničky</label><input type="number" class="form-input" id="weberSirkaOken" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Izolant fasády</div>
-            <div id="weberIzolantList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Tloušťka izolantu</div>
-            <select class="form-select" id="weberTloustka" onchange="vypoctiEtics('weber')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Izolant soklu (XPS)</div>
-            <select class="form-select" id="weberXps" onchange="vypoctiEtics('weber')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Lepidlo a stěrka</div>
-            <div id="weberLepidloList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Síťovina</div>
-            <div id="weberSitovinaList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Penetrace</div>
-            <select class="form-select" id="weberPenetrace" onchange="vypoctiEtics('weber')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Omítka fasády</div>
-            <div id="weberOmitkaList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Omítka soklu</div>
-            <select class="form-select" id="weberOmitkaSokl" onchange="vypoctiEtics('weber')"></select>
-            
-            <div class="section-title" style="margin-top:12px;">Okenní profily</div>
-            <div id="weberOkenniProfilList"></div>
-            
-            <div class="section-title" style="margin-top:12px;">Požární pásy</div>
-            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e8e8ec;cursor:pointer;">
-              <input type="checkbox" id="weberPozarniPasy" onchange="togglePozarniPasy('weber')" style="width:18px;height:18px;">
-              Požární pásy z minerální vaty (povinné u h > 12m)
-            </label>
-            <div id="weberPozarniPasyInput" style="display:none;margin-top:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Délka požárních pásů (bm)</label><input type="number" class="form-input" id="weberPozarniPasyBm" placeholder="0" oninput="vypoctiEtics('weber')"></div>
-            </div>
-            
-            <div class="section-title" style="margin-top:12px;">Nastavení</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Rezerva (%)</label><select class="form-select" id="weberRezerva" onchange="vypoctiEtics('weber')"><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Hmoždinky (ks/m²)</label><select class="form-select" id="weberHmozdinkyM2" onchange="vypoctiEtics('weber')"><option value="6" selected>6 ks/m²</option><option value="8">8 ks/m²</option><option value="10">10 ks/m²</option></select></div>
-            </div>
-          </div>
-          <div id="weberResult"></div>
-        </div>
-        
-        <div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);margin-top:16px;padding-bottom:20px;">Ceny dle DEK.cz (leden 2025) | Bez práce a lešení</div>
+<div id="eticsPage">
+  <div class="calc-title">Kalkulačka</div>
+  <div class="tab-bar">
+    <button class="tab-item active" onclick="selectEticsTab('baumit', this)">Baumit</button>
+    <button class="tab-item" onclick="selectEticsTab('weber', this)">Weber</button>
+  </div>
+  <!-- BAUMIT -->
+  <div id="baumitContent">
+    <div class="card-section glass-strong">
+      <div class="brand" style="margin-bottom:12px"><div class="brand-dot" style="background:#f5821f"></div><div class="brand-name"><span>Baumit</span></div><div class="brand-sub">Zateplovací systémy | baumit.cz</div></div>
+      <div class="section-head">Plochy</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Fasáda (m²)</div><input type="number" id="baumitPlocha" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+        <div class="form-group"><div class="form-label">Sokl (m²)</div><input type="number" id="baumitSokl" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Rozměry pro profily</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Obvod budovy (bm)</div><input type="number" id="baumitObvod" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+        <div class="form-group"><div class="form-label">Délka rohů (bm)</div><input type="number" id="baumitRohy" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+        <div class="form-group"><div class="form-label">Počet oken/dveří</div><input type="number" id="baumitPocetOken" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+        <div class="form-group"><div class="form-label">Obvod oken (bm)</div><input type="number" id="baumitObvodOken" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+        <div class="form-group"><div class="form-label">Šířka oken celkem (bm)</div><input type="number" id="baumitSirkaOken" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Izolant fasády</div>
+      <div id="baumitIzolantList"></div>
+      <div class="section-head" style="margin-top:12px">Tloušťka izolantu</div>
+      <select id="baumitTloustka" onchange="vypoctiEtics('baumit')"></select>
+      <div class="section-head" style="margin-top:12px">Izolant soklu (XPS)</div>
+      <select id="baumitXps" onchange="vypoctiEtics('baumit')"></select>
+      <div class="section-head" style="margin-top:12px">Lepidlo a stěrka</div>
+      <div id="baumitLepidloList"></div>
+      <div class="section-head" style="margin-top:12px">Síťovina</div>
+      <div id="baumitSitovinaList"></div>
+      <div class="section-head" style="margin-top:12px">Penetrace</div>
+      <select id="baumitPenetrace" onchange="vypoctiEtics('baumit')"></select>
+      <div class="section-head" style="margin-top:12px">Omítka fasády</div>
+      <div id="baumitOmitkaList"></div>
+      <div class="section-head" style="margin-top:12px">Omítka soklu</div>
+      <select id="baumitOmitkaSokl" onchange="vypoctiEtics('baumit')"></select>
+      <div class="section-head" style="margin-top:12px">Okenní profily</div>
+      <div id="baumitOkenniProfilList"></div>
+      <div class="section-head" style="margin-top:12px">Požární pásy</div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;cursor:pointer">
+        <input type="checkbox" id="baumitPozarniPasy" onchange="togglePozarniPasy('baumit')"> Požární pásy z minerální vaty (povinné u h > 12m)
+      </label>
+      <div id="baumitPozarniPasyInput" style="display:none;margin-top:8px;">
+        <div class="form-group"><div class="form-label">Délka požárních pásů (bm)</div><input type="number" id="baumitPozarniPasyBm" placeholder="0" oninput="vypoctiEtics('baumit')"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Nastavení</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Rezerva (%)</div><select id="baumitRezerva" onchange="vypoctiEtics('baumit')"><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
+        <div class="form-group"><div class="form-label">Hmoždinky (ks/m²)</div><select id="baumitHmozdinkyM2" onchange="vypoctiEtics('baumit')"><option value="6" selected>6 ks/m²</option><option value="8">8 ks/m²</option><option value="10">10 ks/m²</option></select></div>
+      </div>
+    </div>
+    <div id="baumitResult"></div>
+  </div>
+  <!-- WEBER -->
+  <div id="weberContent" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="brand" style="margin-bottom:12px"><div class="brand-dot" style="background:#003366"></div><div class="brand-name"><span>Weber</span> Saint-Gobain</div><div class="brand-sub">Zateplovací systémy | weber-terranova.cz</div></div>
+      <div class="section-head">Plochy</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Fasáda (m²)</div><input type="number" id="weberPlocha" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+        <div class="form-group"><div class="form-label">Sokl (m²)</div><input type="number" id="weberSokl" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Rozměry pro profily</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Obvod budovy (bm)</div><input type="number" id="weberObvod" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+        <div class="form-group"><div class="form-label">Délka rohů (bm)</div><input type="number" id="weberRohy" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+        <div class="form-group"><div class="form-label">Počet oken/dveří</div><input type="number" id="weberPocetOken" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+        <div class="form-group"><div class="form-label">Obvod oken (bm)</div><input type="number" id="weberObvodOken" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+        <div class="form-group"><div class="form-label">Šířka oken celkem (bm)</div><input type="number" id="weberSirkaOken" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Izolant fasády</div>
+      <div id="weberIzolantList"></div>
+      <div class="section-head" style="margin-top:12px">Tloušťka izolantu</div>
+      <select id="weberTloustka" onchange="vypoctiEtics('weber')"></select>
+      <div class="section-head" style="margin-top:12px">Izolant soklu (XPS)</div>
+      <select id="weberXps" onchange="vypoctiEtics('weber')"></select>
+      <div class="section-head" style="margin-top:12px">Lepidlo a stěrka</div>
+      <div id="weberLepidloList"></div>
+      <div class="section-head" style="margin-top:12px">Síťovina</div>
+      <div id="weberSitovinaList"></div>
+      <div class="section-head" style="margin-top:12px">Penetrace</div>
+      <select id="weberPenetrace" onchange="vypoctiEtics('weber')"></select>
+      <div class="section-head" style="margin-top:12px">Omítka fasády</div>
+      <div id="weberOmitkaList"></div>
+      <div class="section-head" style="margin-top:12px">Omítka soklu</div>
+      <select id="weberOmitkaSokl" onchange="vypoctiEtics('weber')"></select>
+      <div class="section-head" style="margin-top:12px">Okenní profily</div>
+      <div id="weberOkenniProfilList"></div>
+      <div class="section-head" style="margin-top:12px">Požární pásy</div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;cursor:pointer">
+        <input type="checkbox" id="weberPozarniPasy" onchange="togglePozarniPasy('weber')"> Požární pásy z minerální vaty (povinné u h > 12m)
+      </label>
+      <div id="weberPozarniPasyInput" style="display:none;margin-top:8px;">
+        <div class="form-group"><div class="form-label">Délka požárních pásů (bm)</div><input type="number" id="weberPozarniPasyBm" placeholder="0" oninput="vypoctiEtics('weber')"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Nastavení</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Rezerva (%)</div><select id="weberRezerva" onchange="vypoctiEtics('weber')"><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
+        <div class="form-group"><div class="form-label">Hmoždinky (ks/m²)</div><select id="weberHmozdinkyM2" onchange="vypoctiEtics('weber')"><option value="6" selected>6 ks/m²</option><option value="8">8 ks/m²</option><option value="10">10 ks/m²</option></select></div>
+      </div>
+    </div>
+    <div id="weberResult"></div>
+  </div>
+  <div class="calc-footer">Ceny dle DEK.cz (leden 2025) | Bez práce a lešení</div>
+</div><!-- /eticsPage -->
 </div>
 <div class="calc-page" id="calc-vytapeni" style="display:none">
-        
-        <!-- MÍSTNOSTI -->
-        <div class="card">
-          <div class="card-title">Výpočtové teploty</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Venkovní výpočtová °C</label><input type="number" class="form-input" id="vytapeniVenkovni" value="-15" onchange="vypoctiVytapeniZtraty()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Vnitřní požadovaná °C</label><input type="number" class="form-input" id="vytapeniVnitrni" value="20" onchange="vypoctiVytapeniZtraty()"></div>
-          </div>
-          <div style="margin-top:8px;font-size:10px;color:rgba(255,255,255,0.4);">
-            CZ: -12 až -18°C | ES: 0 až -5°C | Vnitřní: obytné 20°C, koupelny 24°C
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">Místnosti</div>
-          <div id="vytapeniMistnostiList"></div>
-          <button onclick="pridatVytapeniMistnost()" style="width:100%;padding:12px;border:2px dashed rgba(255,255,255,0.12);border-radius:10px;background:transparent;color:rgba(255,255,255,0.35);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:8px;">+ Přidat místnost</button>
-        </div>
-        
-        <!-- POŽADOVANÝ VÝKON -->
-        <div id="vytapeniPozadovanyVykon" style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:linear-gradient(135deg, var(--gold-light), var(--gold-dark));border-radius:12px;margin-bottom:16px;">
-          <span style="font-size:13px;font-weight:600;color:#fff;">Požadovaný výkon</span>
-          <span style="font-size:20px;font-weight:700;color:#fff;">0 kW</span>
-        </div>
-        
-        <!-- VÝBĚR SYSTÉMU -->
-        <div class="card">
-          <div class="card-title">Vyberte systém vytápění</div>
-          <div class="toggle-btns" style="flex-direction:column;">
-            <button class="toggle-btn" id="btnRadiatory" onclick="selectVytapeniSystem('radiatory')">Radiátory</button>
-            <button class="toggle-btn" id="btnPodlahove" onclick="selectVytapeniSystem('podlahove')">Podlahové vytápění</button>
-            <button class="toggle-btn" id="btnInfra" onclick="selectVytapeniSystem('infra')">Infra topné fólie</button>
-          </div>
-        </div>
-        
-        <!-- RADIÁTORY KONFIGURACE -->
-        <div id="vytapeniRadiatoryConfig" style="display:none;">
-          <div class="card">
-            <div class="card-title">Parametry radiátorů</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Výška</label><select class="form-select" id="radiatorVyska" onchange="vypoctiVytapeniSystem()"><option value="300">300 mm</option><option value="400">400 mm</option><option value="500">500 mm</option><option value="600" selected>600 mm</option><option value="900">900 mm</option></select></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Typ</label><select class="form-select" id="radiatorTyp" onchange="vypoctiVytapeniSystem()"><option value="11">Typ 11</option><option value="21s">Typ 21s</option><option value="22" selected>Typ 22</option><option value="33">Typ 33</option></select></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Přívodní °C</label><input type="number" class="form-input" id="radPrivod" value="55" onchange="vypoctiVytapeniSystem()"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Vratná °C</label><input type="number" class="form-input" id="radVrat" value="45" onchange="vypoctiVytapeniSystem()"></div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- PODLAHOVÉ KONFIGURACE -->
-        <div id="vytapeniPodlahoveConfig" style="display:none;">
-          <div class="card">
-            <div class="card-title">Parametry podlahového vytápění</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Rozteč potrubí</label><select class="form-select" id="podlahaRoztec" onchange="vypoctiVytapeniSystem()"><option value="100">100 mm</option><option value="150" selected>150 mm</option><option value="200">200 mm</option></select></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Průměr</label><select class="form-select" id="podlahaPrumer" onchange="vypoctiVytapeniSystem()"><option value="16">16×2 mm</option><option value="17" selected>17×2 mm PE-Xa</option><option value="20">20×2 mm</option></select></div>
-            </div>
-            <div class="form-group" style="margin-top:8px;margin-bottom:0;"><label class="form-label">Podlahová krytina</label><select class="form-select" id="podlahaKrytina" onchange="vypoctiVytapeniSystem()"><option value="0.01">Dlažba (R = 0,01)</option><option value="0.05">Laminát (R = 0,05)</option><option value="0.10" selected>Dřevo/Vinyl (R = 0,10)</option><option value="0.15">Koberec (R = 0,15)</option></select></div>
-          </div>
-        </div>
-        
-        <!-- INFRA KONFIGURACE -->
-        <div id="vytapeniInfraConfig" style="display:none;">
-          <div class="card">
-            <div class="card-title">Parametry infra fólií</div>
-            <div class="form-group" style="margin-bottom:8px;"><label class="form-label">Model fólie</label><select class="form-select" id="infraModel" onchange="updateInfraPrice();vypoctiVytapeniSystem()">
-              <optgroup label="HD-G (pod plovoucí podlahy)">
-                <option value="80" data-width="100" data-price="485" selected>HD310G 80W/bm (š.100cm) – 485 Kč/bm</option>
-                <option value="140" data-width="100" data-price="485">HD310G 140W/bm (š.100cm) – 485 Kč/bm</option>
-                <option value="80" data-width="50" data-price="280">HD310G 80W/bm (š.50cm) – 280 Kč/bm</option>
-              </optgroup>
-              <optgroup label="HD-EPL (pod anhydrit)">
-                <option value="160" data-width="100" data-price="550">HD-EPL 160W/bm (š.100cm) – 550 Kč/bm</option>
-                <option value="80" data-width="50" data-price="320">HD-EPL 80W/bm (š.50cm) – 320 Kč/bm</option>
-              </optgroup>
-            </select></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="form-group" style="margin:0;"><label class="form-label">Pokrytí plochy %</label><input type="number" class="form-input" id="infraPokryti" value="70" min="50" max="80" onchange="vypoctiVytapeniSystem()"></div>
-              <div class="form-group" style="margin:0;"><label class="form-label">Cena Kč/bm</label><input type="number" class="form-input" id="infraCena" value="485" readonly style="background:rgba(255,255,255,0.04);"></div>
-            </div>
-            <div class="form-group" style="margin-top:8px;margin-bottom:0;"><label class="form-label">Termostat</label><select class="form-select" id="infraTermostat" onchange="vypoctiVytapeniSystem()">
-              <option value="1159" data-name="Smartica HY607B ZigBee">Smartica HY607B ZigBee – 1 159 Kč</option>
-              <option value="850" data-name="BHT-002 WiFi 16A">BHT-002 WiFi 16A – 850 Kč</option>
-              <option value="1796" data-name="Heat Decor HD-T1000">Heat Decor HD-T1000 WiFi – 1 796 Kč</option>
-            </select></div>
-          </div>
-        </div>
-        
-        <!-- NÁKUPNÍ SEZNAM -->
-        <div id="vytapeniNakupniSeznam"></div>
-        
-        <div class="footer-note">Ceny orientační | Heat Decor (infraheat.cz) | 01/2025</div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Výpočtové teploty</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Venkovní výpočtová °C</div><input type="number" id="vytapeniVenkovni" value="-15" onchange="vypoctiVytapeniZtraty()"></div>
+      <div class="form-group"><div class="form-label">Vnitřní požadovaná °C</div><input type="number" id="vytapeniVnitrni" value="20" onchange="vypoctiVytapeniZtraty()"></div>
+    </div>
+    <div class="form-hint">CZ: -12 až -18°C | ES: 0 až -5°C | Vnitřní: obytné 20°C, koupelny 24°C</div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Místnosti</div>
+    <div id="vytapeniMistnostiList" class="room-grid"></div>
+    <button onclick="pridatVytapeniMistnost()" style="width:100%;padding:12px;border:2px dashed rgba(255,255,255,0.12);border-radius:10px;background:transparent;color:rgba(255,255,255,0.35);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:8px;">+ Přidat místnost</button>
+  </div>
+  <div id="vytapeniPozadovanyVykon" style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div style="font-size:14px;font-weight:600">Požadovaný výkon</div><div style="font-size:28px;font-weight:700;color:#c9a270">0 kW</div></div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Vyberte systém vytápění</div>
+    <div class="options-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="option-card glass" id="btnRadiatory" onclick="selectVytapeniSystem('radiatory')"><div class="o-name">Radiátory</div><div class="o-desc">Deskové, článkové</div></div>
+      <div class="option-card glass" id="btnPodlahove" onclick="selectVytapeniSystem('podlahove')"><div class="o-name">Podlahové vytápění</div><div class="o-desc">Teplovodní systém</div></div>
+      <div class="option-card glass" id="btnInfra" onclick="selectVytapeniSystem('infra')"><div class="o-name">Infra topná fólie</div><div class="o-desc">Elektrická, pod podlahu</div></div>
+    </div>
+  </div>
+  <!-- RADIÁTORY KONFIGURACE -->
+  <div id="vytapeniRadiatoryConfig" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="card-title">Parametry radiátorů</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Výška</div><select id="radiatorVyska" onchange="vypoctiVytapeniSystem()"><option value="300">300 mm</option><option value="400">400 mm</option><option value="500">500 mm</option><option value="600" selected>600 mm</option><option value="900">900 mm</option></select></div>
+        <div class="form-group"><div class="form-label">Typ</div><select id="radiatorTyp" onchange="vypoctiVytapeniSystem()"><option value="11">Typ 11</option><option value="21s">Typ 21s</option><option value="22" selected>Typ 22</option><option value="33">Typ 33</option></select></div>
+        <div class="form-group"><div class="form-label">Přívodní °C</div><input type="number" id="radPrivod" value="55" onchange="vypoctiVytapeniSystem()"></div>
+        <div class="form-group"><div class="form-label">Vratná °C</div><input type="number" id="radVrat" value="45" onchange="vypoctiVytapeniSystem()"></div>
+      </div>
+    </div>
+  </div>
+  <!-- PODLAHOVÉ KONFIGURACE -->
+  <div id="vytapeniPodlahoveConfig" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="card-title">Parametry podlahového vytápění</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Rozteč potrubí</div><select id="podlahaRoztec" onchange="vypoctiVytapeniSystem()"><option value="100">100 mm</option><option value="150" selected>150 mm</option><option value="200">200 mm</option></select></div>
+        <div class="form-group"><div class="form-label">Průměr</div><select id="podlahaPrumer" onchange="vypoctiVytapeniSystem()"><option value="16">16×2 mm</option><option value="17" selected>17×2 mm PE-Xa</option><option value="20">20×2 mm</option></select></div>
+        <div class="form-group"><div class="form-label">Podlahová krytina</div><select id="podlahaKrytina" onchange="vypoctiVytapeniSystem()"><option value="0.01">Dlažba (R = 0,01)</option><option value="0.05">Laminát (R = 0,05)</option><option value="0.10" selected>Dřevo/Vinyl (R = 0,10)</option><option value="0.15">Koberec (R = 0,15)</option></select></div>
+      </div>
+    </div>
+  </div>
+  <!-- INFRA KONFIGURACE -->
+  <div id="vytapeniInfraConfig" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="card-title">Parametry infra fólií</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Model fólie</div><select id="infraModel" onchange="updateInfraPrice();vypoctiVytapeniSystem()">
+          <optgroup label="HD-G (pod plovoucí podlahy)">
+            <option value="80" data-width="100" data-price="485" selected>HD310G 80W/bm (š.100cm) – 485 Kč/bm</option>
+            <option value="140" data-width="100" data-price="485">HD310G 140W/bm (š.100cm) – 485 Kč/bm</option>
+            <option value="80" data-width="50" data-price="280">HD310G 80W/bm (š.50cm) – 280 Kč/bm</option>
+          </optgroup>
+          <optgroup label="HD-EPL (pod anhydrit)">
+            <option value="160" data-width="100" data-price="550">HD-EPL 160W/bm (š.100cm) – 550 Kč/bm</option>
+            <option value="80" data-width="50" data-price="320">HD-EPL 80W/bm (š.50cm) – 320 Kč/bm</option>
+          </optgroup>
+        </select></div>
+        <div class="form-group"><div class="form-label">Pokrytí plochy %</div><input type="number" id="infraPokryti" value="70" min="50" max="80" onchange="vypoctiVytapeniSystem()"></div>
+        <div class="form-group"><div class="form-label">Cena Kč/bm</div><input type="number" id="infraCena" value="485" readonly style="background:rgba(255,255,255,0.04)"></div>
+      </div>
+      <div class="form-group" style="margin-top:8px"><div class="form-label">Termostat</div><select id="infraTermostat" onchange="vypoctiVytapeniSystem()">
+        <option value="1159" data-name="Smartica HY607B ZigBee">Smartica HY607B ZigBee – 1 159 Kč</option>
+        <option value="850" data-name="BHT-002 WiFi 16A">BHT-002 WiFi 16A – 850 Kč</option>
+        <option value="1796" data-name="Heat Decor HD-T1000">Heat Decor HD-T1000 WiFi – 1 796 Kč</option>
+      </select></div>
+    </div>
+  </div>
+  <div id="vytapeniNakupniSeznam"></div>
+  <div class="calc-footer">Ceny orientační | Heat Decor (infraheat.cz) | 01/2025</div>
 </div>
 <div class="calc-page" id="calc-voda" style="display:none">
-        
-        <!-- SOUHRN -->
-        <div class="summary-grid" style="grid-template-columns:1fr 1fr 1fr;">
-          <div class="summary-box" style="border-left:3px solid #3b82f6;"><div class="summary-box-label">Voda</div><div class="summary-box-value" id="vodaSumVoda" style="color:#3b82f6;">0 Kč</div></div>
-          <div class="summary-box" style="border-left:3px solid #f59e0b;"><div class="summary-box-label">Odpad</div><div class="summary-box-value" id="vodaSumOdpad" style="color:#f59e0b;">0 Kč</div></div>
-          <div class="summary-box" style="border-left:3px solid var(--gold);"><div class="summary-box-label">Celkem</div><div class="summary-box-value" id="vodaSumCelkem">0 Kč</div></div>
-        </div>
-        
-        <!-- VÝVODY -->
-        <div class="card">
-          <div class="card-title">Vývody</div>
-          <div id="vodaVyvodyList"></div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
-            <button onclick="pridatVodaVyvod('umyvadlo')" class="vyvod-btn">+ Umyvadlo</button>
-            <button onclick="pridatVodaVyvod('wc')" class="vyvod-btn">+ WC</button>
-            <button onclick="pridatVodaVyvod('sprcha')" class="vyvod-btn">+ Sprcha</button>
-            <button onclick="pridatVodaVyvod('vana')" class="vyvod-btn">+ Vana</button>
-            <button onclick="pridatVodaVyvod('drez')" class="vyvod-btn">+ Dřez</button>
-            <button onclick="pridatVodaVyvod('pracka')" class="vyvod-btn">+ Pračka</button>
-            <button onclick="pridatVodaVyvod('mycka')" class="vyvod-btn">+ Myčka</button>
-            <button onclick="pridatVodaVyvod('zahrada')" class="vyvod-btn">+ Zahrada</button>
-          </div>
-        </div>
-        
-        <!-- VODA PARAMETRY -->
-        <div class="card">
-          <div class="card-title">Rozvody vody</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Přívod SV (m)</label><input type="number" class="form-input" id="vodaPrivodSV" value="6" onchange="vypoctiVoda()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Přívod TV (m)</label><input type="number" class="form-input" id="vodaPrivodTV" value="6" onchange="vypoctiVoda()"></div>
-          </div>
-          <div class="form-group" style="margin-top:8px;margin-bottom:8px;"><label class="form-label">Bojler</label><select class="form-select" id="vodaBojler" onchange="vypoctiVoda()">
-            <option value="50">Dražice OKCE 50 (50l) – 5 500 Kč</option>
-            <option value="80">Dražice OKCE 80 (80l) – 6 200 Kč</option>
-            <option value="100">Dražice OKCE 100 (100l) – 6 800 Kč</option>
-            <option value="125" selected>Dražice OKCE 125 (122l) – 7 500 Kč</option>
-            <option value="160">Dražice OKCE 160 (152l) – 8 500 Kč</option>
-            <option value="200">Dražice OKCE 200 (195l) – 10 500 Kč</option>
-          </select></div>
-          <div class="form-group" style="margin-bottom:8px;"><label class="form-label">Cirkulační čerpadlo</label><select class="form-select" id="vodaCerpadlo" onchange="toggleVodaCirculace();vypoctiVoda()">
-            <option value="zadne">Bez cirkulace</option>
-            <option value="UP15-14B">Grundfos UP 15-14 B PM – 3 400 Kč</option>
-            <option value="UP15-14BA" selected>Grundfos UP 15-14 BA PM (AUTOADAPT) – 5 500 Kč</option>
-          </select></div>
-          <div id="vodaCirculaceRow" class="form-group" style="margin:0;"><label class="form-label">Délka cirkulace (m)</label><input type="number" class="form-input" id="vodaCirculace" value="20" onchange="vypoctiVoda()"></div>
-        </div>
-        
-        <!-- ODPAD PARAMETRY -->
-        <div class="card">
-          <div class="card-title">Odpad - ležatá kanalizace</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">HT DN75 (m)</label><input type="number" class="form-input" id="vodaHT75" value="8" onchange="vypoctiVoda()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">HT DN110 (m)</label><input type="number" class="form-input" id="vodaHT110" value="12" onchange="vypoctiVoda()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Čistící kusy</label><input type="number" class="form-input" id="vodaCistici" value="2" onchange="vypoctiVoda()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Větrací hlavice</label><input type="number" class="form-input" id="vodaVetrani" value="2" onchange="vypoctiVoda()"></div>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="card-title">Odpad - venkovní KG</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">KG potrubí (m)</label><input type="number" class="form-input" id="vodaKG" value="15" onchange="vypoctiVoda()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Dimenze</label><select class="form-select" id="vodaKGDim" onchange="vypoctiVoda()"><option value="DN110" selected>DN110</option><option value="DN125">DN125</option><option value="DN160">DN160</option></select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Revizní šachty</label><input type="number" class="form-input" id="vodaSachty" value="2" onchange="vypoctiVoda()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Drtič odpadu</label><select class="form-select" id="vodaDrtic" onchange="vypoctiVoda()">
-              <option value="zadny">Bez drtiče</option>
-              <option value="M55">InSinkErator M55 – 7 500 Kč</option>
-              <option value="M65">InSinkErator M65+ – 9 900 Kč</option>
-              <option value="M100" selected>InSinkErator M100 – 14 500 Kč</option>
-              <option value="M200">InSinkErator M200 – 17 800 Kč</option>
-            </select></div>
-          </div>
-        </div>
-        
-        <!-- NÁKUPNÍ SEZNAM -->
-        <div id="vodaNakupniSeznam"></div>
-        
-        <div class="footer-note">ALPEX vícevrstvé potrubí | Dražice bojlery | Grundfos čerpadla | 01/2025</div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="summary-row">
+    <div class="summary-box glass"><div class="s-label">Voda</div><div class="s-value" id="vodaSumVoda">0 Kč</div></div>
+    <div class="summary-box glass"><div class="s-label">Odpad</div><div class="s-value" id="vodaSumOdpad">0 Kč</div></div>
+    <div class="summary-box glass" style="background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05))!important;border-color:rgba(201,162,112,0.2)!important"><div class="s-label">Celkem</div><div class="s-value" id="vodaSumCelkem">0 Kč</div></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Vývody</div>
+    <div class="chips-row">
+      <button class="chip" onclick="pridatVodaVyvod('umyvadlo')">+ Umyvadlo</button>
+      <button class="chip" onclick="pridatVodaVyvod('wc')">+ WC</button>
+      <button class="chip" onclick="pridatVodaVyvod('sprcha')">+ Sprcha</button>
+      <button class="chip" onclick="pridatVodaVyvod('vana')">+ Vana</button>
+      <button class="chip" onclick="pridatVodaVyvod('drez')">+ Dřez</button>
+      <button class="chip" onclick="pridatVodaVyvod('pracka')">+ Pračka</button>
+      <button class="chip" onclick="pridatVodaVyvod('mycka')">+ Myčka</button>
+      <button class="chip" onclick="pridatVodaVyvod('zahrada')">+ Zahrada</button>
+    </div>
+    <div id="vodaVyvodyList" style="margin-top:10px"></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Rozvody vody</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Přívod SV (m)</div><input type="number" id="vodaPrivodSV" value="6" onchange="vypoctiVoda()"></div>
+      <div class="form-group"><div class="form-label">Přívod TV (m)</div><input type="number" id="vodaPrivodTV" value="6" onchange="vypoctiVoda()"></div>
+      <div class="form-group"><div class="form-label">Bojler</div><select id="vodaBojler" onchange="vypoctiVoda()">
+        <option value="50">Dražice OKCE 50 (50l) – 5 500 Kč</option>
+        <option value="80">Dražice OKCE 80 (80l) – 6 200 Kč</option>
+        <option value="100">Dražice OKCE 100 (100l) – 6 800 Kč</option>
+        <option value="125" selected>Dražice OKCE 125 (122l) – 7 500 Kč</option>
+        <option value="160">Dražice OKCE 160 (152l) – 8 500 Kč</option>
+        <option value="200">Dražice OKCE 200 (195l) – 10 500 Kč</option>
+      </select></div>
+    </div>
+    <div class="form-group" style="margin-top:8px"><div class="form-label">Cirkulační čerpadlo</div><select id="vodaCerpadlo" onchange="toggleVodaCirculace();vypoctiVoda()">
+      <option value="zadne">Bez cirkulace</option>
+      <option value="UP15-14B">Grundfos UP 15-14 B PM – 3 400 Kč</option>
+      <option value="UP15-14BA" selected>Grundfos UP 15-14 BA PM (AUTOADAPT) – 5 500 Kč</option>
+    </select></div>
+    <div id="vodaCirculaceRow" class="form-group" style="margin-top:8px"><div class="form-label">Délka cirkulace (m)</div><input type="number" id="vodaCirculace" value="20" onchange="vypoctiVoda()"></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Odpad - ležatá kanalizace</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">HT DN75 (m)</div><input type="number" id="vodaHT75" value="8" onchange="vypoctiVoda()"></div>
+      <div class="form-group"><div class="form-label">HT DN110 (m)</div><input type="number" id="vodaHT110" value="12" onchange="vypoctiVoda()"></div>
+      <div class="form-group"><div class="form-label">Čistící kusy</div><input type="number" id="vodaCistici" value="2" onchange="vypoctiVoda()"></div>
+      <div class="form-group"><div class="form-label">Větrací hlavice</div><input type="number" id="vodaVetrani" value="2" onchange="vypoctiVoda()"></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Odpad - venkovní KG</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">KG potrubí (m)</div><input type="number" id="vodaKG" value="15" onchange="vypoctiVoda()"></div>
+      <div class="form-group"><div class="form-label">Dimenze</div><select id="vodaKGDim" onchange="vypoctiVoda()"><option value="DN110" selected>DN110</option><option value="DN125">DN125</option><option value="DN160">DN160</option></select></div>
+      <div class="form-group"><div class="form-label">Revizní šachty</div><input type="number" id="vodaSachty" value="2" onchange="vypoctiVoda()"></div>
+      <div class="form-group"><div class="form-label">Drtič odpadu</div><select id="vodaDrtic" onchange="vypoctiVoda()">
+        <option value="zadny">Bez drtiče</option>
+        <option value="M55">InSinkErator M55 – 7 500 Kč</option>
+        <option value="M65">InSinkErator M65+ – 9 900 Kč</option>
+        <option value="M100" selected>InSinkErator M100 – 14 500 Kč</option>
+        <option value="M200">InSinkErator M200 – 17 800 Kč</option>
+      </select></div>
+    </div>
+  </div>
+  <div id="vodaNakupniSeznam"></div>
+  <div class="calc-footer">ALPEX vícevrstvé potrubí | Dražice bojlery | Grundfos čerpadla | 01/2025</div>
 </div>
 <div class="calc-page" id="calc-klima" style="display:none">
-        
-        <!-- SOUHRN -->
-        <div class="summary-grid" style="grid-template-columns:1fr 1fr;">
-          <div class="summary-box" style="border-left:3px solid #06b6d4;"><div class="summary-box-label">Chladicí výkon</div><div class="summary-box-value" id="klimaSumVykon" style="color:#06b6d4;">0 kW</div></div>
-          <div class="summary-box" style="border-left:3px solid #3b82f6;"><div class="summary-box-label">Roční náklady</div><div class="summary-box-value" id="klimaSumNaklady" style="color:#3b82f6;">0 Kč</div></div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="summary-row">
+    <div class="summary-box glass"><div class="s-label">Chladicí výkon</div><div class="s-value" id="klimaSumVykon">0 kW</div></div>
+    <div class="summary-box glass" style="background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05))!important;border-color:rgba(201,162,112,0.2)!important"><div class="s-label">Roční náklady</div><div class="s-value" id="klimaSumNaklady">0 Kč</div></div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Chlazené místnosti</div>
+    <div id="klimaMistnostiList" class="room-grid"></div>
+    <button onclick="pridatKlimaMistnost()" style="width:100%;padding:12px;border:2px dashed rgba(255,255,255,0.12);border-radius:10px;background:transparent;color:rgba(255,255,255,0.35);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:8px;">+ Přidat místnost</button>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Parametry výpočtu</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Venkovní teplota °C</div><input type="number" id="klimaVenkovni" value="32" onchange="vypoctiKlima()"></div>
+      <div class="form-group"><div class="form-label">Požadovaná vnitřní °C</div><input type="number" id="klimaVnitrni" value="24" onchange="vypoctiKlima()"></div>
+      <div class="form-group"><div class="form-label">Zasklení</div><select id="klimaZaskleni" onchange="vypoctiKlima()">
+        <option value="0.85">Jednoduché sklo</option>
+        <option value="0.65" selected>Dvojsklo</option>
+        <option value="0.50">Dvojsklo pokov.</option>
+        <option value="0.35">Trojsklo</option>
+      </select></div>
+      <div class="form-group"><div class="form-label">Stínění</div><select id="klimaStineni" onchange="vypoctiKlima()">
+        <option value="1.0">Bez stínění</option>
+        <option value="0.7" selected>Vnitřní žaluzie</option>
+        <option value="0.4">Vnější žaluzie</option>
+        <option value="0.2">Venkovní rolety</option>
+      </select></div>
+    </div>
+    <div class="form-row" style="margin-top:8px">
+      <div class="form-group"><div class="form-label">Orientace hlavních oken</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <button class="klima-orient" data-dir="N" onclick="setKlimaOrient('N')">S</button>
+          <button class="klima-orient" data-dir="E" onclick="setKlimaOrient('E')">V</button>
+          <button class="klima-orient active" data-dir="S" onclick="setKlimaOrient('S')">J</button>
+          <button class="klima-orient" data-dir="W" onclick="setKlimaOrient('W')">Z</button>
         </div>
-        
-        <!-- MÍSTNOSTI -->
-        <div class="card">
-          <div class="card-title">Chlazené místnosti</div>
-          <div id="klimaMistnostiList"></div>
-          <button onclick="pridatKlimaMistnost()" style="width:100%;padding:12px;border:2px dashed rgba(255,255,255,0.12);border-radius:10px;background:transparent;color:rgba(255,255,255,0.35);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:8px;">+ Přidat místnost</button>
-        </div>
-        
-        <!-- PARAMETRY -->
-        <div class="card">
-          <div class="card-title">Parametry výpočtu</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Venkovní teplota °C</label><input type="number" class="form-input" id="klimaVenkovni" value="32" onchange="vypoctiKlima()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Požadovaná vnitřní °C</label><input type="number" class="form-input" id="klimaVnitrni" value="24" onchange="vypoctiKlima()"></div>
-          </div>
-          <div class="form-group" style="margin-top:8px;margin-bottom:8px;"><label class="form-label">Orientace hlavních oken</label>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
-              <button class="klima-orient" data-dir="N" onclick="setKlimaOrient('N')">S</button>
-              <button class="klima-orient" data-dir="E" onclick="setKlimaOrient('E')">V</button>
-              <button class="klima-orient active" data-dir="S" onclick="setKlimaOrient('S')">J</button>
-              <button class="klima-orient" data-dir="W" onclick="setKlimaOrient('W')">Z</button>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Plocha oken m²</label><input type="number" class="form-input" id="klimaOkna" value="8" onchange="vypoctiKlima()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Zasklení</label><select class="form-select" id="klimaZaskleni" onchange="vypoctiKlima()">
-              <option value="0.85">Jednoduché sklo</option>
-              <option value="0.65" selected>Dvojsklo</option>
-              <option value="0.50">Dvojsklo pokov.</option>
-              <option value="0.35">Trojsklo</option>
-            </select></div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Stínění</label><select class="form-select" id="klimaStineni" onchange="vypoctiKlima()">
-              <option value="1.0">Bez stínění</option>
-              <option value="0.7" selected>Vnitřní žaluzie</option>
-              <option value="0.4">Vnější žaluzie</option>
-              <option value="0.2">Venkovní rolety</option>
-            </select></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Počet osob</label><input type="number" class="form-input" id="klimaOsoby" value="4" onchange="vypoctiKlima()"></div>
-          </div>
-        </div>
-        
-        <!-- PROVOZNÍ NÁKLADY -->
-        <div class="card">
-          <div class="card-title">Provozní náklady</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-            <div class="form-group" style="margin:0;"><label class="form-label">Cena el. Kč/kWh</label><input type="number" class="form-input" id="klimaCenaEl" value="4.5" step="0.1" onchange="vypoctiKlima()"></div>
-            <div class="form-group" style="margin:0;"><label class="form-label">Hodiny/rok</label><input type="number" class="form-input" id="klimaHodiny" value="600" onchange="vypoctiKlima()"></div>
-          </div>
-        </div>
-        
-        <!-- DOPORUČENÉ JEDNOTKY -->
-        <div class="card">
-          <div class="card-title">Doporučené jednotky LG</div>
-          <div id="klimaJednotky"></div>
-          <div style="margin-top:10px;padding:10px;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.3);border-radius:8px;font-size:10px;color:rgba(255,255,255,0.35);">
-            <strong style="color:#06b6d4;">M-Klima.cz</strong> – profesionální dodávka a montáž<br>
-            Tel: +420 607 010 464 | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ae3e4ece5cae7a7e1e6e3e7eba4e9f0">[email&#160;protected]</a>
-          </div>
-        </div>
-        
-        <div class="footer-note">Klimatizace LG | M-Klima.cz | Ceny orientační bez montáže</div>
+      </div>
+      <div class="form-group"><div class="form-label">Plocha oken m²</div><input type="number" id="klimaOkna" value="8" onchange="vypoctiKlima()"></div>
+      <div class="form-group"><div class="form-label">Počet osob</div><input type="number" id="klimaOsoby" value="4" onchange="vypoctiKlima()"></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Provozní náklady</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Cena el. Kč/kWh</div><input type="number" id="klimaCenaEl" value="4.5" step="0.1" onchange="vypoctiKlima()"></div>
+      <div class="form-group"><div class="form-label">Hodiny/rok</div><input type="number" id="klimaHodiny" value="600" onchange="vypoctiKlima()"></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Doporučené jednotky LG</div>
+    <div id="klimaJednotky" class="options-grid" style="grid-template-columns:repeat(2,1fr)"></div>
+    <div class="form-hint" style="margin-top:10px"><strong style="color:#06b6d4">M-Klima.cz</strong> – profesionální dodávka a montáž | Tel: +420 607 010 464</div>
+  </div>
+  <div class="calc-footer">Klimatizace LG | M-Klima.cz | Ceny orientační bez montáže</div>
 </div>
 <div class="calc-page" id="calc-sdk" style="display:none">
-        <div class="summary-grid">
-          <div class="summary-box"><div class="summary-box-label">Profily</div><div class="summary-box-value" id="sdkSumProfily">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Desky</div><div class="summary-box-value" id="sdkSumDesky">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Prislusenstvi</div><div class="summary-box-value" id="sdkSumPrisl">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Celkem</div><div class="summary-box-value" id="sdkSumCelkem">0 Kc</div></div>
-        </div>
-        <div class="tabs">
-          <button class="tab active" onclick="selectSdkTab('pricky', this)">Pricky</button>
-          <button class="tab" onclick="selectSdkTab('podhledy', this)">Podhledy</button>
-        </div>
-        <!-- PRICKY -->
-        <div id="sdkPrickyContent">
-          <div class="card">
-            <div class="card-title">Parametry pricky</div>
-            <div class="form-group"><label class="form-label">Plocha pricky (m2)</label><input type="number" class="form-input large" id="sdkPlocha" placeholder="0" oninput="vypoctiSdk()"></div>
-            <div class="section-title">Typ pricky</div>
-            <div id="sdkTypyList"></div>
-            <div class="section-title" style="margin-top:12px">Typ desky</div>
-            <div id="sdkDeskyList"></div>
-            <div class="section-title" style="margin-top:12px">Oplechovani</div>
-            <div class="toggle-btns">
-              <button class="toggle-btn active" onclick="setSdkOplech('jednoduche',this)">Jednoduche</button>
-              <button class="toggle-btn" onclick="setSdkOplech('dvojite',this)">Dvojite</button>
-            </div>
-            <div class="form-group" style="margin-top:8px"><label class="form-label">Mineralni vata</label>
-              <select class="form-select" id="sdkVata" onchange="vypoctiSdk()">
-                <option value="none">Bez vaty</option>
-                <option value="50" selected>Isover AKU 50mm</option>
-                <option value="60">Isover AKU 60mm</option>
-                <option value="80">Isover AKU 80mm</option>
-                <option value="100">Isover AKU 100mm</option>
-              </select>
-            </div>
-            <div class="reserve-row"><span class="reserve-label">Rezerva:</span><select class="reserve-select" id="sdkRezerva" onchange="vypoctiSdk()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
-          </div>
-        </div>
-        <!-- PODHLEDY -->
-        <div id="sdkPodhledyContent" style="display:none;">
-          <div class="card">
-            <div class="card-title">Parametry podhledu</div>
-            <div class="form-group"><label class="form-label">Plocha podhledu (m2)</label><input type="number" class="form-input large" id="sdkPodhledPlocha" placeholder="0" oninput="vypoctiSdkPodhled()"></div>
-            <div class="section-title">Typ desky</div>
-            <div id="sdkPodhledDeskyList"></div>
-            <div class="form-group" style="margin-top:12px"><label class="form-label">Spusteni (cm)</label><input type="number" class="form-input" id="sdkSpusteni" value="10" oninput="vypoctiSdkPodhled()"></div>
-            <div class="form-group"><label class="form-label">Mineralni vata nad podhledem</label>
-              <select class="form-select" id="sdkPodhledVata" onchange="vypoctiSdkPodhled()">
-                <option value="none">Bez vaty</option>
-                <option value="50">Isover AKU 50mm</option>
-                <option value="100" selected>Isover AKU 100mm</option>
-                <option value="150">Isover AKU 150mm</option>
-              </select>
-            </div>
-            <div class="reserve-row"><span class="reserve-label">Rezerva:</span><select class="reserve-select" id="sdkPodhledRezerva" onchange="vypoctiSdkPodhled()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
-          </div>
-        </div>
-        <div id="sdkResult"></div>
-        <div class="footer-note">Ceny dle Rigips ceniku 2025 | Bez prace</div>
+<div id="sdkPage">
+  <div class="calc-title">Kalkulačka</div>
+  <div class="summary-row">
+    <div class="summary-box glass"><div class="s-label">Profily</div><div class="s-value" id="sdkSumProfily">0 Kc</div></div>
+    <div class="summary-box glass"><div class="s-label">Desky</div><div class="s-value" id="sdkSumDesky">0 Kc</div></div>
+    <div class="summary-box glass"><div class="s-label">Příslušenství</div><div class="s-value" id="sdkSumPrisl">0 Kc</div></div>
+    <div class="summary-box glass" style="background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05))!important;border-color:rgba(201,162,112,0.2)!important"><div class="s-label">Celkem</div><div class="s-value" id="sdkSumCelkem">0 Kc</div></div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-item active" onclick="selectSdkTab('pricky', this)">Příčky</button>
+    <button class="tab-item" onclick="selectSdkTab('podhledy', this)">Podhledy</button>
+  </div>
+  <!-- PRICKY -->
+  <div id="sdkPrickyContent">
+    <div class="card-section glass-strong">
+      <div class="card-title">Parametry příčky</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Plocha příčky (m²)</div><input type="number" id="sdkPlocha" placeholder="0" oninput="vypoctiSdk()"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Typ příčky</div>
+      <div id="sdkTypyList" class="options-grid" style="grid-template-columns:1fr"></div>
+      <div class="section-head" style="margin-top:12px">Typ desky</div>
+      <div id="sdkDeskyList" class="options-grid" style="grid-template-columns:1fr 1fr"></div>
+      <div class="section-head" style="margin-top:12px">Opláštění</div>
+      <div class="pill-group">
+        <button class="pill active" onclick="setSdkOplech('jednoduche',this)">Jednoduché</button>
+        <button class="pill" onclick="setSdkOplech('dvojite',this)">Dvojité</button>
+      </div>
+      <div class="form-group" style="margin-top:12px"><div class="form-label">Minerální vata</div>
+        <select id="sdkVata" onchange="vypoctiSdk()">
+          <option value="none">Bez vaty</option>
+          <option value="50" selected>Isover AKU 50mm</option>
+          <option value="60">Isover AKU 60mm</option>
+          <option value="80">Isover AKU 80mm</option>
+          <option value="100">Isover AKU 100mm</option>
+        </select>
+      </div>
+      <div class="field-inline" style="margin-top:12px"><label>Rezerva</label><select id="sdkRezerva" onchange="vypoctiSdk()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
+    </div>
+  </div>
+  <!-- PODHLEDY -->
+  <div id="sdkPodhledyContent" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="card-title">Parametry podhledu</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Plocha podhledu (m²)</div><input type="number" id="sdkPodhledPlocha" placeholder="0" oninput="vypoctiSdkPodhled()"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Typ desky</div>
+      <div id="sdkPodhledDeskyList" class="options-grid" style="grid-template-columns:1fr 1fr"></div>
+      <div class="form-group" style="margin-top:12px"><div class="form-label">Spuštění (cm)</div><input type="number" id="sdkSpusteni" value="10" oninput="vypoctiSdkPodhled()"></div>
+      <div class="form-group" style="margin-top:8px"><div class="form-label">Minerální vata nad podhledem</div>
+        <select id="sdkPodhledVata" onchange="vypoctiSdkPodhled()">
+          <option value="none">Bez vaty</option>
+          <option value="50">Isover AKU 50mm</option>
+          <option value="100" selected>Isover AKU 100mm</option>
+          <option value="150">Isover AKU 150mm</option>
+        </select>
+      </div>
+      <div class="field-inline" style="margin-top:12px"><label>Rezerva</label><select id="sdkPodhledRezerva" onchange="vypoctiSdkPodhled()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
+    </div>
+  </div>
+  <div id="sdkResult"></div>
+  <div class="calc-footer">Ceny dle Rigips ceníku 2025 | Bez práce</div>
+</div><!-- /sdkPage -->
 </div>
 <div class="calc-page" id="calc-obklady" style="display:none">
-        <div class="summary-grid" style="grid-template-columns:1fr 1fr 1fr">
-          <div class="summary-box"><div class="summary-box-label">Lepidlo</div><div class="summary-box-value" id="obkladySumLepidlo">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Sparovacka</div><div class="summary-box-value" id="obkladySumSparovacka">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Celkem</div><div class="summary-box-value" id="obkladySumCelkem">0 Kc</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Parametry</div>
-          <div class="form-group"><label class="form-label">Plocha (m2)</label><input type="number" class="form-input large" id="obkladyPlocha" placeholder="0" oninput="vypoctiObklady()"></div>
-          <div class="section-title">Typ povrchu</div>
-          <div class="toggle-btns">
-            <button class="toggle-btn active" onclick="setObkladyTyp('obklad',this)">Obklad (stena)</button>
-            <button class="toggle-btn" onclick="setObkladyTyp('dlazba',this)">Dlazba (podlaha)</button>
-          </div>
-          <div class="section-title" style="margin-top:12px">Format dlazdic</div>
-          <div id="obkladyFormatList"></div>
-          <div class="section-title" style="margin-top:12px">Lepidlo Cemix</div>
-          <div id="obkladyLepidloList"></div>
-          <div class="section-title" style="margin-top:12px">Sparovacka Cemix</div>
-          <div id="obkladySparovackaList"></div>
-          <div class="form-group" style="margin-top:12px"><label class="form-label">Sirka spary (mm)</label>
-            <select class="form-select" id="obkladySirkaSpary" onchange="vypoctiObklady()">
-              <option value="2">2 mm</option>
-              <option value="3" selected>3 mm</option>
-              <option value="5">5 mm</option>
-              <option value="8">8 mm</option>
-              <option value="10">10 mm</option>
-            </select>
-          </div>
-          <div class="form-group"><label class="form-label">Hydroizolace pod obklad</label>
-            <select class="form-select" id="obkladyHydro" onchange="vypoctiObklady()">
-              <option value="none">Bez hydroizolace</option>
-              <option value="1k">Cemix 1K hydroizolace</option>
-              <option value="2k" selected>Cemix 2K hydroizolace</option>
-            </select>
-          </div>
-          <div class="form-group"><label class="form-label">Penetrace</label>
-            <select class="form-select" id="obkladyPenetrace" onchange="vypoctiObklady()">
-              <option value="none">Bez penetrace</option>
-              <option value="ano" selected>Cemix penetrace hloubkova</option>
-            </select>
-          </div>
-          <div class="reserve-row"><span class="reserve-label">Rezerva:</span><select class="reserve-select" id="obkladyRezerva" onchange="vypoctiObklady()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
-        </div>
-        <div id="obkladyResult"></div>
-        <div class="footer-note">Ceny dle Cemix ceniku 2025 | Bez prace a dlazdic</div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="summary-row">
+    <div class="summary-box glass"><div class="s-label">Lepidlo</div><div class="s-value" id="obkladySumLepidlo">0 Kč</div></div>
+    <div class="summary-box glass"><div class="s-label">Spárovačka</div><div class="s-value" id="obkladySumSparovacka">0 Kč</div></div>
+    <div class="summary-box glass" style="background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05))!important;border-color:rgba(201,162,112,0.2)!important"><div class="s-label">Celkem</div><div class="s-value" id="obkladySumCelkem">0 Kč</div></div>
+  </div>
+  <div class="top-bar glass">
+    <div class="brand"><div class="brand-dot" style="background:#e65100"></div><div class="brand-name"><span>Cemix</span> lepidla</div></div>
+    <div class="divider-v"></div>
+    <div class="field-inline"><label>Plocha</label><input type="number" class="val" id="obkladyPlocha" placeholder="0" oninput="vypoctiObklady()"><span class="unit">m²</span></div>
+    <div class="divider-v"></div>
+    <div class="pill-group">
+      <button class="pill active" onclick="setObkladyTyp('obklad',this)">Obklad (stěna)</button>
+      <button class="pill" onclick="setObkladyTyp('dlazba',this)">Dlažba (podlaha)</button>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <div class="section-head">Formát dlaždic</div>
+      <div id="obkladyFormatList" class="options-grid" style="grid-template-columns:1fr 1fr"></div>
+    </div>
+    <div>
+      <div class="section-head">Lepidlo Cemix</div>
+      <div id="obkladyLepidloList" class="options-grid" style="grid-template-columns:1fr"></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong" style="margin-top:12px">
+    <div class="section-head">Spárovačka Cemix</div>
+    <div id="obkladySparovackaList" class="options-grid"></div>
+    <div class="form-row" style="margin-top:12px">
+      <div class="form-group"><div class="form-label">Šířka spáry (mm)</div>
+        <select id="obkladySirkaSpary" onchange="vypoctiObklady()">
+          <option value="2">2 mm</option>
+          <option value="3" selected>3 mm</option>
+          <option value="5">5 mm</option>
+          <option value="8">8 mm</option>
+          <option value="10">10 mm</option>
+        </select>
+      </div>
+      <div class="form-group"><div class="form-label">Hydroizolace pod obklad</div>
+        <select id="obkladyHydro" onchange="vypoctiObklady()">
+          <option value="none">Bez hydroizolace</option>
+          <option value="1k">Cemix 1K hydroizolace</option>
+          <option value="2k" selected>Cemix 2K hydroizolace</option>
+        </select>
+      </div>
+      <div class="form-group"><div class="form-label">Penetrace</div>
+        <select id="obkladyPenetrace" onchange="vypoctiObklady()">
+          <option value="none">Bez penetrace</option>
+          <option value="ano" selected>Cemix penetrace hloubková</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-inline" style="margin-top:12px"><label>Rezerva</label><select id="obkladyRezerva" onchange="vypoctiObklady()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
+  </div>
+  <div id="obkladyResult"></div>
+  <div class="calc-footer">Ceny dle Cemix ceníku 2025 | Bez práce a dlaždic</div>
 </div>
 <div class="calc-page" id="calc-omitky" style="display:none">
-        <div class="summary-grid" style="grid-template-columns:1fr 1fr 1fr">
-          <div class="summary-box"><div class="summary-box-label">Material</div><div class="summary-box-value" id="omitkySumMaterial">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Penetrace</div><div class="summary-box-value" id="omitkySumPenetrace">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Celkem</div><div class="summary-box-value" id="omitkySumCelkem">0 Kc</div></div>
+  <div class="calc-title">Kalkulačka</div>
+  <div class="summary-row">
+    <div class="summary-box glass"><div class="s-label">Materiál</div><div class="s-value" id="omitkySumMaterial">0 Kč</div></div>
+    <div class="summary-box glass"><div class="s-label">Penetrace</div><div class="s-value" id="omitkySumPenetrace">0 Kč</div></div>
+    <div class="summary-box glass" style="background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05))!important;border-color:rgba(201,162,112,0.2)!important"><div class="s-label">Celkem</div><div class="s-value" id="omitkySumCelkem">0 Kč</div></div>
+  </div>
+  <div class="top-bar glass">
+    <div class="brand"><div class="brand-dot" style="background:#e65100"></div><div class="brand-name"><span>Cemix</span> omítky</div></div>
+    <div class="divider-v"></div>
+    <div class="field-inline"><label>Plocha</label><input type="number" class="val" id="omitkyPlocha" placeholder="0" oninput="vypoctiOmitky()"><span class="unit">m²</span></div>
+    <div class="divider-v"></div>
+    <div class="pill-group">
+      <button class="pill active" onclick="setOmitkyTyp('vnitrni',this)">Vnitřní</button>
+      <button class="pill" onclick="setOmitkyTyp('venkovni',this)">Venkovní</button>
+    </div>
+    <div class="reserve-pills"><label style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:500;text-transform:uppercase;letter-spacing:0.8px">Rezerva</label><select id="omitkyRezerva" onchange="vypoctiOmitky()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <div class="section-head">Systém</div>
+      <div id="omitkySystemList" class="options-grid" style="grid-template-columns:1fr"></div>
+    </div>
+    <div>
+      <div id="omitkySystemDetail" class="card-section glass-strong"></div>
+      <div class="form-row" style="margin-top:12px">
+        <div class="form-group"><div class="form-label">Tloušťka jádra (mm)</div>
+          <select id="omitkyTloustka" onchange="vypoctiOmitky()">
+            <option value="10">10 mm</option>
+            <option value="15" selected>15 mm</option>
+            <option value="20">20 mm</option>
+            <option value="25">25 mm</option>
+            <option value="30">30 mm</option>
+          </select>
         </div>
-        <div class="card">
-          <div class="card-title">Parametry</div>
-          <div class="form-group"><label class="form-label">Plocha (m2)</label><input type="number" class="form-input large" id="omitkyPlocha" placeholder="0" oninput="vypoctiOmitky()"></div>
-          <div class="section-title">Typ omitky</div>
-          <div class="toggle-btns">
-            <button class="toggle-btn active" onclick="setOmitkyTyp('vnitrni',this)">Vnitrni</button>
-            <button class="toggle-btn" onclick="setOmitkyTyp('venkovni',this)">Venkovni</button>
-          </div>
-          <div class="section-title" style="margin-top:12px">System</div>
-          <div id="omitkySystemList"></div>
-          <div id="omitkySystemDetail"></div>
-          <div class="form-group" style="margin-top:12px"><label class="form-label">Tloustka jadra (mm)</label>
-            <select class="form-select" id="omitkyTloustka" onchange="vypoctiOmitky()">
-              <option value="10">10 mm</option>
-              <option value="15" selected>15 mm</option>
-              <option value="20">20 mm</option>
-              <option value="25">25 mm</option>
-              <option value="30">30 mm</option>
-            </select>
-          </div>
-          <div class="form-group"><label class="form-label">Aplikace</label>
-            <select class="form-select" id="omitkyAplikace" onchange="vypoctiOmitky()">
-              <option value="rucni">Rucni</option>
-              <option value="strojni" selected>Strojni</option>
-            </select>
-          </div>
-          <div class="reserve-row"><span class="reserve-label">Rezerva:</span><select class="reserve-select" id="omitkyRezerva" onchange="vypoctiOmitky()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
+        <div class="form-group"><div class="form-label">Aplikace</div>
+          <select id="omitkyAplikace" onchange="vypoctiOmitky()">
+            <option value="rucni">Ruční</option>
+            <option value="strojni" selected>Strojní</option>
+          </select>
         </div>
-        <div id="omitkyResult"></div>
-        <div class="footer-note">Ceny dle Cemix ceniku 2025 | Bez prace</div>
+      </div>
+    </div>
+  </div>
+  <div id="omitkyResult"></div>
+  <div class="calc-footer">Ceny dle Cemix ceníku 2025 | Bez práce</div>
 </div>
 <div class="calc-page" id="calc-demolice" style="display:none">
-        <div class="summary-grid">
-          <div class="summary-box"><div class="summary-box-label">Kontejnery</div><div class="summary-box-value" id="demSumKontejnery">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Doprava</div><div class="summary-box-value" id="demSumDoprava">0 Kc</div></div>
-          <div class="summary-box"><div class="summary-box-label">Celkem</div><div class="summary-box-value" id="demSumCelkem">0 Kc</div></div>
+<div id="demolicePage">
+  <div class="calc-title">Kalkulačka</div>
+  <div class="summary-row">
+    <div class="summary-box glass"><div class="s-label">Kontejnery</div><div class="s-value" id="demSumKontejnery">0 Kč</div></div>
+    <div class="summary-box glass"><div class="s-label">Doprava</div><div class="s-value" id="demSumDoprava">0 Kč</div></div>
+    <div class="summary-box glass" style="background:linear-gradient(135deg,rgba(201,162,112,0.12),rgba(201,162,112,0.05))!important;border-color:rgba(201,162,112,0.2)!important"><div class="s-label">Celkem</div><div class="s-value" id="demSumCelkem">0 Kč</div></div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-item active" onclick="selectDemTab('kontejnery', this)">Kontejnery</button>
+    <button class="tab-item" onclick="selectDemTab('demolice', this)">Demolice</button>
+  </div>
+  <!-- KONTEJNERY -->
+  <div id="demKontejneryContent">
+    <div class="card-section glass-strong">
+      <div class="card-title">Objednání kontejneru</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Typ odpadu</div>
+          <select id="demTypOdpadu" onchange="vypoctiKontejnery()">
+            <option value="stavebni_sut">Stavební suť (cihly, beton, keramika)</option>
+            <option value="smesny">Směsný stavební odpad</option>
+            <option value="drevo">Dřevo</option>
+            <option value="zemina">Zemina a výkopky</option>
+            <option value="bioodpad">Bioodpad</option>
+          </select>
         </div>
-        <div class="tabs">
-          <button class="tab active" onclick="selectDemTab('kontejnery', this)">Kontejnery</button>
-          <button class="tab" onclick="selectDemTab('demolice', this)">Demolice</button>
+        <div class="form-group"><div class="form-label">Velikost kontejneru</div>
+          <select id="demVelikost" onchange="vypoctiKontejnery()">
+            <option value="3">3 m³</option>
+            <option value="6" selected>6 m³</option>
+            <option value="9">9 m³</option>
+            <option value="14">14 m³</option>
+          </select>
         </div>
-        <!-- KONTEJNERY -->
-        <div id="demKontejneryContent">
-          <div class="card">
-            <div class="card-title">Objednani kontejneru</div>
-            <div class="form-group"><label class="form-label">Typ odpadu</label>
-              <select class="form-select" id="demTypOdpadu" onchange="vypoctiKontejnery()">
-                <option value="stavebni_sut">Stavebni sut (cihly, beton, keramika)</option>
-                <option value="smesny">Smesny stavebni odpad</option>
-                <option value="drevo">Drevo</option>
-                <option value="zemina">Zemina a vykopky</option>
-                <option value="bioodpad">Bioodpad</option>
-              </select>
-            </div>
-            <div class="form-group"><label class="form-label">Velikost kontejneru</label>
-              <select class="form-select" id="demVelikost" onchange="vypoctiKontejnery()">
-                <option value="3">3 m3</option>
-                <option value="6" selected>6 m3</option>
-                <option value="9">9 m3</option>
-                <option value="14">14 m3</option>
-              </select>
-            </div>
-            <div class="form-group"><label class="form-label">Pocet kontejneru</label><input type="number" class="form-input" id="demPocet" value="1" min="1" oninput="vypoctiKontejnery()"></div>
-            <div class="form-group"><label class="form-label">Vzdalenost dopravy (km, 38 Kc/km)</label><input type="number" class="form-input" id="demVzdalenost" value="0" min="0" oninput="vypoctiKontejnery()"></div>
-            <div style="font-size:10px;color:#666;margin-top:8px">Ceny s DPH dle rbautodoprava.cz | Kontejnery 3-14 m3 | Doprava: Mercedes/MAN 12t 38 Kc/km</div>
-          </div>
+        <div class="form-group"><div class="form-label">Počet kontejnerů</div><input type="number" id="demPocet" value="1" min="1" oninput="vypoctiKontejnery()"></div>
+        <div class="form-group"><div class="form-label">Vzdálenost dopravy (km)</div><input type="number" id="demVzdalenost" value="0" min="0" oninput="vypoctiKontejnery()"></div>
+      </div>
+      <div class="form-hint" style="margin-top:8px">Ceny s DPH dle množstevních srážek | Kontejnery 3-14 m³ | Doprava: 38 Kč/km</div>
+    </div>
+  </div>
+  <!-- DEMOLICE -->
+  <div id="demDemoliceContent" style="display:none;">
+    <div class="card-section glass-strong">
+      <div class="card-title">Odhad odpadu z demolice</div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Plocha bouráných konstrukcí (m²)</div><input type="number" id="demPlocha" placeholder="0" oninput="vypoctiDemolice()"></div>
+      </div>
+      <div class="section-head" style="margin-top:12px">Typ demolice</div>
+      <div class="pill-group">
+        <button class="pill active" onclick="setDemTyp('zdi',this)">Zdi</button>
+        <button class="pill" onclick="setDemTyp('podlahy',this)">Podlahy</button>
+        <button class="pill" onclick="setDemTyp('stropy',this)">Stropy</button>
+        <button class="pill" onclick="setDemTyp('komplet',this)">Komplet</button>
+      </div>
+      <div class="section-head" style="margin-top:12px">Typ odpadu</div>
+      <div class="pill-group">
+        <button class="pill active" onclick="setDemOdpad('stavebni_sut',this)">Stavební suť</button>
+        <button class="pill" onclick="setDemOdpad('smesny',this)">Směsný odpad</button>
+      </div>
+      <div class="section-head" style="margin-top:12px">Hmotnost odpadu</div>
+      <div class="pill-group">
+        <button class="pill" onclick="setDemHustota('lehky',this)">Lehký (SDK, dřevo)</button>
+        <button class="pill active" onclick="setDemHustota('tezky',this)">Těžký (cihla, beton)</button>
+      </div>
+      <div class="form-group" style="margin-top:12px"><div class="form-label">Preferovaná velikost kontejneru (m³)</div>
+        <select id="demDemVelikost" onchange="vypoctiDemolice()">
+          <option value="3">3 m³</option>
+          <option value="6" selected>6 m³</option>
+          <option value="9">9 m³</option>
+          <option value="14">14 m³</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="card-section glass-strong">
+    <div class="card-title">Cena práce (volitelné)</div>
+    <div class="pill-group" style="align-self:flex-start">
+      <button class="pill active" onclick="setDemPrace(0,this)">Bez práce</button>
+      <button class="pill" onclick="setDemPrace(1,this)">S prací</button>
+    </div>
+    <div id="demPraceDetail" style="display:none;margin-top:12px">
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Typ práce</div>
+          <select id="demTypPrace" onchange="vypoctiKontejnery();vypoctiDemolice()">
+            <option value="bouraci_rucni">Bourací práce ručně (350 Kč/m²)</option>
+            <option value="bouraci_stroj">Bourací práce strojně (250 Kč/m²)</option>
+            <option value="odstraneni_podlah">Odstranění podlah (200 Kč/m²)</option>
+            <option value="odstraneni_obkladu">Odstranění obkladů/omítky (180 Kč/m²)</option>
+            <option value="komplet_demolice">Kompletní demolice (500 Kč/m²)</option>
+          </select>
         </div>
-        <!-- DEMOLICE -->
-        <div id="demDemoliceContent" style="display:none;">
-          <div class="card">
-            <div class="card-title">Odhad odpadu z demolice</div>
-            <div class="form-group"><label class="form-label">Plocha bouranych konstrukci (m2)</label><input type="number" class="form-input large" id="demPlocha" placeholder="0" oninput="vypoctiDemolice()"></div>
-            <div class="section-title">Typ demolice</div>
-            <div class="toggle-btns">
-              <button class="toggle-btn active" onclick="setDemTyp('zdi',this)">Zdi</button>
-              <button class="toggle-btn" onclick="setDemTyp('podlahy',this)">Podlahy</button>
-              <button class="toggle-btn" onclick="setDemTyp('stropy',this)">Stropy</button>
-              <button class="toggle-btn" onclick="setDemTyp('komplet',this)">Komplet</button>
-            </div>
-            <div class="section-title" style="margin-top:12px">Typ odpadu</div>
-            <div class="toggle-btns">
-              <button class="toggle-btn active" onclick="setDemOdpad('stavebni_sut',this)">Stavebni sut</button>
-              <button class="toggle-btn" onclick="setDemOdpad('smesny',this)">Smesny odpad</button>
-            </div>
-            <div class="section-title" style="margin-top:12px">Hmotnost odpadu</div>
-            <div class="toggle-btns">
-              <button class="toggle-btn" onclick="setDemHustota('lehky',this)">Lehky (SDK, drevo)</button>
-              <button class="toggle-btn active" onclick="setDemHustota('tezky',this)">Tezky (cihla, beton)</button>
-            </div>
-            <div class="form-group" style="margin-top:12px"><label class="form-label">Preferovana velikost kontejneru (m3)</label>
-              <select class="form-select" id="demDemVelikost" onchange="vypoctiDemolice()">
-                <option value="3">3 m3</option>
-                <option value="6" selected>6 m3</option>
-                <option value="9">9 m3</option>
-                <option value="14">14 m3</option>
-              </select>
-            </div>
-          </div>
+        <div class="form-group"><div class="form-label">Plocha práce (m²)</div>
+          <input type="number" id="demPlochaPrace" placeholder="0" min="0" oninput="vypoctiKontejnery();vypoctiDemolice()">
         </div>
-        <div class="card" style="margin-top:12px">
-          <div class="card-title">Cena prace (volitelne)</div>
-          <div class="toggle-btns">
-            <button class="toggle-btn active" onclick="setDemPrace(0,this)">Bez prace</button>
-            <button class="toggle-btn" onclick="setDemPrace(1,this)">S praci</button>
-          </div>
-          <div id="demPraceDetail" style="display:none;margin-top:12px">
-            <div class="form-group"><label class="form-label">Typ prace</label>
-              <select class="form-select" id="demTypPrace" onchange="vypoctiKontejnery();vypoctiDemolice()">
-                <option value="bouraci_rucni">Bouraci prace rucne (350 Kc/m2)</option>
-                <option value="bouraci_stroj">Bouraci prace strojne (250 Kc/m2)</option>
-                <option value="odstraneni_podlah">Odstraneni podlah (200 Kc/m2)</option>
-                <option value="odstraneni_obkladu">Odstraneni obkladu/omitky (180 Kc/m2)</option>
-                <option value="komplet_demolice">Kompletni demolice (500 Kc/m2)</option>
-              </select>
-            </div>
-            <div class="form-group"><label class="form-label">Plocha prace (m2)</label>
-              <input type="number" class="form-input" id="demPlochaPrace" placeholder="0" min="0" oninput="vypoctiKontejnery();vypoctiDemolice()">
-            </div>
-          </div>
-        </div>
-        <div id="demResult"></div>
-        <button class="print-btn" onclick="printKalkulacka('Kalkulacka demolici a odvozu')"><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Tisknout / PDF</button>
-        <div class="footer-note">Ceny dle beznych cen kontejnerovych sluzeb CZ 2025 | Metrak.cz, Conta.cz</div>
+      </div>
+    </div>
+  </div>
+  <div id="demResult"></div>
+  <div class="calc-footer">Ceny dle běžných cen kontejnerových služeb CZ 2025 | Metrák.cz, Conta.cz</div>
+</div><!-- /demolicePage -->
 </div>
 </div>
 </section>

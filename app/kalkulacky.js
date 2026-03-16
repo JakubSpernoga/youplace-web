@@ -95,7 +95,7 @@ function formatCena(c) { return c.toLocaleString('cs-CZ') + ' Kc'; }
 function infoTooltip(text) { return '<span class="info-tooltip" tabindex="0">i<span class="info-tooltip-content">' + text + '</span></span>'; }
 
 // === NAVIGACE ===
-function selectBarvyTab(tab, el) { el.closest('.calc-tabs').querySelectorAll('.calc-tab').forEach(function(t){t.classList.remove('active');}); el.classList.add('active'); document.getElementById('kovContent').style.display = tab === 'kov' ? 'block' : 'none'; document.getElementById('stenyContent').style.display = tab === 'steny' ? 'block' : 'none'; document.getElementById('drevoContent').style.display = tab === 'drevo' ? 'block' : 'none'; }
+function selectBarvyTab(tab, el) { el.closest('.tab-bar').querySelectorAll('.tab-item').forEach(function(t){t.classList.remove('active');}); el.classList.add('active'); document.getElementById('kovContent').style.display = tab === 'kov' ? 'block' : 'none'; document.getElementById('stenyContent').style.display = tab === 'steny' ? 'block' : 'none'; document.getElementById('drevoContent').style.display = tab === 'drevo' ? 'block' : 'none'; }
 
 // === KOV ===
 let kovRezim = 'system', kovSystem = 'exterier', kovTyp = 'rozpoustedlo';
@@ -108,15 +108,15 @@ function setKovTyp(typ, el) {
   renderKovVlastni();
   vypoctiKov();
 }
-function setKovRezim(rezim, el) { kovRezim = rezim; el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); document.getElementById('kovSystemy').style.display = rezim === 'system' ? 'block' : 'none'; document.getElementById('kovVlastni').style.display = rezim === 'vlastni' ? 'block' : 'none'; vypoctiKov(); }
+function setKovRezim(rezim, el) { kovRezim = rezim; el.parentElement.querySelectorAll('.pill').forEach(b => b.classList.remove('active')); el.classList.add('active'); document.getElementById('kovSystemy').style.display = rezim === 'system' ? 'block' : 'none'; document.getElementById('kovVlastni').style.display = rezim === 'vlastni' ? 'block' : 'none'; vypoctiKov(); }
 var kovAbbrs = {interier:'INT',exterier:'EXT',rychly:'RYC',prumysl:'PRU',voda_interier:'INT',voda_exterier:'EXT',voda_zaklad:'ZAK',voda_rychly:'RYC'};
 var kovDescs = {interier:'Vnitni prostory, obytne mistnosti',exterier:'Venkovni fasady, ploty, brany',rychly:'Jednovrstvovy system',prumysl:'Tezke korozni podminky',voda_interier:'Radiatory bez zapachu',voda_exterier:'Okapy, strechy, parapety',voda_zaklad:'Vyssi ochrana se zakladem',voda_rychly:'Rychle strikani'};
 function renderKovSystemy() {
   const systemy = kovTyp === 'voda' ? vitonProdukty.vodaSystemy : vitonProdukty.systemy;
-  document.getElementById('kovSystemyList').innerHTML = systemy.map(s => '<div class="v2-system-card ' + (kovSystem === s.id ? 'active' : '') + '" onclick="selectKovSystem(\'' + s.id + '\')"><div class="v2-abbr">' + (kovAbbrs[s.id]||s.id.substring(0,3).toUpperCase()) + '</div>' + (s.je2K ? ' <span class="badge" style="font-size:9px;vertical-align:middle;">2K</span>' : '') + '<div class="v2-sys-name">' + s.nazev.split('(')[0].trim() + '</div><div class="v2-sys-desc">' + (kovDescs[s.id]||s.popis||'') + '</div></div>').join('');
+  document.getElementById('kovSystemyList').innerHTML = systemy.map(s => '<div class="sys-card glass ' + (kovSystem === s.id ? 'active' : '') + '" onclick="selectKovSystem(\'' + s.id + '\')"><div class="sys-icon">' + (kovAbbrs[s.id]||s.id.substring(0,3).toUpperCase()) + '</div>' + (s.je2K ? ' <span class="o-badge">2K</span>' : '') + '<div class="sys-name">' + s.nazev.split('(')[0].trim() + '</div><div class="sys-desc">' + (kovDescs[s.id]||s.popis||'') + '</div></div>').join('');
 }
 function selectKovSystem(id) { kovSystem = id; renderKovSystemy(); vypoctiKov(); }
-function setKovRezerva(val, el) { document.getElementById('kovRezerva').value = val; el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); vypoctiKov(); }
+function setKovRezerva(val, el) { document.getElementById('kovRezerva').value = val; el.parentElement.querySelectorAll('.pill').forEach(b => b.classList.remove('active')); el.classList.add('active'); vypoctiKov(); }
 function renderKovVlastni() {
   if (kovTyp === 'voda') {
     document.getElementById('kovZaklad').innerHTML = '<option value="zadny">Bez zakladu (pouzit 3v1)</option>' + vitonProdukty.vodaBarvy.filter(b => b.je2v1).map(z => '<option value="' + z.id + '">' + z.nazev + '</option>').join('');
@@ -189,7 +189,7 @@ function vypoctiKov() {
   let produktyHtml = polozky.map((p,i) => {
     const typ = i===0 && polozky.length>1 ? 'zaklad' : 'vrchni';
     const badge = badgeTypes[typ]||'';
-    return '<div class="v2-product-row"><div class="v2-product-badge" style="background:' + (badgeColors[typ]||'rgba(255,255,255,0.08)') + ';color:' + (badgeTextColors[typ]||'#888') + ';">' + badge + '</div><div class="v2-product-info"><div class="v2-product-name">' + p.nazev + '</div><div class="v2-product-detail">' + (i===0&&polozky.length>1?'Zakladni nater':'Vrchni nater') + ' &bull; Baleni ' + p.baleni + '</div></div><div class="v2-product-amount">' + (polozky.length>1&&i===0?'1x':''+Math.max(1,parseInt(p.baleni))+'x') + ' baleni</div><div class="v2-product-price">' + formatCena(p.cenaSpotrebaKc) + '</div></div>';
+    return '<div class="product-row"><div class="product-badge">' + badge + '</div><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + (i===0&&polozky.length>1?'Zakladni nater':'Vrchni nater') + ' &bull; Baleni ' + p.baleni + '</div></div><div class="product-qty">' + (polozky.length>1&&i===0?'1x':''+Math.max(1,parseInt(p.baleni))+'x') + ' baleni</div><div class="product-price">' + formatCena(p.cenaSpotrebaKc) + '</div></div>';
   }).join('');
   // Build postup table
   let postupHtml = '';
@@ -199,29 +199,29 @@ function vypoctiKov() {
     const vrchniName = vrchni ? vrchni.nazev.split(' ')[0]+' '+vrchni.nazev.split(' ')[1] : '';
     const pocetVrchnich = zaklad ? vrstvy-1 : vrstvy;
     for(let i=1;i<=pocetVrchnich;i++) steps.push({krok:i+'. vrstva vrchniho',produkt:vrchniName,aplikace:'stetec / valecek',redeni:'S 6005 / '+(i===pocetVrchnich?'5':'10')+'%',schnuti:(i===pocetVrchnich?'24':'8')+' hod'});
-    postupHtml = '<table class="v2-postup-table"><tr><th>KROK</th><th>PRODUKT</th><th>APLIKACE</th><th>REDENI</th><th>SCHNUTI</th></tr>' + steps.map((st,i) => '<tr><td><span class="v2-step-badge">' + (i+1) + '</span></td><td>' + st.krok + '</td><td>' + st.aplikace + '</td><td>' + st.redeni + '</td><td>' + st.schnuti + '</td></tr>').join('') + '</table>';
+    postupHtml = '<table class="postup-table"><tr><th>KROK</th><th>PRODUKT</th><th>APLIKACE</th><th>REDENI</th><th>SCHNUTI</th></tr>' + steps.map((st,i) => '<tr><td><span class="step-badge">' + (i+1) + '</span></td><td>' + st.krok + '</td><td>' + st.aplikace + '</td><td>' + st.redeni + '</td><td>' + st.schnuti + '</td></tr>').join('') + '</table>';
   }
-  document.getElementById('kovResult').innerHTML = '<div class="v2-result-grid"><div class="v2-result-section"><div class="v2-result-title">PRODUKTY</div>' + produktyHtml + '</div><div class="v2-result-section"><div class="v2-result-title">POSTUP APLIKACE</div>' + postupHtml + '</div></div><div class="v2-total-banner"><div><div class="v2-total-label">Celkova cena s ' + rezerva + '% rezervou</div><div class="v2-total-sub">Nakup: ' + formatCena(celkem) + ' (min. baleni)</div></div><div class="v2-total-value">' + formatCena(celkemSpotrebaKc) + '</div></div>';
+  document.getElementById('kovResult').innerHTML = '<div class="results-area"><div class="glass" style="padding:16px;border-radius:14px;"><div class="section-head">PRODUKTY</div>' + produktyHtml + '</div><div class="glass" style="padding:16px;border-radius:14px;"><div class="section-head">POSTUP APLIKACE</div>' + postupHtml + '</div></div><div class="total-banner"><div><div class="total-label">Celkova cena s ' + rezerva + '% rezervou</div><div style="font-size:11px;color:rgba(255,255,255,0.5);">Nakup: ' + formatCena(celkem) + ' (min. baleni)</div></div><div class="total-amount">' + formatCena(celkemSpotrebaKc) + '</div></div>';
 }
 
 // === STĚNY ===
 let stenyPodklad = 'novy', stenyBarva = 'classic';
-function renderStenyPodklady() { document.getElementById('stenyPodkladyList').innerHTML = jupolProdukty.podklady.map(p => '<div class="podklad-item ' + (stenyPodklad === p.id ? 'active' : '') + '" onclick="selectStenyPodklad(\'' + p.id + '\')"><div class="podklad-item-name">' + p.nazev + '</div>' + (p.penetrace ? '<div class="podklad-item-note">+ penetrace</div>' : '') + '</div>').join(''); renderStenyPodkladDetail(); }
+function renderStenyPodklady() { document.getElementById('stenyPodkladyList').innerHTML = jupolProdukty.podklady.map(p => '<div class="option-card glass ' + (stenyPodklad === p.id ? 'active' : '') + '" onclick="selectStenyPodklad(\'' + p.id + '\')"><div class="o-name">' + p.nazev + '</div>' + (p.penetrace ? '<div class="o-desc">+ penetrace</div>' : '') + '</div>').join(''); renderStenyPodkladDetail(); }
 function selectStenyPodklad(id) { stenyPodklad = id; renderStenyPodklady(); renderStenyPenetrace(); vypoctiSteny(); }
-function renderStenyPodkladDetail() { const p = jupolProdukty.podklady.find(x => x.id === stenyPodklad); if (!p) return; document.getElementById('stenyPodkladDetail').innerHTML = '<div class="detail-panel" style="margin-top:12px;"><div class="detail-row"><span class="detail-label">Příprava</span><span class="detail-value">' + p.priprava + '</span></div><div class="detail-row"><span class="detail-label">Broušení</span><span class="detail-value">' + p.brouseni + '</span></div></div>'; }
-function renderStenyBarvy() { document.getElementById('stenyBarvyList').innerHTML = jupolProdukty.barvy.map(b => '<div class="option ' + (stenyBarva === b.id ? 'active' : '') + '" onclick="selectStenyBarva(\'' + b.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + b.nazev + ' (' + b.vrstvy + 'v)' + infoTooltip(b.popis) + '</div><div class="option-desc">Schnutí: ' + b.schnutiDotyk + ' dotyk | ' + b.schnutiDalsiVrstva + ' další vrstva</div></div><div class="option-meta"><span class="option-vrstvy">od ' + Math.min(...Object.values(b.cena)) + ' Kč</span></div></div>').join(''); }
+function renderStenyPodkladDetail() { const p = jupolProdukty.podklady.find(x => x.id === stenyPodklad); if (!p) return; document.getElementById('stenyPodkladDetail').innerHTML = '<div class="card-section glass" style="margin-top:12px;"><div class="detail-row"><span class="d-label">Příprava</span><span class="d-value">' + p.priprava + '</span></div><div class="detail-row"><span class="d-label">Broušení</span><span class="d-value">' + p.brouseni + '</span></div></div>'; }
+function renderStenyBarvy() { document.getElementById('stenyBarvyList').innerHTML = jupolProdukty.barvy.map(b => '<div class="option-card glass ' + (stenyBarva === b.id ? 'active' : '') + '" onclick="selectStenyBarva(\'' + b.id + '\')"><div class="o-name">' + b.nazev + ' (' + b.vrstvy + 'v)' + infoTooltip(b.popis) + '</div><div class="o-desc">Schnutí: ' + b.schnutiDotyk + ' dotyk | ' + b.schnutiDalsiVrstva + ' další vrstva</div><div class="o-price">od ' + Math.min(...Object.values(b.cena)) + ' Kč</div></div>').join(''); }
 function selectStenyBarva(id) { stenyBarva = id; renderStenyBarvy(); vypoctiSteny(); }
 function renderStenyPenetrace() { const podklad = jupolProdukty.podklady.find(p => p.id === stenyPodklad); const section = document.getElementById('stenyPenetraceSection'); if (podklad && podklad.penetrace) { section.style.display = 'block'; document.getElementById('stenyPenetrace').innerHTML = jupolProdukty.penetrace.map(p => '<option value="' + p.id + '">' + p.nazev + ' (schnutí ' + p.schnuti + ')</option>').join(''); } else { section.style.display = 'none'; } }
-function vypoctiSteny() { const plocha = parseFloat(document.getElementById('stenyPlocha').value) || 0; const rezerva = parseInt(document.getElementById('stenyRezerva').value) || 10; if (plocha <= 0) { document.getElementById('stenyResult').innerHTML = ''; return; } const plochaR = plocha * (1 + rezerva / 100); const barva = jupolProdukty.barvy.find(b => b.id === stenyBarva); const podklad = jupolProdukty.podklady.find(p => p.id === stenyPodklad); const penetraceId = document.getElementById('stenyPenetrace').value; const penetrace = jupolProdukty.penetrace.find(p => p.id === penetraceId); const polozky = []; let celkem = 0; if (podklad.penetrace && penetrace) { const potreba = plochaR / penetrace.vydatnost; const bal = najdiBaleni(potreba, penetrace.cena); polozky.push({ ...penetrace, potreba: potreba.toFixed(2), baleni: bal.baleni.join('+') + 'l', cenaBaleni: bal.cena }); celkem += bal.cena; } if (barva) { const potreba = plochaR * barva.vrstvy * podklad.spotreba * 0.1; const bal = najdiBaleni(potreba, barva.cena); polozky.push({ ...barva, potreba: potreba.toFixed(2), baleni: bal.baleni.join('+') + 'l', cenaBaleni: bal.cena }); celkem += bal.cena; } document.getElementById('stenyResult').innerHTML = '<div class="result"><div class="card-title">Kalkulace</div>' + polozky.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + infoTooltip(p.popis) + '</div><div class="result-item-detail">' + p.potreba + 'l = ' + p.baleni + (p.vrstvy ? ' (' + p.vrstvy + 'v)' : '') + '</div></div><div class="result-item-price">' + formatCena(p.cenaBaleni) + '</div></div>').join('') + '<div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(celkem) + '</span></div><div class="result-per-m2">' + Math.round(celkem / plocha) + ' Kč/m²</div></div>'; }
+function vypoctiSteny() { const plocha = parseFloat(document.getElementById('stenyPlocha').value) || 0; const rezerva = parseInt(document.getElementById('stenyRezerva').value) || 10; if (plocha <= 0) { document.getElementById('stenyResult').innerHTML = ''; return; } const plochaR = plocha * (1 + rezerva / 100); const barva = jupolProdukty.barvy.find(b => b.id === stenyBarva); const podklad = jupolProdukty.podklady.find(p => p.id === stenyPodklad); const penetraceId = document.getElementById('stenyPenetrace').value; const penetrace = jupolProdukty.penetrace.find(p => p.id === penetraceId); const polozky = []; let celkem = 0; if (podklad.penetrace && penetrace) { const potreba = plochaR / penetrace.vydatnost; const bal = najdiBaleni(potreba, penetrace.cena); polozky.push({ ...penetrace, potreba: potreba.toFixed(2), baleni: bal.baleni.join('+') + 'l', cenaBaleni: bal.cena }); celkem += bal.cena; } if (barva) { const potreba = plochaR * barva.vrstvy * podklad.spotreba * 0.1; const bal = najdiBaleni(potreba, barva.cena); polozky.push({ ...barva, potreba: potreba.toFixed(2), baleni: bal.baleni.join('+') + 'l', cenaBaleni: bal.cena }); celkem += bal.cena; } document.getElementById('stenyResult').innerHTML = '<div class="glass" style="padding:16px;border-radius:14px;"><div class="card-title">Kalkulace</div>' + polozky.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + infoTooltip(p.popis) + '</div><div class="product-detail">' + p.potreba + 'l = ' + p.baleni + (p.vrstvy ? ' (' + p.vrstvy + 'v)' : '') + '</div></div><div class="product-price">' + formatCena(p.cenaBaleni) + '</div></div>').join('') + '<div class="total-banner"><span class="total-label">CELKEM</span><span class="total-amount">' + formatCena(celkem) + '</span></div><div class="result-per-m2">' + Math.round(celkem / plocha) + ' Kč/m²</div></div>'; }
 
 // === DŘEVO ===
 let drevoRezim = 'system', drevoSystem = 'exterier';
-function setDrevoRezim(rezim, el) { drevoRezim = rezim; el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); document.getElementById('drevoSystemy').style.display = rezim === 'system' ? 'block' : 'none'; document.getElementById('drevoVlastni').style.display = rezim === 'vlastni' ? 'block' : 'none'; vypoctiDrevo(); }
-function renderDrevoSystemy() { document.getElementById('drevoSystemyList').innerHTML = iclaProdukty.systemy.map(s => '<div class="option ' + (drevoSystem === s.id ? 'active' : '') + '" onclick="selectDrevoSystem(\'' + s.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + s.nazev + infoTooltip(s.popis) + '</div></div><div class="option-meta">' + (s.je2K ? '<span class="badge">2K</span>' : '') + '<span class="option-vrstvy">' + s.vrstvy + 'v</span></div></div>').join(''); renderDrevoSystemDetail(); }
+function setDrevoRezim(rezim, el) { drevoRezim = rezim; el.parentElement.querySelectorAll('.pill').forEach(b => b.classList.remove('active')); el.classList.add('active'); document.getElementById('drevoSystemy').style.display = rezim === 'system' ? 'block' : 'none'; document.getElementById('drevoVlastni').style.display = rezim === 'vlastni' ? 'block' : 'none'; vypoctiDrevo(); }
+function renderDrevoSystemy() { document.getElementById('drevoSystemyList').innerHTML = iclaProdukty.systemy.map(s => '<div class="option-card glass ' + (drevoSystem === s.id ? 'active' : '') + '" onclick="selectDrevoSystem(\'' + s.id + '\')"><div class="o-name">' + s.nazev + infoTooltip(s.popis) + '</div><div class="o-price">' + (s.je2K ? '<span class="o-badge">2K</span> ' : '') + s.vrstvy + 'v</div></div>').join(''); renderDrevoSystemDetail(); }
 function selectDrevoSystem(id) { drevoSystem = id; renderDrevoSystemy(); vypoctiDrevo(); }
-function renderDrevoSystemDetail() { const s = iclaProdukty.systemy.find(x => x.id === drevoSystem); if (!s) return; document.getElementById('drevoSystemDetail').innerHTML = '<div class="detail-panel"><div class="detail-panel-title">Postup aplikace</div><div class="detail-row"><span class="detail-label">Příprava</span><span class="detail-value">' + s.priprava + '</span></div><div class="detail-row"><span class="detail-label">Broušení</span><span class="detail-value">' + s.brouseni + '</span></div><div class="detail-row"><span class="detail-label">Postup (' + s.vrstvy + ' vrstvy)</span><span class="detail-value">' + s.postup + '</span></div><div class="detail-row"><span class="detail-label">Mezi vrstvami</span><span class="detail-value">' + s.schnutiMeziVrstvami + '</span></div><div class="detail-row"><span class="detail-label">Konečné schnutí</span><span class="detail-value">' + s.schnutiKonecne + '</span></div>' + (s.je2K ? '<div class="detail-warning">2K systém - nutné tužidlo, dodržet poměr míchání a dobu zpracování!</div>' : '') + '</div>'; }
+function renderDrevoSystemDetail() { const s = iclaProdukty.systemy.find(x => x.id === drevoSystem); if (!s) return; document.getElementById('drevoSystemDetail').innerHTML = '<div class="card-section glass"><div class="card-title">Postup aplikace</div><div class="detail-row"><span class="d-label">Příprava</span><span class="d-value">' + s.priprava + '</span></div><div class="detail-row"><span class="d-label">Broušení</span><span class="d-value">' + s.brouseni + '</span></div><div class="detail-row"><span class="d-label">Postup (' + s.vrstvy + ' vrstvy)</span><span class="d-value">' + s.postup + '</span></div><div class="detail-row"><span class="d-label">Mezi vrstvami</span><span class="d-value">' + s.schnutiMeziVrstvami + '</span></div><div class="detail-row"><span class="d-label">Konečné schnutí</span><span class="d-value">' + s.schnutiKonecne + '</span></div>' + (s.je2K ? '<div class="form-hint">2K systém - nutné tužidlo, dodržet poměr míchání a dobu zpracování!</div>' : '') + '</div>'; }
 function renderDrevoVlastni() { const vse = [...iclaProdukty.lazury, ...iclaProdukty.laky, ...iclaProdukty.emaily]; document.getElementById('drevoProdukt').innerHTML = '<optgroup label="Lazury">' + iclaProdukty.lazury.map(p => '<option value="' + p.id + '">' + p.nazev + '</option>').join('') + '</optgroup><optgroup label="Laky (2K)">' + iclaProdukty.laky.map(p => '<option value="' + p.id + '">' + p.nazev + '</option>').join('') + '</optgroup><optgroup label="Emaily (2K)">' + iclaProdukty.emaily.map(p => '<option value="' + p.id + '">' + p.nazev + '</option>').join('') + '</optgroup>'; }
-function vypoctiDrevo() { const plocha = parseFloat(document.getElementById('drevoPlocha').value) || 0; const rezerva = parseInt(document.getElementById('drevoRezerva').value) || 15; if (plocha <= 0) { document.getElementById('drevoResult').innerHTML = ''; return; } const plochaR = plocha * (1 + rezerva / 100); let produkt = null, vrstvy = 2; const vseProdukty = [...iclaProdukty.lazury, ...iclaProdukty.laky, ...iclaProdukty.emaily]; if (drevoRezim === 'system') { const sys = iclaProdukty.systemy.find(s => s.id === drevoSystem); produkt = vseProdukty.find(p => p.id === sys.produkt); vrstvy = sys.vrstvy; } else { const produktId = document.getElementById('drevoProdukt').value; produkt = vseProdukty.find(p => p.id === produktId); vrstvy = produkt?.vrstvy || 2; } if (!produkt) return; const potreba = (plochaR * vrstvy) / produkt.vydatnost; const bal = najdiBaleni(potreba, produkt.cena); document.getElementById('drevoResult').innerHTML = '<div class="result"><div class="card-title">Kalkulace</div><div class="result-item"><div class="result-item-info"><div class="result-item-name">' + produkt.nazev + infoTooltip(produkt.popis) + '</div><div class="result-item-detail">' + potreba.toFixed(2) + 'l (' + vrstvy + 'v) = ' + bal.baleni.join('+') + 'l</div><div class="result-item-schnuti">Schnutí: ' + produkt.schnutiDotyk + ' dotyk | ' + produkt.schnutiDalsiVrstva + ' další vrstva</div><div class="result-item-badges">' + (produkt.je2K ? '<span class="badge badge-yellow">2K + ' + produkt.tuzidlo + '</span>' : '') + '</div></div><div class="result-item-price">' + formatCena(bal.cena) + '</div></div><div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(bal.cena) + '</span></div><div class="result-per-m2">' + Math.round(bal.cena / plocha) + ' Kč/m²</div></div>'; }
+function vypoctiDrevo() { const plocha = parseFloat(document.getElementById('drevoPlocha').value) || 0; const rezerva = parseInt(document.getElementById('drevoRezerva').value) || 15; if (plocha <= 0) { document.getElementById('drevoResult').innerHTML = ''; return; } const plochaR = plocha * (1 + rezerva / 100); let produkt = null, vrstvy = 2; const vseProdukty = [...iclaProdukty.lazury, ...iclaProdukty.laky, ...iclaProdukty.emaily]; if (drevoRezim === 'system') { const sys = iclaProdukty.systemy.find(s => s.id === drevoSystem); produkt = vseProdukty.find(p => p.id === sys.produkt); vrstvy = sys.vrstvy; } else { const produktId = document.getElementById('drevoProdukt').value; produkt = vseProdukty.find(p => p.id === produktId); vrstvy = produkt?.vrstvy || 2; } if (!produkt) return; const potreba = (plochaR * vrstvy) / produkt.vydatnost; const bal = najdiBaleni(potreba, produkt.cena); document.getElementById('drevoResult').innerHTML = '<div class="glass" style="padding:16px;border-radius:14px;"><div class="card-title">Kalkulace</div><div class="product-row"><div class="product-info"><div class="product-name">' + produkt.nazev + infoTooltip(produkt.popis) + '</div><div class="product-detail">' + potreba.toFixed(2) + 'l (' + vrstvy + 'v) = ' + bal.baleni.join('+') + 'l</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">Schnutí: ' + produkt.schnutiDotyk + ' dotyk | ' + produkt.schnutiDalsiVrstva + ' další vrstva</div><div style="margin-top:4px;">' + (produkt.je2K ? '<span class="o-badge">2K + ' + produkt.tuzidlo + '</span>' : '') + '</div></div><div class="product-price">' + formatCena(bal.cena) + '</div></div><div class="total-banner"><span class="total-label">CELKEM</span><span class="total-amount">' + formatCena(bal.cena) + '</span></div><div class="result-per-m2">' + Math.round(bal.cena / plocha) + ' Kč/m²</div></div>'; }
 
 // === INIT for native embedding ===
 var calcInitDone={};
@@ -565,37 +565,37 @@ function vypoctiZaklady() {
   document.getElementById('zakladySumCelkem').textContent = formatCena(celkem);
   
   // RENDER VÝSLEDKY
-  let html = '<div class="result"><div class="card-title">Rozpis materiálu</div>';
-  
+  let html = '<div class="glass" style="padding:16px;border-radius:14px;"><div class="card-title">Rozpis materiálu</div>';
+
   // Beton a materiál
   html += '<div style="font-size:10px;font-weight:600;color:#ea580c;text-transform:uppercase;margin:12px 0 6px;">Beton</div>';
   polozky.filter(p => p.kat === 'beton').forEach(p => {
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + (p.m3 || '-') + ' m³ × ' + p.cenaJed + ' Kč</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + (p.m3 || '-') + ' m³ × ' + p.cenaJed + ' Kč</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>';
   });
-  
+
   html += '<div style="font-size:10px;font-weight:600;color:#3b82f6;text-transform:uppercase;margin:12px 0 6px;">Výztuž</div>';
   polozky.filter(p => p.kat === 'vyztuz').forEach(p => {
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + (p.bm ? p.bm + ' bm' : p.ks + ' ks') + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + (p.bm ? p.bm + ' bm' : p.ks + ' ks') + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>';
   });
-  
+
   html += '<div style="font-size:10px;font-weight:600;color:#a855f7;text-transform:uppercase;margin:12px 0 6px;">Hydroizolace</div>';
   polozky.filter(p => p.kat === 'hydro').forEach(p => {
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + (p.role ? p.role + ' rolí (' + p.m2 + ' m²)' : p.l + ' l') + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + (p.role ? p.role + ' rolí (' + p.m2 + ' m²)' : p.l + ' l') + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>';
   });
-  
+
   html += '<div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;margin:12px 0 6px;">Materiál a služby</div>';
   polozky.filter(p => ['material', 'zemneni', 'prostupy', 'sluzby'].includes(p.kat)).forEach(p => {
     const mn = p.ks ? p.ks + ' ks' : p.bm ? p.bm + ' bm' : p.m2 ? p.m2 + ' m²' : p.m3 ? p.m3 + ' m³' : p.kg ? p.kg + ' kg' : p.hod ? p.hod + ' hod' : p.dny ? p.dny + ' dní' : '-';
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + mn + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + mn + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>';
   });
+
+  html += '<div class="total-banner"><span class="total-label">CELKEM</span><span class="total-amount">' + formatCena(celkem) + '</span></div>';
   
-  html += '<div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(celkem) + '</span></div>';
-  
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:12px;text-align:center;">';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Beton celkem</div><div style="font-size:14px;font-weight:600;color:#ea580c;">' + objemBetonuCelkem.toFixed(1) + ' m³</div></div>';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Plocha desky</div><div style="font-size:14px;font-weight:600;color:#3b82f6;">' + plochaDesky + ' m²</div></div>';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Cena/m² desky</div><div style="font-size:14px;font-weight:600;color:#a855f7;">' + Math.round(celkem / plochaDesky) + ' Kč</div></div>';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Cena/m³ betonu</div><div style="font-size:14px;font-weight:600;color:#22c55e;">' + Math.round(celkem / objemBetonuCelkem) + ' Kč</div></div>';
+  html += '<div class="summary-row">';
+  html += '<div class="summary-box glass"><div class="s-label">Beton celkem</div><div class="s-value" style="color:#ea580c;">' + objemBetonuCelkem.toFixed(1) + ' m³</div></div>';
+  html += '<div class="summary-box glass"><div class="s-label">Plocha desky</div><div class="s-value" style="color:#3b82f6;">' + plochaDesky + ' m²</div></div>';
+  html += '<div class="summary-box glass"><div class="s-label">Cena/m² desky</div><div class="s-value" style="color:#a855f7;">' + Math.round(celkem / plochaDesky) + ' Kč</div></div>';
+  html += '<div class="summary-box glass"><div class="s-label">Cena/m³ betonu</div><div class="s-value" style="color:#22c55e;">' + Math.round(celkem / objemBetonuCelkem) + ' Kč</div></div>';
   html += '</div>';
   
   html += '</div>';
@@ -804,7 +804,7 @@ function elektroUpdateMistnostNazev(id, nazev) {
 function renderElektroMistnosti() {
   document.getElementById('elektroMistnostiList').innerHTML = elektroMistnosti.map(m => {
     const inp = (label, field, max) => '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:10px;color:rgba(255,255,255,0.35);">' + label + '</span><input type="number" min="0" max="' + (max||20) + '" value="' + m[field] + '" onchange="elektroUpdateMistnost(\'' + m.id + '\',\'' + field + '\',this.value)" style="width:36px;padding:2px;font-size:11px;text-align:center;border:1px solid rgba(255,255,255,0.08);border-radius:4px;"></div>';
-    return '<div class="card" style="border-left:4px solid ' + (m.vlhka ? '#3b82f6' : '#eab308') + ';"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><input type="text" value="' + m.nazev + '" onchange="elektroUpdateMistnostNazev(\'' + m.id + '\',this.value)" style="font-weight:500;font-size:13px;border:none;background:transparent;width:120px;"><button onclick="elektroOdebratMistnost(\'' + m.id + '\')" style="font-size:18px;color:rgba(255,255,255,0.4);background:none;border:none;cursor:pointer;">×</button></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:10px;">' + inp('Zásuvky', 'zasuvky') + inp('Dvojité', 'zasuvkyDv', 10) + inp('Světla', 'svetla') + inp('Vypínače', 'vypinace', 10) + inp('Střídavé', 'stridave', 10) + inp('Sériové', 'seriove', 10) + inp('Klima', 'klima', 3) + inp('Termostat', 'termostat', 3) + inp('TV', 'tv', 5) + inp('LAN', 'lan', 10) + '<div style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:10px;color:rgba(255,255,255,0.35);">Délka kabelu</span><div style="display:flex;align-items:center;gap:4px;"><input type="number" min="5" max="100" value="' + m.delka + '" onchange="elektroUpdateMistnost(\'' + m.id + '\',\'delka\',this.value)" style="width:40px;padding:2px;font-size:11px;text-align:center;border:1px solid rgba(255,255,255,0.08);border-radius:4px;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">m</span></div></div></div></div>';
+    return '<div class="room-card glass" style="border-left:4px solid ' + (m.vlhka ? '#3b82f6' : '#eab308') + ';"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><input type="text" value="' + m.nazev + '" onchange="elektroUpdateMistnostNazev(\'' + m.id + '\',this.value)" class="r-name"><button onclick="elektroOdebratMistnost(\'' + m.id + '\')" style="font-size:18px;color:rgba(255,255,255,0.4);background:none;border:none;cursor:pointer;">×</button></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:10px;">' + inp('Zásuvky', 'zasuvky') + inp('Dvojité', 'zasuvkyDv', 10) + inp('Světla', 'svetla') + inp('Vypínače', 'vypinace', 10) + inp('Střídavé', 'stridave', 10) + inp('Sériové', 'seriove', 10) + inp('Klima', 'klima', 3) + inp('Termostat', 'termostat', 3) + inp('TV', 'tv', 5) + inp('LAN', 'lan', 10) + '<div style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:10px;color:rgba(255,255,255,0.35);">Délka kabelu</span><div style="display:flex;align-items:center;gap:4px;"><input type="number" min="5" max="100" value="' + m.delka + '" onchange="elektroUpdateMistnost(\'' + m.id + '\',\'delka\',this.value)" style="width:40px;padding:2px;font-size:11px;text-align:center;border:1px solid rgba(255,255,255,0.08);border-radius:4px;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">m</span></div></div></div></div>';
   }).join('');
 }
 
@@ -973,15 +973,15 @@ function vypoctiElektro() {
   const celkemOkruhu = svetleOkrCelkem + zasOkrCelkem + aktivniSpec.length;
   
   // RENDER
-  let html = '<div class="result">';
+  let html = '<div class="glass" style="padding:16px;border-radius:14px;">';
   html += '<div class="card-title">Kalkulace elektroinstalace</div>';
-  
+
   // Souhrn
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">';
-  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + elektroMistnosti.length + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">místností</div></div>';
-  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + celkemOkruhu + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">okruhů</div></div>';
-  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + celkemZasuvekBody + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">zásuvek</div></div>';
-  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + sumSvetel + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">světel</div></div>';
+  html += '<div class="summary-row">';
+  html += '<div class="summary-box glass"><div class="s-value">' + elektroMistnosti.length + '</div><div class="s-label">místností</div></div>';
+  html += '<div class="summary-box glass"><div class="s-value">' + celkemOkruhu + '</div><div class="s-label">okruhů</div></div>';
+  html += '<div class="summary-box glass"><div class="s-value">' + celkemZasuvekBody + '</div><div class="s-label">zásuvek</div></div>';
+  html += '<div class="summary-box glass"><div class="s-value">' + sumSvetel + '</div><div class="s-label">světel</div></div>';
   html += '</div>';
   
   // Rozvaděč info
@@ -994,8 +994,8 @@ function vypoctiElektro() {
   html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;margin-bottom:12px;display:flex;justify-content:space-between;font-size:12px;"><span style="color:rgba(255,255,255,0.4);">Inst. výkon</span><span style="font-weight:500;">' + (celkemVykon/1000).toFixed(1) + ' kW</span></div>';
   
   // Celkem
-  html += '<div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(celkem) + '</span></div>';
-  
+  html += '<div class="total-banner"><span class="total-label">CELKEM</span><span class="total-amount">' + formatCena(celkem) + '</span></div>';
+
   // Rozpis
   html += '<div style="margin-top:16px;">';
   ['Rozvaděč', 'Kabely', 'Koncové prvky', 'Smart Home', 'Inst. materiál'].forEach(kat => {
@@ -1098,7 +1098,7 @@ function renderPodlahyKategorie() {
     { id: 'liberal', nazev: 'Liberal', popis: 'Economy 550-600 Kč/m²' },
     { id: 'biclick', nazev: 'BiClick', popis: 'Entry 600-650 Kč/m²' }
   ];
-  document.getElementById('podlahyKategorieList').innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' + kategorie.map(k => '<div class="option ' + (podlahyState.kategorie === k.id ? 'active' : '') + '" style="padding:10px;" onclick="selectPodlahyKategorie(\'' + k.id + '\')"><div class="option-dot" style="margin-top:0;"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title" style="font-size:12px;">' + k.nazev + '</div><div class="option-desc" style="font-size:10px;">' + k.popis + '</div></div></div>').join('') + '</div>';
+  document.getElementById('podlahyKategorieList').innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' + kategorie.map(k => '<div class="option-card glass ' + (podlahyState.kategorie === k.id ? 'active' : '') + '" style="padding:10px;" onclick="selectPodlahyKategorie(\'' + k.id + '\')"><div class="o-name" style="font-size:12px;">' + k.nazev + '</div><div class="o-desc" style="font-size:10px;">' + k.popis + '</div></div>').join('') + '</div>';
 }
 
 function selectPodlahyKategorie(kat) {
@@ -1124,7 +1124,7 @@ function renderPodlahyTypInfo() {
 }
 
 function renderPodlahyPodlozky() {
-  document.getElementById('podlahyPodlozkaList').innerHTML = arbitonPodlozky.map(p => '<div class="option ' + (podlahyState.podlozka === p.id ? 'active' : '') + '" onclick="selectPodlahyPodlozka(\'' + p.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + p.nazev + infoTooltip(p.popis + '. Tl. ' + p.tloustka + 'mm, R=' + p.tepelnyOdpor + ' m²K/W, ' + p.tlumeni + 'dB') + '</div><div class="option-desc">' + p.cenaM2 + ' Kč/m²</div></div></div>').join('');
+  document.getElementById('podlahyPodlozkaList').innerHTML = arbitonPodlozky.map(p => '<div class="option-card glass ' + (podlahyState.podlozka === p.id ? 'active' : '') + '" onclick="selectPodlahyPodlozka(\'' + p.id + '\')"><div class="o-name">' + p.nazev + infoTooltip(p.popis + '. Tl. ' + p.tloustka + 'mm, R=' + p.tepelnyOdpor + ' m²K/W, ' + p.tlumeni + 'dB') + '</div><div class="o-desc">' + p.cenaM2 + ' Kč/m²</div></div>').join('');
 }
 
 function selectPodlahyPodlozka(id) {
@@ -1136,7 +1136,7 @@ function selectPodlahyPodlozka(id) {
 function setPodlahySoklTyp(typ, el) {
   podlahyState.soklTyp = typ;
   podlahyState.soklVarianta = arbitonSokly[typ][0].id;
-  el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  el.parentElement.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   renderPodlahySokly();
   vypoctiPodlahy();
@@ -1278,18 +1278,18 @@ function vypoctiPodlahy() {
   
   // Render výsledku
   const kategorie = ['Podlaha', 'Podložka', 'Soklové lišty', 'Přechodové lišty', 'Příslušenství'];
-  let html = '<div class="result"><div class="card-title">Kalkulace materiálu</div>';
-  
+  let html = '<div class="glass" style="padding:16px;border-radius:14px;"><div class="card-title">Kalkulace materiálu</div>';
+
   kategorie.forEach(kat => {
     const items = polozky.filter(p => p.kat === kat);
     if (items.length === 0) return;
     html += '<div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;margin:12px 0 6px;">' + kat + '</div>';
     items.forEach(p => {
-      html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div>' + (p.info ? '<div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">' + p.info + '</div>' : '') + '</div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
+      html += '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div>' + (p.info ? '<div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">' + p.info + '</div>' : '') + '</div><div class="product-price">' + formatCena(p.cena) + '</div></div>';
     });
   });
-  
-  html += '<div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(celkem) + '</span></div>';
+
+  html += '<div class="total-banner"><span class="total-label">CELKEM</span><span class="total-amount">' + formatCena(celkem) + '</span></div>';
   html += '<div class="result-per-m2">' + Math.round(celkem / plocha) + ' Kč/m²</div></div>';
   
   document.getElementById('podlahyResult').innerHTML = html;
@@ -1412,7 +1412,7 @@ let eticsState = {
 };
 
 function selectEticsTab(tab, el) {
-  document.querySelectorAll('#eticsPage .tabs .tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#eticsPage .tab-bar .tab-item').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('baumitContent').style.display = tab === 'baumit' ? 'block' : 'none';
   document.getElementById('weberContent').style.display = tab === 'weber' ? 'block' : 'none';
@@ -1444,7 +1444,7 @@ function renderEticsIzolanty(system) {
     { id: 'epsGrey', nazev: 'EPS GreyWall (šedý)', popis: 'O 20% lepší λ=0,032' },
     { id: 'mw', nazev: 'Minerální vata', popis: 'Nehořlavá A1, λ=0,036' }
   ];
-  document.getElementById(system + 'IzolantList').innerHTML = types.map(t => '<div class="option ' + (eticsState[system].izolant === t.id ? 'active' : '') + '" onclick="selectEticsIzolant(\'' + system + '\',\'' + t.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + t.nazev + '</div><div class="option-desc">' + t.popis + '</div></div></div>').join('');
+  document.getElementById(system + 'IzolantList').innerHTML = types.map(t => '<div class="option-card glass ' + (eticsState[system].izolant === t.id ? 'active' : '') + '" onclick="selectEticsIzolant(\'' + system + '\',\'' + t.id + '\')"><div class="o-name">' + t.nazev + '</div><div class="o-desc">' + t.popis + '</div></div>').join('');
 }
 
 function selectEticsIzolant(system, typ) {
@@ -1471,14 +1471,14 @@ function renderEticsXps(system) {
 function renderEticsLepidla(system) {
   const data = system === 'baumit' ? eticsBaumit : eticsWeber;
   const prefix = system === 'baumit' ? 'Baumit ' : 'weber.';
-  document.getElementById(system + 'LepidloList').innerHTML = data.lepidla.map(l => '<div class="option ' + (eticsState[system].lepidlo === l.id ? 'active' : '') + '" onclick="selectEticsLepidlo(\'' + system + '\',\'' + l.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + prefix + l.nazev + infoTooltip(l.popis) + '</div><div class="option-desc">' + (l.cenaKg * l.baleni).toFixed(0) + ' Kč/' + l.baleni + 'kg</div></div></div>').join('');
+  document.getElementById(system + 'LepidloList').innerHTML = data.lepidla.map(l => '<div class="option-card glass ' + (eticsState[system].lepidlo === l.id ? 'active' : '') + '" onclick="selectEticsLepidlo(\'' + system + '\',\'' + l.id + '\')"><div class="o-name">' + prefix + l.nazev + infoTooltip(l.popis) + '</div><div class="o-desc">' + (l.cenaKg * l.baleni).toFixed(0) + ' Kč/' + l.baleni + 'kg</div></div>').join('');
 }
 
 function selectEticsLepidlo(system, id) { eticsState[system].lepidlo = id; renderEticsLepidla(system); vypoctiEtics(system); }
 
 function renderEticsSitoviny(system) {
   const data = system === 'baumit' ? eticsBaumit : eticsWeber;
-  document.getElementById(system + 'SitovinaList').innerHTML = data.sitoviny.map(s => '<div class="option ' + (eticsState[system].sitovina === s.id ? 'active' : '') + '" onclick="selectEticsSitovina(\'' + system + '\',\'' + s.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + s.nazev + infoTooltip(s.popis) + '</div><div class="option-desc">' + s.cenaM2 + ' Kč/m²</div></div></div>').join('');
+  document.getElementById(system + 'SitovinaList').innerHTML = data.sitoviny.map(s => '<div class="option-card glass ' + (eticsState[system].sitovina === s.id ? 'active' : '') + '" onclick="selectEticsSitovina(\'' + system + '\',\'' + s.id + '\')"><div class="o-name">' + s.nazev + infoTooltip(s.popis) + '</div><div class="o-desc">' + s.cenaM2 + ' Kč/m²</div></div>').join('');
 }
 
 function selectEticsSitovina(system, id) { eticsState[system].sitovina = id; renderEticsSitoviny(system); vypoctiEtics(system); }
@@ -1494,7 +1494,7 @@ function renderEticsOmitky(system) {
   const data = system === 'baumit' ? eticsBaumit : eticsWeber;
   const prefix = system === 'baumit' ? 'Baumit ' : 'weber.';
   const omitky = data.omitky.filter(o => o.typ !== 'mozaika');
-  document.getElementById(system + 'OmitkaList').innerHTML = omitky.map(o => '<div class="option ' + (eticsState[system].omitka === o.id ? 'active' : '') + '" onclick="selectEticsOmitka(\'' + system + '\',\'' + o.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + prefix + o.nazev + infoTooltip(o.popis) + '</div><div class="option-desc">' + (o.cenaKg * o.baleni).toFixed(0) + ' Kč/' + o.baleni + 'kg | ' + o.typ + '</div></div></div>').join('');
+  document.getElementById(system + 'OmitkaList').innerHTML = omitky.map(o => '<div class="option-card glass ' + (eticsState[system].omitka === o.id ? 'active' : '') + '" onclick="selectEticsOmitka(\'' + system + '\',\'' + o.id + '\')"><div class="o-name">' + prefix + o.nazev + infoTooltip(o.popis) + '</div><div class="o-desc">' + (o.cenaKg * o.baleni).toFixed(0) + ' Kč/' + o.baleni + 'kg | ' + o.typ + '</div></div>').join('');
 }
 
 function selectEticsOmitka(system, id) { eticsState[system].omitka = id; renderEticsOmitky(system); vypoctiEtics(system); }
@@ -1511,7 +1511,7 @@ function renderEticsOkenniProfily(system) {
     { id: 'zakladni', nazev: 'APU lišta základní', cena: 28 },
     { id: 'premium', nazev: 'APU lišta s těsněním', cena: 45 }
   ];
-  document.getElementById(system + 'OkenniProfilList').innerHTML = profily.map(p => '<div class="option ' + (eticsState[system].okenniProfil === p.id ? 'active' : '') + '" onclick="selectEticsOkenniProfil(\'' + system + '\',\'' + p.id + '\')"><div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="option-text"><div class="option-title">' + p.nazev + '</div><div class="option-desc">' + p.cena + ' Kč/bm</div></div></div>').join('');
+  document.getElementById(system + 'OkenniProfilList').innerHTML = profily.map(p => '<div class="option-card glass ' + (eticsState[system].okenniProfil === p.id ? 'active' : '') + '" onclick="selectEticsOkenniProfil(\'' + system + '\',\'' + p.id + '\')"><div class="o-name">' + p.nazev + '</div><div class="o-desc">' + p.cena + ' Kč/bm</div></div>').join('');
 }
 
 function selectEticsOkenniProfil(system, id) { eticsState[system].okenniProfil = id; renderEticsOkenniProfily(system); vypoctiEtics(system); }
@@ -1682,7 +1682,7 @@ function vypoctiEtics(system) {
     celkem += cena;
   }
   
-  document.getElementById(system + 'Result').innerHTML = '<div class="result"><div class="card-title">Kalkulace materiálu</div>' + polozky.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div>' + (p.upozorneni ? '<div style="font-size:10px;color:var(--gold);margin-top:2px;">⚠️ ' + p.upozorneni + '</div>' : '') + '</div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>').join('') + '<div class="result-total"><span class="result-total-label">CELKEM materiál</span><span class="result-total-value">' + formatCena(celkem) + '</span></div><div class="result-per-m2">' + Math.round(celkem / (plocha + sokl)) + ' Kč/m²</div></div>';
+  document.getElementById(system + 'Result').innerHTML = '<div class="glass" style="padding:16px;border-radius:14px;"><div class="card-title">Kalkulace materiálu</div>' + polozky.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div>' + (p.upozorneni ? '<div style="font-size:10px;color:var(--gold);margin-top:2px;">⚠️ ' + p.upozorneni + '</div>' : '') + '</div><div class="product-price">' + formatCena(p.cena) + '</div></div>').join('') + '<div class="total-banner"><span class="total-label">CELKEM materiál</span><span class="total-amount">' + formatCena(celkem) + '</span></div><div class="result-per-m2">' + Math.round(celkem / (plocha + sokl)) + ' Kč/m²</div></div>';
 }
 
 // === VYTÁPĚNÍ ===
@@ -1734,7 +1734,7 @@ function renderVytapeniMistnosti() {
     const mVnitrni = m.typ === 'koupelna' ? 24 : vnitrni;
     const mDeltaT = mVnitrni - venkovni;
     const ztrata = getTepelnaZtrata(m.plocha, m.typ, mVnitrni, mDeltaT);
-    return '<div class="mistnost-card' + (m.typ === 'koupelna' ? ' vlhka' : '') + '">' +
+    return '<div class="room-card glass' + (m.typ === 'koupelna' ? ' vlhka' : '') + '">' +
       '<div class="mistnost-header"><input class="mistnost-name" value="' + m.nazev + '" onchange="updateVytapeniMistnost(' + m.id + ',\'nazev\',this.value)"><span style="font-weight:600;color:var(--gold-dark);font-size:13px;">' + ztrata + ' W</span><button class="mistnost-remove" onclick="odebratVytapeniMistnost(' + m.id + ')">×</button></div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px;">' +
         '<div><label style="font-size:9px;color:rgba(255,255,255,0.4);display:block;">Plocha m²</label><input type="number" style="width:100%;padding:6px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-size:12px;" value="' + m.plocha + '" onchange="updateVytapeniMistnost(' + m.id + ',\'plocha\',this.value)"></div>' +
@@ -1877,7 +1877,7 @@ function vypoctiVytapeniSystem() {
     celkem += reflexniCena;
   }
   
-  document.getElementById('vytapeniNakupniSeznam').innerHTML = polozky.length ? '<div class="result"><div class="card-title">Nákupní seznam</div>' + polozky.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>').join('') + '<div class="result-total"><span class="result-total-label">CELKEM materiál</span><span class="result-total-value">' + formatCena(celkem) + '</span></div></div>' : '';
+  document.getElementById('vytapeniNakupniSeznam').innerHTML = polozky.length ? '<div class="glass" style="padding:16px;border-radius:14px;"><div class="card-title">Nákupní seznam</div>' + polozky.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>').join('') + '<div class="total-banner"><span class="total-label">CELKEM materiál</span><span class="total-amount">' + formatCena(celkem) + '</span></div></div>' : '';
 }
 
 // === VODA A ODPAD ===
@@ -1930,7 +1930,7 @@ function renderVodaVyvody() {
   }
   cont.innerHTML = vodaVyvody.map(v => {
     const def = vodaTypyVyvodu[v.typ];
-    return '<div class="vyvod-card ' + (def.tv ? 'sv-tv' : 'sv-only') + '">' +
+    return '<div class="room-card glass ' + (def.tv ? 'sv-tv' : 'sv-only') + '">' +
       '<div class="vyvod-header"><input class="vyvod-name" value="' + v.nazev + '" onchange="updateVodaVyvod(' + v.id + ',\'nazev\',this.value)"><span class="vyvod-typ">' + def.nazev + '</span><button class="mistnost-remove" onclick="odebratVodaVyvod(' + v.id + ')">×</button></div>' +
       '<div class="vyvod-inputs">' +
         '<div class="vyvod-input"><label>SV (m)</label><input type="number" value="' + v.delkaSV + '" ' + (def.sv ? 'onchange="updateVodaVyvod(' + v.id + ',\'delkaSV\',this.value)"' : 'disabled') + '></div>' +
@@ -2102,13 +2102,13 @@ function vypoctiVoda() {
   // Nákupní seznam
   const vsechnyPolozky = [...polozkyVoda.map(p => ({...p, sekce: 'voda'})), ...polozkyOdpad.map(p => ({...p, sekce: 'odpad'}))];
   
-  let html = '<div class="result"><div class="card-title">Nákupní seznam - Voda</div>';
-  html += polozkyVoda.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div></div><div class="result-item-price" style="color:#3b82f6;">' + formatCena(p.cena) + '</div></div>').join('');
-  html += '<div class="result-total" style="background:linear-gradient(135deg, #3b82f6, #1d4ed8);"><span class="result-total-label">Voda celkem</span><span class="result-total-value">' + formatCena(Math.round(cenaVoda)) + '</span></div></div>';
-  
-  html += '<div class="result" style="margin-top:12px;"><div class="card-title">Nákupní seznam - Odpad</div>';
-  html += polozkyOdpad.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div></div><div class="result-item-price" style="color:#f59e0b;">' + formatCena(p.cena) + '</div></div>').join('');
-  html += '<div class="result-total" style="background:linear-gradient(135deg, #f59e0b, #d97706);"><span class="result-total-label">Odpad celkem</span><span class="result-total-value">' + formatCena(Math.round(cenaOdpad)) + '</span></div></div>';
+  let html = '<div class="glass" style="padding:16px;border-radius:14px;"><div class="card-title">Nákupní seznam - Voda</div>';
+  html += polozkyVoda.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div></div><div class="product-price" style="color:#3b82f6;">' + formatCena(p.cena) + '</div></div>').join('');
+  html += '<div class="total-banner" style="background:linear-gradient(135deg, #3b82f6, #1d4ed8);"><span class="total-label">Voda celkem</span><span class="total-amount">' + formatCena(Math.round(cenaVoda)) + '</span></div></div>';
+
+  html += '<div class="glass" style="padding:16px;border-radius:14px;margin-top:12px;"><div class="card-title">Nákupní seznam - Odpad</div>';
+  html += polozkyOdpad.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div></div><div class="product-price" style="color:#f59e0b;">' + formatCena(p.cena) + '</div></div>').join('');
+  html += '<div class="total-banner" style="background:linear-gradient(135deg, #f59e0b, #d97706);"><span class="total-label">Odpad celkem</span><span class="total-amount">' + formatCena(Math.round(cenaOdpad)) + '</span></div></div>';
   
   document.getElementById('vodaNakupniSeznam').innerHTML = html;
 }
@@ -2161,7 +2161,7 @@ function renderKlimaMistnosti() {
     return;
   }
   cont.innerHTML = klimaMistnosti.map(m => 
-    '<div class="klima-mistnost">' +
+    '<div class="room-card glass">' +
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
         '<input style="border:none;background:transparent;font-weight:500;font-size:12px;flex:1;" value="' + m.nazev + '" onchange="updateKlimaMistnost(' + m.id + ',\'nazev\',this.value)">' +
         '<span style="font-weight:600;color:#06b6d4;font-size:12px;margin-right:8px;" id="klimaZatez' + m.id + '">0 W</span>' +
@@ -2281,7 +2281,7 @@ const sdkVata = {
 let sdkTyp = 'w111', sdkDeska = 'rb', sdkOplech = 'jednoduche', sdkProfilSirka = 75;
 
 function selectSdkTab(tab, el) {
-  document.querySelectorAll('#sdkPage .tabs .tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#sdkPage .tab-bar .tab-item').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('sdkPrickyContent').style.display = tab === 'pricky' ? 'block' : 'none';
   document.getElementById('sdkPodhledyContent').style.display = tab === 'podhledy' ? 'block' : 'none';
@@ -2295,10 +2295,9 @@ function initSdk() {
 
 function renderSdkTypy() {
   document.getElementById('sdkTypyList').innerHTML = sdkTypy.map(t =>
-    '<div class="option ' + (sdkTyp === t.id ? 'active' : '') + '" onclick="selectSdkTyp(\'' + t.id + '\')">' +
-      '<div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<div class="option-text"><div class="option-title">' + t.nazev + '</div><div class="option-desc">' + t.popis + '</div></div>' +
-      '<div class="option-meta"><span class="badge">' + t.rw + '</span></div>' +
+    '<div class="option-card glass ' + (sdkTyp === t.id ? 'active' : '') + '" onclick="selectSdkTyp(\'' + t.id + '\')">' +
+      '<div class="o-name">' + t.nazev + '</div><div class="o-desc">' + t.popis + '</div>' +
+      '<div class="o-price"><span class="o-badge">' + t.rw + '</span></div>' +
     '</div>'
   ).join('');
 }
@@ -2306,10 +2305,9 @@ function selectSdkTyp(id) { sdkTyp = id; renderSdkTypy(); vypoctiSdk(); }
 
 function renderSdkDesky() {
   document.getElementById('sdkDeskyList').innerHTML = sdkDesky.map(d =>
-    '<div class="option ' + (sdkDeska === d.id ? 'active' : '') + '" onclick="selectSdkDeska(\'' + d.id + '\')">' +
-      '<div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<div class="option-text"><div class="option-title">' + d.nazev + '</div><div class="option-desc">' + d.popis + '</div></div>' +
-      '<div class="option-meta"><span class="badge badge-green">' + d.cenaM2 + ' Kc/m2</span></div>' +
+    '<div class="option-card glass ' + (sdkDeska === d.id ? 'active' : '') + '" onclick="selectSdkDeska(\'' + d.id + '\')">' +
+      '<div class="o-name">' + d.nazev + '</div><div class="o-desc">' + d.popis + '</div>' +
+      '<div class="o-price"><span class="o-badge">' + d.cenaM2 + ' Kc/m2</span></div>' +
     '</div>'
   ).join('');
 }
@@ -2317,7 +2315,7 @@ function selectSdkDeska(id) { sdkDeska = id; renderSdkDesky(); vypoctiSdk(); }
 
 function setSdkOplech(typ, el) {
   sdkOplech = typ;
-  el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  el.parentElement.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   vypoctiSdk();
 }
@@ -2325,10 +2323,9 @@ function setSdkOplech(typ, el) {
 let sdkPodhledDeska = 'rb';
 function renderSdkPodhledDesky() {
   document.getElementById('sdkPodhledDeskyList').innerHTML = sdkDesky.filter(d => ['rb','rbi','rf','ma'].includes(d.id)).map(d =>
-    '<div class="option ' + (sdkPodhledDeska === d.id ? 'active' : '') + '" onclick="selectSdkPodhledDeska(\'' + d.id + '\')">' +
-      '<div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<div class="option-text"><div class="option-title">' + d.nazev + '</div><div class="option-desc">' + d.popis + '</div></div>' +
-      '<div class="option-meta"><span class="badge badge-green">' + d.cenaM2 + ' Kc/m2</span></div>' +
+    '<div class="option-card glass ' + (sdkPodhledDeska === d.id ? 'active' : '') + '" onclick="selectSdkPodhledDeska(\'' + d.id + '\')">' +
+      '<div class="o-name">' + d.nazev + '</div><div class="o-desc">' + d.popis + '</div>' +
+      '<div class="o-price"><span class="o-badge">' + d.cenaM2 + ' Kc/m2</span></div>' +
     '</div>'
   ).join('');
 }
@@ -2397,17 +2394,17 @@ function vypoctiSdk() {
   if (vataVal !== 'none') polozky.push({ nazev: sdkVata[vataVal].nazev, detail: Math.ceil(plochaR) + ' m2', cena: cenaVaty });
 
   document.getElementById('sdkResult').innerHTML =
-    '<div class="result">' +
+    '<div class="glass" style="padding:16px;border-radius:14px;">' +
       polozky.map(p =>
-        '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>'
+        '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>'
       ).join('') +
-      '<div class="result-total"><div class="result-total-label">Celkem material</div><div class="result-total-value">' + formatCena(celkem) + '</div></div>' +
+      '<div class="total-banner"><div class="total-label">Celkem material</div><div class="total-amount">' + formatCena(celkem) + '</div></div>' +
       '<div class="result-per-m2">(' + formatCena(Math.round(celkem / plocha)) + ' / m2)</div>' +
-      '<div class="detail-panel" style="margin-top:12px"><div class="detail-panel-title">Parametry systemu ' + typ.nazev.split(' - ')[0] + '</div>' +
-        '<div class="detail-row"><span class="detail-label">Zvukova izolace</span><span class="detail-value">' + typ.rw + '</span></div>' +
-        '<div class="detail-row"><span class="detail-label">Sirka profilu</span><span class="detail-value">' + sirka + ' mm</span></div>' +
-        '<div class="detail-row"><span class="detail-label">Oplechovani</span><span class="detail-value">' + (sdkOplech === 'dvojite' ? '2x deska z kazde strany' : '1x deska z kazde strany') + '</span></div>' +
-        '<div class="detail-row"><span class="detail-label">Celkova tloustka</span><span class="detail-value">' + (sirka + deska.tl * celkemDesek * 2) + ' mm</span></div>' +
+      '<div class="card-section glass" style="margin-top:12px"><div class="card-title">Parametry systemu ' + typ.nazev.split(' - ')[0] + '</div>' +
+        '<div class="detail-row"><span class="d-label">Zvukova izolace</span><span class="d-value">' + typ.rw + '</span></div>' +
+        '<div class="detail-row"><span class="d-label">Sirka profilu</span><span class="d-value">' + sirka + ' mm</span></div>' +
+        '<div class="detail-row"><span class="d-label">Oplechovani</span><span class="d-value">' + (sdkOplech === 'dvojite' ? '2x deska z kazde strany' : '1x deska z kazde strany') + '</span></div>' +
+        '<div class="detail-row"><span class="d-label">Celkova tloustka</span><span class="d-value">' + (sirka + deska.tl * celkemDesek * 2) + ' mm</span></div>' +
       '</div>' +
     '</div>';
 }
@@ -2462,9 +2459,9 @@ function vypoctiSdkPodhled() {
   if (vataVal !== 'none') polozky.push({ nazev: sdkVata[vataVal].nazev, detail: Math.ceil(plochaR) + ' m2', cena: cenaVaty });
 
   document.getElementById('sdkResult').innerHTML =
-    '<div class="result">' +
-      polozky.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>').join('') +
-      '<div class="result-total"><div class="result-total-label">Celkem material</div><div class="result-total-value">' + formatCena(celkem) + '</div></div>' +
+    '<div class="glass" style="padding:16px;border-radius:14px;">' +
+      polozky.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>').join('') +
+      '<div class="total-banner"><div class="total-label">Celkem material</div><div class="total-amount">' + formatCena(celkem) + '</div></div>' +
       '<div class="result-per-m2">(' + formatCena(Math.round(celkem / plocha)) + ' / m2)</div>' +
     '</div>';
 }
@@ -2506,7 +2503,7 @@ let obkladyTyp = 'obklad', obkladyFormat = 'medium', obkladyLepidlo = 'flex', ob
 
 function setObkladyTyp(typ, el) {
   obkladyTyp = typ;
-  el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  el.parentElement.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   vypoctiObklady();
 }
@@ -2519,9 +2516,8 @@ function initObklady() {
 
 function renderObkladyFormaty() {
   document.getElementById('obkladyFormatList').innerHTML = obkladyFormaty.map(f =>
-    '<div class="option ' + (obkladyFormat === f.id ? 'active' : '') + '" onclick="selectObkladyFormat(\'' + f.id + '\')">' +
-      '<div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<div class="option-text"><div class="option-title">' + f.nazev + '</div><div class="option-desc">' + f.popis + '</div></div>' +
+    '<div class="option-card glass ' + (obkladyFormat === f.id ? 'active' : '') + '" onclick="selectObkladyFormat(\'' + f.id + '\')">' +
+      '<div class="o-name">' + f.nazev + '</div><div class="o-desc">' + f.popis + '</div>' +
     '</div>'
   ).join('');
 }
@@ -2529,10 +2525,9 @@ function selectObkladyFormat(id) { obkladyFormat = id; renderObkladyFormaty(); v
 
 function renderObkladyLepidla() {
   document.getElementById('obkladyLepidloList').innerHTML = cemixLepidla.map(l =>
-    '<div class="option ' + (obkladyLepidlo === l.id ? 'active' : '') + '" onclick="selectObkladyLepidlo(\'' + l.id + '\')">' +
-      '<div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<div class="option-text"><div class="option-title">' + l.nazev + '</div><div class="option-desc">' + l.popis + '</div></div>' +
-      '<div class="option-meta"><span class="badge">' + l.trida + '</span><span class="badge badge-green">' + l.cena25 + ' Kc/25kg</span></div>' +
+    '<div class="option-card glass ' + (obkladyLepidlo === l.id ? 'active' : '') + '" onclick="selectObkladyLepidlo(\'' + l.id + '\')">' +
+      '<div class="o-name">' + l.nazev + '</div><div class="o-desc">' + l.popis + '</div>' +
+      '<div class="o-price"><span class="o-badge">' + l.trida + '</span> <span class="o-badge">' + l.cena25 + ' Kc/25kg</span></div>' +
     '</div>'
   ).join('');
 }
@@ -2540,10 +2535,9 @@ function selectObkladyLepidlo(id) { obkladyLepidlo = id; renderObkladyLepidla();
 
 function renderObkladySparovacky() {
   document.getElementById('obkladySparovackaList').innerHTML = cemixSparovacky.map(s =>
-    '<div class="option ' + (obkladySparovacka === s.id ? 'active' : '') + '" onclick="selectObkladySparovacka(\'' + s.id + '\')">' +
-      '<div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<div class="option-text"><div class="option-title">' + s.nazev + '</div><div class="option-desc">' + s.popis + '</div></div>' +
-      '<div class="option-meta"><span class="badge badge-green">' + s.cena5 + ' Kc/5kg</span></div>' +
+    '<div class="option-card glass ' + (obkladySparovacka === s.id ? 'active' : '') + '" onclick="selectObkladySparovacka(\'' + s.id + '\')">' +
+      '<div class="o-name">' + s.nazev + '</div><div class="o-desc">' + s.popis + '</div>' +
+      '<div class="o-price"><span class="o-badge">' + s.cena5 + ' Kc/5kg</span></div>' +
     '</div>'
   ).join('');
 }
@@ -2598,16 +2592,16 @@ function vypoctiObklady() {
   document.getElementById('obkladySumCelkem').textContent = formatCena(celkem);
 
   document.getElementById('obkladyResult').innerHTML =
-    '<div class="result">' +
-      polozky.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>').join('') +
-      '<div class="result-total"><div class="result-total-label">Celkem material</div><div class="result-total-value">' + formatCena(celkem) + '</div></div>' +
+    '<div class="glass" style="padding:16px;border-radius:14px;">' +
+      polozky.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>').join('') +
+      '<div class="total-banner"><div class="total-label">Celkem material</div><div class="total-amount">' + formatCena(celkem) + '</div></div>' +
       '<div class="result-per-m2">(' + formatCena(Math.round(celkem / plocha)) + ' / m2 bez dlazdic)</div>' +
-      '<div class="detail-panel" style="margin-top:12px"><div class="detail-panel-title">Doporuceni</div>' +
-        '<div class="detail-row"><span class="detail-label">Lepidlo</span><span class="detail-value">' + lepidlo.trida + ' (zuby spatule ' + format.zubySpatule + 'mm)</span></div>' +
-        '<div class="detail-row"><span class="detail-label">Otevreny cas</span><span class="detail-value">15-20 min</span></div>' +
-        '<div class="detail-row"><span class="detail-label">Pochozi po</span><span class="detail-value">' + (obkladyLepidlo === 'rapid' ? '3 hod' : '24 hod') + '</span></div>' +
-        '<div class="detail-row"><span class="detail-label">Sparovani po</span><span class="detail-value">' + (obkladyLepidlo === 'rapid' ? '3 hod' : '24 hod') + '</span></div>' +
-        (obkladyFormat === 'xxl' ? '<div class="detail-warning">XXL formaty: pouzijte buttering-floating (lepidlo na podklad i dlazdici)!</div>' : '') +
+      '<div class="card-section glass" style="margin-top:12px"><div class="card-title">Doporuceni</div>' +
+        '<div class="detail-row"><span class="d-label">Lepidlo</span><span class="d-value">' + lepidlo.trida + ' (zuby spatule ' + format.zubySpatule + 'mm)</span></div>' +
+        '<div class="detail-row"><span class="d-label">Otevreny cas</span><span class="d-value">15-20 min</span></div>' +
+        '<div class="detail-row"><span class="d-label">Pochozi po</span><span class="d-value">' + (obkladyLepidlo === 'rapid' ? '3 hod' : '24 hod') + '</span></div>' +
+        '<div class="detail-row"><span class="d-label">Sparovani po</span><span class="d-value">' + (obkladyLepidlo === 'rapid' ? '3 hod' : '24 hod') + '</span></div>' +
+        (obkladyFormat === 'xxl' ? '<div class="form-hint">XXL formaty: pouzijte buttering-floating (lepidlo na podklad i dlazdici)!</div>' : '') +
       '</div>' +
     '</div>';
 }
@@ -2632,7 +2626,7 @@ let omitkyTyp = 'vnitrni', omitkySystem = 'vj';
 
 function setOmitkyTyp(typ, el) {
   omitkyTyp = typ;
-  el.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  el.parentElement.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   omitkySystem = typ === 'vnitrni' ? 'vj' : 'ep';
   renderOmitkySystemy();
@@ -2646,10 +2640,9 @@ function initOmitky() {
 function renderOmitkySystemy() {
   const systemy = cemixOmitky[omitkyTyp];
   document.getElementById('omitkySystemList').innerHTML = systemy.map(s =>
-    '<div class="option ' + (omitkySystem === s.id ? 'active' : '') + '" onclick="selectOmitkySystem(\'' + s.id + '\')">' +
-      '<div class="option-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>' +
-      '<div class="option-text"><div class="option-title">' + s.nazev + '</div><div class="option-desc">' + s.popis + '</div></div>' +
-      '<div class="option-meta"><span class="badge">' + s.aplikace + '</span></div>' +
+    '<div class="option-card glass ' + (omitkySystem === s.id ? 'active' : '') + '" onclick="selectOmitkySystem(\'' + s.id + '\')">' +
+      '<div class="o-name">' + s.nazev + '</div><div class="o-desc">' + s.popis + '</div>' +
+      '<div class="o-price"><span class="o-badge">' + s.aplikace + '</span></div>' +
     '</div>'
   ).join('');
   renderOmitkyDetail();
@@ -2661,11 +2654,11 @@ function renderOmitkyDetail() {
   const s = systemy.find(x => x.id === omitkySystem);
   if (!s) return;
   document.getElementById('omitkySystemDetail').innerHTML =
-    '<div class="detail-panel"><div class="detail-panel-title">Detail materialu</div>' +
-      '<div class="detail-row"><span class="detail-label">Spotreba</span><span class="detail-value">' + s.spotreba + ' kg/m2/mm</span></div>' +
-      '<div class="detail-row"><span class="detail-label">Schnuti</span><span class="detail-value">' + s.schnuti + '</span></div>' +
-      '<div class="detail-row"><span class="detail-label">Aplikace</span><span class="detail-value">' + s.aplikace + '</span></div>' +
-      (s.tlMax ? '<div class="detail-row"><span class="detail-label">Max tloustka</span><span class="detail-value">' + s.tlMax + ' mm</span></div>' : '') +
+    '<div class="card-section glass"><div class="card-title">Detail materialu</div>' +
+      '<div class="detail-row"><span class="d-label">Spotreba</span><span class="d-value">' + s.spotreba + ' kg/m2/mm</span></div>' +
+      '<div class="detail-row"><span class="d-label">Schnuti</span><span class="d-value">' + s.schnuti + '</span></div>' +
+      '<div class="detail-row"><span class="d-label">Aplikace</span><span class="d-value">' + s.aplikace + '</span></div>' +
+      (s.tlMax ? '<div class="detail-row"><span class="d-label">Max tloustka</span><span class="d-value">' + s.tlMax + ' mm</span></div>' : '') +
     '</div>';
 }
 
@@ -2717,9 +2710,9 @@ function vypoctiOmitky() {
   document.getElementById('omitkySumCelkem').textContent = formatCena(celkem);
 
   document.getElementById('omitkyResult').innerHTML =
-    '<div class="result">' +
-      polozky.map(p => '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>').join('') +
-      '<div class="result-total"><div class="result-total-label">Celkem material</div><div class="result-total-value">' + formatCena(celkem) + '</div></div>' +
+    '<div class="glass" style="padding:16px;border-radius:14px;">' +
+      polozky.map(p => '<div class="product-row"><div class="product-info"><div class="product-name">' + p.nazev + '</div><div class="product-detail">' + p.detail + '</div></div><div class="product-price">' + formatCena(p.cena) + '</div></div>').join('') +
+      '<div class="total-banner"><div class="total-label">Celkem material</div><div class="total-amount">' + formatCena(celkem) + '</div></div>' +
       '<div class="result-per-m2">(' + formatCena(Math.round(celkem / plocha)) + ' / m2)</div>' +
     '</div>';
 }
@@ -2747,7 +2740,7 @@ let demTypOdpaduDem = 'stavebni_sut';
 let demHustota = 'tezky';
 
 function selectDemTab(tab, el) {
-  document.querySelectorAll('#demolicePage .tabs .tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#demolicePage .tab-bar .tab-item').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('demKontejneryContent').style.display = tab === 'kontejnery' ? 'block' : 'none';
   document.getElementById('demDemoliceContent').style.display = tab === 'demolice' ? 'block' : 'none';
@@ -2755,21 +2748,21 @@ function selectDemTab(tab, el) {
 
 function setDemTyp(typ, el) {
   demTypDemolice = typ;
-  document.querySelectorAll('#demDemoliceContent .toggle-btns')[0].querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#demDemoliceContent .pill-group')[0].querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   vypoctiDemolice();
 }
 
 function setDemOdpad(typ, el) {
   demTypOdpaduDem = typ;
-  document.querySelectorAll('#demDemoliceContent .toggle-btns')[1].querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#demDemoliceContent .pill-group')[1].querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   vypoctiDemolice();
 }
 
 function setDemHustota(h, el) {
   demHustota = h;
-  document.querySelectorAll('#demDemoliceContent .toggle-btns')[2].querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#demDemoliceContent .pill-group')[2].querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   vypoctiDemolice();
 }
@@ -2782,7 +2775,7 @@ function vypoctiKontejnery() {
 
   const cenyTyp = kontejneryCeny[typ];
   if (!cenyTyp || !cenyTyp[vel]) {
-    document.getElementById('demResult').innerHTML = '<div class="result"><div class="result-item"><div class="result-item-info"><div class="result-item-name">Tato velikost neni dostupna pro zvoleny typ odpadu</div><div class="result-item-detail">Zvolte mensi kontejner</div></div></div></div>';
+    document.getElementById('demResult').innerHTML = '<div class="glass" style="padding:16px;border-radius:14px;"><div class="product-row"><div class="product-info"><div class="product-name">Tato velikost neni dostupna pro zvoleny typ odpadu</div><div class="product-detail">Zvolte mensi kontejner</div></div></div></div>';
     document.getElementById('demSumKontejnery').textContent = '---';
     document.getElementById('demSumDoprava').textContent = '---';
     document.getElementById('demSumCelkem').textContent = '---';
@@ -2815,19 +2808,19 @@ function vypoctiKontejnery() {
   document.getElementById('demSumDoprava').textContent = formatCena(dopravaBezDph);
   document.getElementById('demSumCelkem').textContent = formatCena(celkem);
 
-  let html = '<div class="result">';
-  html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">Kontejner ' + vel + ' m3 - ' + nazevTypu + '</div><div class="result-item-detail">' + pocet + 'x kontejner, cena za kus ' + formatCena(cenaKusBezDph) + ' bez DPH</div></div><div class="result-item-price">' + formatCena(kontBezDph) + '</div></div>';
+  let html = '<div class="glass" style="padding:16px;border-radius:14px;">';
+  html += '<div class="product-row"><div class="product-info"><div class="product-name">Kontejner ' + vel + ' m3 - ' + nazevTypu + '</div><div class="product-detail">' + pocet + 'x kontejner, cena za kus ' + formatCena(cenaKusBezDph) + ' bez DPH</div></div><div class="product-price">' + formatCena(kontBezDph) + '</div></div>';
   if (dopravaBezDph > 0) {
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">Doprava</div><div class="result-item-detail">' + vzdalenost + ' km x 38 Kc/km x ' + pocet + ' kontejner(u)</div></div><div class="result-item-price">' + formatCena(dopravaBezDph) + '</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">Doprava</div><div class="product-detail">' + vzdalenost + ' km x 38 Kc/km x ' + pocet + ' kontejner(u)</div></div><div class="product-price">' + formatCena(dopravaBezDph) + '</div></div>';
   } else {
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">Doprava</div><div class="result-item-detail">Zadejte vzdalenost (38 Kc/km)</div></div><div class="result-item-price">0 Kc</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">Doprava</div><div class="product-detail">Zadejte vzdalenost (38 Kc/km)</div></div><div class="product-price">0 Kc</div></div>';
   }
   if (praceBezDph > 0) {
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">Prace</div><div class="result-item-detail">' + praceNazev + '</div></div><div class="result-item-price">' + formatCena(praceBezDph) + '</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">Prace</div><div class="product-detail">' + praceNazev + '</div></div><div class="product-price">' + formatCena(praceBezDph) + '</div></div>';
   }
-  html += '<div class="result-item" style="border-top:1px solid #2a2a38;padding-top:8px;margin-top:4px"><div class="result-item-info"><div class="result-item-name">Zaklad bez DPH</div></div><div class="result-item-price">' + formatCena(celkemBezDph) + '</div></div>';
-  html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">DPH 21%</div></div><div class="result-item-price">' + formatCena(dph) + '</div></div>';
-  html += '<div class="result-total"><div class="result-total-label">Celkem s DPH</div><div class="result-total-value">' + formatCena(celkem) + '</div></div>';
+  html += '<div class="product-row" style="border-top:1px solid #2a2a38;padding-top:8px;margin-top:4px"><div class="product-info"><div class="product-name">Zaklad bez DPH</div></div><div class="product-price">' + formatCena(celkemBezDph) + '</div></div>';
+  html += '<div class="product-row"><div class="product-info"><div class="product-name">DPH 21%</div></div><div class="product-price">' + formatCena(dph) + '</div></div>';
+  html += '<div class="total-banner"><div class="total-label">Celkem s DPH</div><div class="total-amount">' + formatCena(celkem) + '</div></div>';
   html += '</div>';
 
   document.getElementById('demResult').innerHTML = html;
@@ -2877,16 +2870,16 @@ function vypoctiDemolice() {
   const typyNazvy = {zdi: 'Bouraci prace - zdi', podlahy: 'Demolice podlah', stropy: 'Demolice stropu', komplet: 'Kompletni demolice'};
   const hustotaNazev = demHustota === 'lehky' ? 'lehky (SDK, drevo)' : 'tezky (cihla, beton)';
 
-  let html = '<div class="result">';
-  html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + typyNazvy[demTypDemolice] + '</div><div class="result-item-detail">Plocha: ' + plocha + ' m2, koeficient: ' + koef + ' m3/m2</div></div></div>';
-  html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">Odhadovany objem odpadu</div><div class="result-item-detail">' + objemOdpadu.toFixed(1) + ' m3 (material: ' + hustotaNazev + (demHustota === 'lehky' ? ', nakypreni 1.5x' : '') + ')</div></div></div>';
-  html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">Kontejner ' + velKont + ' m3 - ' + (typ === 'stavebni_sut' ? 'stavebni sut' : 'smesny odpad') + '</div><div class="result-item-detail">' + pocetKont + 'x kontejner, cena za kus ' + formatCena(cenaKusBezDph) + ' bez DPH</div></div><div class="result-item-price">' + formatCena(kontBezDph) + '</div></div>';
+  let html = '<div class="glass" style="padding:16px;border-radius:14px;">';
+  html += '<div class="product-row"><div class="product-info"><div class="product-name">' + typyNazvy[demTypDemolice] + '</div><div class="product-detail">Plocha: ' + plocha + ' m2, koeficient: ' + koef + ' m3/m2</div></div></div>';
+  html += '<div class="product-row"><div class="product-info"><div class="product-name">Odhadovany objem odpadu</div><div class="product-detail">' + objemOdpadu.toFixed(1) + ' m3 (material: ' + hustotaNazev + (demHustota === 'lehky' ? ', nakypreni 1.5x' : '') + ')</div></div></div>';
+  html += '<div class="product-row"><div class="product-info"><div class="product-name">Kontejner ' + velKont + ' m3 - ' + (typ === 'stavebni_sut' ? 'stavebni sut' : 'smesny odpad') + '</div><div class="product-detail">' + pocetKont + 'x kontejner, cena za kus ' + formatCena(cenaKusBezDph) + ' bez DPH</div></div><div class="product-price">' + formatCena(kontBezDph) + '</div></div>';
   if (praceBezDph > 0) {
-    html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">Prace</div><div class="result-item-detail">' + praceNazev + '</div></div><div class="result-item-price">' + formatCena(praceBezDph) + '</div></div>';
+    html += '<div class="product-row"><div class="product-info"><div class="product-name">Prace</div><div class="product-detail">' + praceNazev + '</div></div><div class="product-price">' + formatCena(praceBezDph) + '</div></div>';
   }
-  html += '<div class="result-item" style="border-top:1px solid #2a2a38;padding-top:8px;margin-top:4px"><div class="result-item-info"><div class="result-item-name">Zaklad bez DPH</div></div><div class="result-item-price">' + formatCena(celkemBezDph) + '</div></div>';
-  html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">DPH 21%</div></div><div class="result-item-price">' + formatCena(dph) + '</div></div>';
-  html += '<div class="result-total"><div class="result-total-label">Celkem s DPH</div><div class="result-total-value">' + formatCena(celkem) + '</div></div>';
+  html += '<div class="product-row" style="border-top:1px solid #2a2a38;padding-top:8px;margin-top:4px"><div class="product-info"><div class="product-name">Zaklad bez DPH</div></div><div class="product-price">' + formatCena(celkemBezDph) + '</div></div>';
+  html += '<div class="product-row"><div class="product-info"><div class="product-name">DPH 21%</div></div><div class="product-price">' + formatCena(dph) + '</div></div>';
+  html += '<div class="total-banner"><div class="total-label">Celkem s DPH</div><div class="total-amount">' + formatCena(celkem) + '</div></div>';
   html += '<div class="result-per-m2">(' + formatCena(Math.round(celkem / plocha)) + ' / m2 bourane plochy s DPH)</div>';
   html += '</div>';
 
@@ -2906,7 +2899,7 @@ const demCenyPrace = {
 function setDemPrace(vcetne, el) {
   demVcetnePrace = vcetne === 1;
   document.getElementById('demPraceDetail').style.display = demVcetnePrace ? 'block' : 'none';
-  el.parentElement.querySelectorAll('.toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+  el.parentElement.querySelectorAll('.pill').forEach(function(b) { b.classList.remove('active'); });
   el.classList.add('active');
   vypoctiKontejnery();
   vypoctiDemolice();
