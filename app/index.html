@@ -957,7 +957,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <!-- PC Topbar -->
 <div class="topbar">
 <div class="logo" onclick="nav('dashboard')">You&Place</div>
-<div class="tc"><div class="tc-l" id="tc-label">Prehled</div><div class="tc-t" id="tc-title">DASHBOARD</div></div>
+<div class="tc"><div class="tc-l" id="tc-label">Prehled</div><div class="tc-t" id="tc-title">DASHBOARD</div><div id="topbar-bonus" style="font-size:11px;font-weight:600;color:#c9a270;margin-top:2px;display:none">Bonus: 15 000 Kc</div></div>
 <div class="tr"><span class="tr-d" id="topbar-date"></span><span class="tr-t" id="topbar-time"></span><span class="tr-i" onclick="nav('nastaveni')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></div>
 </div>
 
@@ -993,7 +993,6 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <section class="page" id="page-dashboard">
 <div class="dash">
 <div class="dash-title">You&Place</div>
-<div style="font-size:13px;font-weight:600;color:#c9a270;margin-top:4px;margin-bottom:16px">Bonus: 15 000 Kc</div>
 <div style="display:flex;gap:12px;margin-bottom:18px">
 <!-- Task card -->
 <div onclick="nav('ukoly')" style="flex:1;min-width:0;background:rgba(201,162,112,0.06);border:1px solid rgba(201,162,112,0.15);border-radius:16px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;gap:12px">
@@ -3425,6 +3424,7 @@ function route(){
   const t=titles[page]||['',''];
   document.getElementById('tc-label').textContent=t[0];
   document.getElementById('tc-title').textContent=t[1];
+  var tb=document.getElementById('topbar-bonus');if(tb)tb.style.display=page==='dashboard'?'block':'none';
   // Update mobile page bar
   const mpl=document.getElementById('mob-page-label');
   const mpt=document.getElementById('mob-page-title');
