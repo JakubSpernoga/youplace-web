@@ -234,8 +234,32 @@
     body.embedded { background:transparent;overflow:hidden;height:auto; }
     body.embedded .app-container { background:transparent;max-width:100%;margin:0 auto;overflow:visible;height:auto;padding:0 20px; }
     body.embedded .header { display:none!important; }
-    body.embedded .content { background:transparent;padding:20px 8px;overflow:visible; }
-    body.embedded .card { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);backdrop-filter:blur(8px); }
+    body.embedded .content { background:transparent;padding:10px 0;overflow:visible; }
+    body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent { display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start; }
+    body.embedded .content > .tabs { margin-bottom:12px; }
+    body.embedded .content > div[style*="text-align:center"] { grid-column:1/-1; }
+    body.embedded .summary-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px; }
+    @media (min-width:700px) {
+      body.embedded .content { display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start; }
+      body.embedded .content > .tabs { grid-column:1/-1; }
+      body.embedded .content > .summary-grid { grid-column:1/-1; }
+      body.embedded .content > div[style*="text-align:center"] { grid-column:1/-1; }
+    }
+    body.embedded .home-indicator { display:none; }
+    body.embedded .card { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);backdrop-filter:blur(8px);margin-bottom:0; }
+    body.embedded .card-title { font-size:14px; }
+    body.embedded .form-group { margin-bottom:8px; }
+    body.embedded .form-label { font-size:11px; }
+    body.embedded .form-input { padding:8px 10px;font-size:13px; }
+    body.embedded .form-input.large { font-size:18px;padding:10px; }
+    body.embedded .toggle-btns { gap:6px;margin-bottom:6px; }
+    body.embedded .toggle-btn { padding:6px 10px;font-size:11px; }
+    body.embedded .tabs { margin-bottom:10px; }
+    body.embedded .tab { padding:8px 16px;font-size:12px; }
+    body.embedded .result { margin-top:0; }
+    body.embedded .result-item { padding:8px 10px; }
+    body.embedded .reserve-row { margin-top:8px; }
+    @media (max-width:700px) { body.embedded .content { grid-template-columns:1fr; } }
     body.embedded .option { background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12); }
     body.embedded .option.active { background:rgba(201,162,112,0.06);border-color:#c9a270; }
     body.embedded .tab { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.3); }
