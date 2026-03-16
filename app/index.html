@@ -828,21 +828,45 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
   border-radius:14px !important;padding:14px !important;
 }
 
-/* Form inputs — glass style */
-#calcContent .form-input,#calcContent input[type="number"]{
+/* Form inputs — glass style, hide native spinners */
+#calcContent .form-input,#calcContent input[type="number"],#calcContent input[type="text"],
+.calc-page input[type="number"],.calc-page input[type="text"]{
   background:rgba(255,255,255,0.06) !important;
   border:1px solid rgba(255,255,255,0.1) !important;
   border-radius:8px !important;color:#fff !important;
+  font-family:'Poppins',sans-serif !important;font-size:13px !important;
+  padding:8px 12px !important;outline:none !important;
+  -moz-appearance:textfield !important;
 }
-#calcContent .form-input:focus,#calcContent input[type="number"]:focus{
+#calcContent input[type="number"]::-webkit-inner-spin-button,
+#calcContent input[type="number"]::-webkit-outer-spin-button,
+.calc-page input[type="number"]::-webkit-inner-spin-button,
+.calc-page input[type="number"]::-webkit-outer-spin-button{
+  -webkit-appearance:none !important;margin:0 !important;
+}
+#calcContent .form-input:focus,#calcContent input[type="number"]:focus,
+.calc-page input[type="number"]:focus,.calc-page input[type="text"]:focus{
   border-color:#c9a270 !important;box-shadow:0 0 0 2px rgba(201,162,112,0.1) !important;
 }
-#calcContent .form-select,#calcContent select{
+#calcContent .form-select,#calcContent select,
+.calc-page select{
   background:rgba(255,255,255,0.06) !important;
   border:1px solid rgba(255,255,255,0.1) !important;
   border-radius:8px !important;color:#fff !important;
+  font-family:'Poppins',sans-serif !important;font-size:12px !important;
+  padding:8px 30px 8px 12px !important;outline:none !important;
+  -webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;background-position:right 10px center !important;
+  background-size:12px !important;cursor:pointer !important;
 }
-#calcContent .form-select option,#calcContent select option{background:#1a1a1a !important}
+#calcContent .form-select option,#calcContent select option,
+.calc-page select option{background:#1a1a1a !important;color:#fff !important}
+/* Checkbox styling */
+#calcContent input[type="checkbox"],.calc-page input[type="checkbox"]{
+  width:18px !important;height:18px !important;border-radius:4px !important;
+  accent-color:#c9a270 !important;cursor:pointer !important;
+}
 
 /* Toggle buttons — pill groups */
 #calcContent .toggle-btns{
@@ -1031,6 +1055,79 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .v2-badge-gold{background:rgba(201,162,112,0.15);color:#c9a270}
 .v2-badge-blue{background:rgba(59,130,246,0.15);color:#3b82f6}
 .v2-badge-green{background:rgba(34,197,94,0.15);color:#22c55e}
+/* === GLOBAL FORM RESET for all calc pages === */
+.calc-page input[type="number"],
+.calc-page input[type="text"],
+#calcContent input[type="number"],
+#calcContent input[type="text"]{
+  -moz-appearance:textfield !important;
+  -webkit-appearance:none !important;
+  background:rgba(255,255,255,0.06) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;
+  border-radius:8px !important;
+  color:#fff !important;
+  font-family:'Poppins',sans-serif !important;
+  font-size:13px !important;
+  padding:8px 12px !important;
+  outline:none !important;
+}
+.calc-page input[type="number"]::-webkit-inner-spin-button,
+.calc-page input[type="number"]::-webkit-outer-spin-button,
+#calcContent input[type="number"]::-webkit-inner-spin-button,
+#calcContent input[type="number"]::-webkit-outer-spin-button{
+  -webkit-appearance:none !important;display:none !important;margin:0 !important;
+}
+.calc-page select,
+#calcContent select{
+  -webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;
+  background:rgba(255,255,255,0.06) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;
+  border-radius:8px !important;
+  color:#fff !important;
+  font-family:'Poppins',sans-serif !important;
+  font-size:12px !important;
+  padding:8px 32px 8px 12px !important;
+  outline:none !important;
+  cursor:pointer !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+  background-repeat:no-repeat !important;background-position:right 10px center !important;
+  background-size:12px !important;
+}
+.calc-page select option,
+#calcContent select option{
+  background:#1a1a1a !important;color:#fff !important;
+}
+.calc-page input[type="checkbox"],
+#calcContent input[type="checkbox"]{
+  width:18px !important;height:18px !important;
+  accent-color:#c9a270 !important;cursor:pointer !important;
+  border-radius:4px !important;
+}
+.calc-page button,
+#calcContent button:not(.toggle-btn):not(.tab):not(.calc-tab){
+  font-family:'Poppins',sans-serif !important;
+}
+/* Inline style buttons — glass */
+.calc-page button[onclick*="Pridat"],
+.calc-page button[onclick*="pridat"],
+#calcContent button[style*="background"]{
+  background:rgba(255,255,255,0.06) !important;
+  border:1px solid rgba(255,255,255,0.1) !important;
+  border-radius:8px !important;
+  color:rgba(255,255,255,0.6) !important;
+  font-family:'Poppins',sans-serif !important;
+  cursor:pointer !important;
+  transition:all 0.2s !important;
+}
+.calc-page button[onclick*="Pridat"]:hover,
+.calc-page button[onclick*="pridat"]:hover{
+  background:rgba(255,255,255,0.1) !important;
+  color:#fff !important;
+}
+/* Scrollbar for calc content */
+#calcContent,#calcContent *,.calc-page,.calc-page *{scrollbar-width:none}
+#calcContent::-webkit-scrollbar,#calcContent *::-webkit-scrollbar,.calc-page::-webkit-scrollbar,.calc-page *::-webkit-scrollbar{display:none}
+
 @media(max-width:700px){
 .v2-result-grid{grid-template-columns:1fr}
 .v2-systems-grid{grid-template-columns:1fr 1fr}
