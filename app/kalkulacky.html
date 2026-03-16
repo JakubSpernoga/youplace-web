@@ -269,8 +269,9 @@
     body.embedded .reserve-select { background:rgba(201,162,112,0.15);border:1px solid rgba(201,162,112,0.3);color:#c9a270;border-radius:6px;padding:3px 6px;font-size:10px; }
     /* 2-column layout for paint calculators */
     body.embedded #kovContent,body.embedded #stenyContent,body.embedded #drevoContent {
-      display:grid;grid-template-columns:1fr 1.3fr;gap:12px;align-items:start;
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;align-items:start;
     }
+    body.embedded #kovResult:empty,body.embedded #stenyResult:empty,body.embedded #drevoResult:empty { display:none; }
     /* Result */
     body.embedded .result { padding:14px 18px;margin-top:0;border-radius:14px; }
     body.embedded .result-item { padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);background:transparent;border-radius:0;border-left:none;border-right:none;border-top:none; }
