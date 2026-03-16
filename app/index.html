@@ -789,7 +789,13 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
   background:rgba(255,255,255,0.06)!important;border:1px solid rgba(255,255,255,0.1)!important;border-radius:8px!important;
   color:#fff!important;min-width:50px;text-align:center;outline:none!important;
   font-family:'Poppins',sans-serif!important;-moz-appearance:textfield!important;-webkit-appearance:none!important;
+  width:auto;max-width:120px;
 }
+/* Inputs inside .field-inline should be compact like mockup .val */
+#calcContent .field-inline input[type="number"]{width:80px;max-width:80px;padding:6px 12px;font-size:16px}
+/* Inputs inside .form-group can be wider */
+#calcContent .form-group input[type="number"],
+#calcContent .form-group input[type="text"]{max-width:160px}
 #calcContent input[type="number"]::-webkit-inner-spin-button,
 #calcContent input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none!important;display:none!important;margin:0!important}
 #calcContent input:focus{border-color:#c9a270!important;box-shadow:0 0 0 2px rgba(201,162,112,0.1)!important}
@@ -2258,7 +2264,8 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
     <div class="field-inline"><label>Obvod</label><input type="number" class="val" id="podlahyObvod" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">bm</span></div>
     <div class="divider-v"></div>
     <div class="field-inline"><label>Dveře</label><input type="number" class="val" id="podlahyDvere" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">ks</span></div>
-    <div class="reserve-pills"><label style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:500;text-transform:uppercase;letter-spacing:0.8px">Rezerva</label><select id="podlahyRezerva" onchange="vypoctiPodlahy()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option></select></div>
+    <div class="field-inline"><label>Vnitř. rohy</label><input type="number" class="val" id="podlahyVnitrniRohy" placeholder="0" oninput="vypoctiPodlahy()"></div>
+    <div class="field-inline"><label>Vnějš. rohy</label><input type="number" class="val" id="podlahyVnejsiRohy" placeholder="0" oninput="vypoctiPodlahy()"></div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
     <div>
@@ -2267,11 +2274,42 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
     </div>
     <div>
       <div class="section-head">Typ podlahy</div>
-      <div id="podlahyTypDetail" class="card-section glass"></div>
+      <div class="card-section glass">
+        <select id="podlahyTyp" style="width:100%;margin-bottom:8px"></select>
+        <div id="podlahyTypInfo"></div>
+      </div>
     </div>
   </div>
   <div class="section-head">Podložka</div>
   <div id="podlahyPodlozkaList" class="options-grid" style="grid-template-columns:repeat(3,1fr)"></div>
+  <div class="card-section glass-strong" style="margin-top:12px">
+    <div class="card-title">Soklové lišty</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Typ</div>
+        <div class="pill-group"><button class="pill active" onclick="setPodlahySoklTyp('vigo',this)">Vigo (na klip)</button><button class="pill" onclick="setPodlahySoklTyp('indo',this)">Indo (lepení)</button></div>
+      </div>
+      <div class="form-group"><div class="form-label">Varianta</div><select id="podlahySoklVarianta"></select></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong" style="margin-top:12px">
+    <div class="card-title">Přechodové lišty</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Typ přechodu</div><select id="podlahyPrechod"></select></div>
+    </div>
+  </div>
+  <div class="card-section glass-strong" style="margin-top:12px">
+    <div class="card-title">Nastavení</div>
+    <div class="form-row">
+      <div class="form-group"><div class="form-label">Rezerva podlaha</div><select id="podlahyRezervaPodlaha" onchange="vypoctiPodlahy()"><option value="5">5%</option><option value="10" selected>10%</option><option value="15">15%</option><option value="20">20%</option></select></div>
+      <div class="form-group"><div class="form-label">Rezerva lišty</div><select id="podlahyRezervaListy" onchange="vypoctiPodlahy()"><option value="5" selected>5%</option><option value="10">10%</option><option value="15">15%</option></select></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:12px">
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;cursor:pointer"><input type="checkbox" id="podlahyKlipy" checked onchange="vypoctiPodlahy()"> Montážní klípy</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;cursor:pointer"><input type="checkbox" id="podlahyInstalacniSada" checked onchange="vypoctiPodlahy()"> Instalační sada</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#e8e8ec;cursor:pointer"><input type="checkbox" id="podlahyTopeni" onchange="vypoctiPodlahy()"> Podlahové topení</label>
+    </div>
+    <div id="podlahyTopeniWarning" class="form-hint" style="display:none;margin-top:8px;color:#c9a270">⚠ Podložku zvolit kompatibilní s podlahovým topením (nízký tepelný odpor)</div>
+  </div>
   <div id="podlahyResult"></div>
   <div class="calc-footer">Ceny orientační | arbiton.com | 03/2026</div>
 </div>
