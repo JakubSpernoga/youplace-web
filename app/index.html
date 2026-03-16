@@ -572,9 +572,18 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .hero-container{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;padding:0 12px 20px}
 .hero-row{display:flex;gap:16px;align-items:stretch;max-width:850px;width:100%;margin-bottom:30px}
 .hero-card{flex:2;background:rgba(201,162,112,0.04);border:1px solid rgba(201,162,112,0.1);border-radius:12px;padding:80px 24px;text-align:center;cursor:pointer}
-.hero-sidebar{flex:1;display:flex;flex-direction:column;gap:8px}
-.hero-stat{flex:1;background:rgba(255,255,255,0.06);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.10);border-left:3px solid rgba(201,162,112,0.4);border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:18px 20px;text-align:left;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:background 0.2s,border-color 0.2s}
-.hero-stat:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.18);border-left-color:rgba(201,162,112,0.6)}
+.hero-sidebar{flex:1;display:flex;flex-direction:column;gap:0}
+.hero-stat{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);background:none;border-radius:0;box-shadow:none;border-left:none;backdrop-filter:none;-webkit-backdrop-filter:none;cursor:pointer;transition:opacity 0.2s}
+.hero-stat:last-child{border-bottom:none}
+.hero-stat:hover{opacity:0.85}
+.hero-stat-icon{width:40px;height:40px;min-width:40px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center}
+.hero-stat-icon svg{width:18px;height:18px;stroke:rgba(255,255,255,0.35);fill:none;stroke-width:1.5}
+.hero-stat-mid{flex:1;min-width:0}
+.hero-stat-mid .hero-stat-lbl{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);text-transform:none;letter-spacing:0}
+.hero-stat-mid .hero-stat-sub{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px}
+.hero-stat-val{font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap}
+.hero-stat-avatars{display:flex;gap:6px}
+.hero-stat-avatars .avatar-circle{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.5)}
 
 @media(max-width:768px){
 /* === Base layout === */
@@ -599,10 +608,12 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .hero-container{height:100%;min-height:100%;justify-content:center;padding:0 22px 20px;overflow-y:auto}
 .hero-row{flex-direction:column;gap:12px;margin-bottom:14px}
 .hero-card{padding:32px 22px;border-radius:20px;background:rgba(255,255,255,0.07) !important;border:none !important}
-.hero-sidebar{flex-direction:row;gap:10px}
-.hero-stat{padding:18px 16px !important;border-radius:16px !important;flex:1 !important;background:rgba(255,255,255,0.06) !important;border:1px solid rgba(255,255,255,0.10) !important;border-left:3px solid rgba(201,162,112,0.4) !important;backdrop-filter:blur(40px) !important;-webkit-backdrop-filter:blur(40px) !important;box-shadow:0 4px 20px rgba(0,0,0,0.15) !important}
-.hero-stat-val{font-size:20px !important;font-weight:400 !important}
-.hero-stat-lbl{font-size:8px !important;letter-spacing:1.2px !important;color:rgba(255,255,255,0.3) !important}
+.hero-sidebar{flex-direction:column !important;gap:0 !important}
+.hero-stat{padding:14px 0 !important;gap:12px !important;background:none !important;border:none !important;border-bottom:1px solid rgba(255,255,255,0.06) !important;border-radius:0 !important;box-shadow:none !important;backdrop-filter:none !important;-webkit-backdrop-filter:none !important}
+.hero-stat:last-child{border-bottom:none !important}
+.hero-stat-icon{width:36px !important;height:36px !important;min-width:36px !important;border-radius:8px !important}
+.hero-stat-val{font-size:13px !important;font-weight:600 !important}
+.hero-stat-mid .hero-stat-lbl{font-size:12px !important;letter-spacing:0 !important;color:rgba(255,255,255,0.7) !important}
 .hero-big{font-size:42px !important}
 .hero-name{font-size:15px !important}
 .hero-sub{font-size:10px !important}
@@ -955,7 +966,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="mob-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 <div class="logo" onclick="nav('dashboard')">You&Place</div>
 </div>
-<div class="mob-top-right"><span id="mob-time" style="font-weight:600;font-size:13px;color:#fff"></span><span style="font-size:12px;font-weight:600;color:#c9a270;background:rgba(201,162,112,0.1);border:1px solid rgba(201,162,112,0.15);border-radius:6px;padding:3px 10px;margin:0 6px;white-space:nowrap">15 000 Kc</span><span class="topbar-icon" onclick="nav('nastaveni')" style="cursor:pointer;color:rgba(255,255,255,0.3);display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></div>
+<div class="mob-top-right"><span id="mob-time" style="font-weight:600;font-size:13px;color:#fff"></span><span style="font-size:13px;font-weight:600;color:#c9a270;background:rgba(201,162,112,0.1);border:1px solid rgba(201,162,112,0.2);border-radius:6px;padding:4px 12px;margin:0 6px;white-space:nowrap">15 000 Kc</span><span class="topbar-icon" onclick="nav('nastaveni')" style="cursor:pointer;color:rgba(255,255,255,0.3);display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span></div>
 </div>
 
 <!-- Mobile Page Bar -->
@@ -985,9 +996,10 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 
 </div>
 <div style="display:flex;gap:10px;margin:12px 0 18px">
-<div onclick="nav('ukoly')" style="flex:1;min-width:0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px;cursor:pointer">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Objednat material</span></div>
-<div style="font-size:11px;color:rgba(255,255,255,0.3)">Dnes</div>
+<div onclick="nav('ukoly')" style="flex:1;min-width:0;background:rgba(201,162,112,0.06);border:1px solid rgba(201,162,112,0.15);border-left:3px solid rgba(201,162,112,0.4);border-radius:12px;padding:14px;cursor:pointer">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(201,162,112,0.5)">Dalsi ukol</span></div>
+<div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:4px">Objednat material</div>
+<div style="font-size:11px;color:#c9a270">Dnes</div>
 </div>
 <div onclick="nav('projekty-detail')" style="flex:1;min-width:0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px;cursor:pointer">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap">Vinohrady</span><span style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7)">74%</span></div>
@@ -1032,9 +1044,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 </div>
 <!-- Side stats -->
 <div class="hero-sidebar">
-<div class="hero-stat" onclick="nav('projekty-lide')"><div class="hero-stat-lbl" style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Tym projektu</div><div style="display:flex;gap:4px"><div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:rgba(255,255,255,0.5)">PH</div><div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:rgba(255,255,255,0.5)">MK</div><div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:rgba(255,255,255,0.5)">TN</div><div style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:rgba(255,255,255,0.5)">JV</div></div></div>
-<div class="hero-stat"><div class="hero-stat-lbl" style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Termin</div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">V terminu</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">+3 dny</div></div>
-<div class="hero-stat" onclick="nav('ukoly')"><div class="hero-stat-lbl" style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Dalsi ukol</div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Objednat material</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Vysoka priorita</div></div>
+<div class="hero-stat" onclick="nav('projekty-lide')"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Tym projektu</div></div><div class="hero-stat-avatars"><div class="avatar-circle">PH</div><div class="avatar-circle">MK</div><div class="avatar-circle">TN</div><div class="avatar-circle">JV</div></div></div>
+<div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Termin</div><div class="hero-stat-sub">+3 dny</div></div><div class="hero-stat-val">V terminu</div></div>
+<div class="hero-stat" onclick="nav('ukoly')"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Dalsi ukol</div><div class="hero-stat-sub">Dnes</div></div><div class="hero-stat-val">Objednat mat.</div></div>
 </div>
 </div>
 <div class="icons">
@@ -1335,9 +1347,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 </div>
 <!-- Side stats -->
 <div class="hero-sidebar">
-<div class="hero-stat"><div class="hero-stat-lbl" style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Aktivni projekty</div><div style="display:flex;gap:10px;margin-top:4px"><div onclick="nav('projekty-detail')" style="width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(201,162,112,0.5);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#c9a270;background:rgba(201,162,112,0.08);cursor:pointer" title="Vinohrady 74%">V</div><div onclick="nav('projekty-detail')" style="width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:rgba(255,255,255,0.25);cursor:pointer" title="Karlin 45%">K</div></div></div>
-<div class="hero-stat" onclick="nav('projekty-detail')"><div class="hero-stat-lbl" style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Kde je ted</div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Stavba Vinohrady</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Od 7:30 · Praha 2</div></div>
-<div class="hero-stat" onclick="nav('ukoly')"><div class="hero-stat-lbl" style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Aktualni ukol</div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Objednat dlazbu</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Vysoka priorita · Dnes</div></div>
+<div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Aktivni projekty</div></div><div class="hero-stat-avatars"><div class="avatar-circle" onclick="nav('projekty-detail')" title="Vinohrady 74%" style="border-color:rgba(201,162,112,0.5);color:#c9a270;background:rgba(201,162,112,0.08)">V</div><div class="avatar-circle" onclick="nav('projekty-detail')" title="Karlin 45%">K</div></div></div>
+<div class="hero-stat" onclick="nav('projekty-detail')"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Kde je ted</div><div class="hero-stat-sub">Od 7:30 · Praha 2</div></div><div class="hero-stat-val">Stavba Vinohrady</div></div>
+<div class="hero-stat" onclick="nav('ukoly')"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Aktualni ukol</div><div class="hero-stat-sub">Vysoka priorita · Dnes</div></div><div class="hero-stat-val">Objednat dlazbu</div></div>
 </div>
 </div>
 <div class="icons">
@@ -1555,9 +1567,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 </div>
 <!-- Side stats -->
 <div class="hero-sidebar">
-<div class="hero-stat"><div style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Kdo ho ma na starost</div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Tomas Spery</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">Jednatel</div></div>
-<div class="hero-stat"><div style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Kde ted auto je</div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Kladno</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">Sidlo firmy</div></div>
-<div class="hero-stat"><div style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:4px">Jaky je dalsi servis</div><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.7)">Vymena oleje</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">90 000 km</div></div>
+<div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Kdo ho ma na starost</div><div class="hero-stat-sub">Jednatel</div></div><div class="hero-stat-val">Tomas Spery</div></div>
+<div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Kde ted auto je</div><div class="hero-stat-sub">Sidlo firmy</div></div><div class="hero-stat-val">Kladno</div></div>
+<div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Dalsi servis</div><div class="hero-stat-sub">90 000 km</div></div><div class="hero-stat-val">Vymena oleje</div></div>
 </div>
 </div>
 <div class="icons">
@@ -1648,9 +1660,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 </div>
 <div class="detail-right">
 <div style="display:flex;gap:10px;margin-bottom:16px">
-<div style="flex:1;background:rgba(255,255,255,0.06);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.10);border-radius:16px;border-left:3px solid rgba(201,162,112,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:12px"><div style="font-size:8px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Svereno</div><div style="font-size:14px;font-weight:600;color:#fff">Tomas Spery</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">Jednatel</div></div>
-<div style="flex:1;background:rgba(255,255,255,0.06);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.10);border-radius:16px;border-left:3px solid rgba(201,162,112,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:12px"><div style="font-size:8px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Nejblizsi servis</div><div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7)">Vymena oleje</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">90 000 km</div></div>
-<div style="flex:1;background:rgba(255,255,255,0.06);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.10);border-radius:16px;border-left:3px solid rgba(201,162,112,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:12px"><div style="font-size:8px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Poloha</div><div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7)">Kladno</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">Sidlo firmy</div></div>
+<div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px"><div style="font-size:8px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Svereno</div><div style="font-size:14px;font-weight:600;color:#fff">Tomas Spery</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">Jednatel</div></div>
+<div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px"><div style="font-size:8px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Nejblizsi servis</div><div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7)">Vymena oleje</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">90 000 km</div></div>
+<div style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px"><div style="font-size:8px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Poloha</div><div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7)">Kladno</div><div style="font-size:10px;color:rgba(255,255,255,0.3)">Sidlo firmy</div></div>
 </div>
 <div style="display:flex;gap:16px">
 <div style="flex:1">
@@ -1709,9 +1721,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 </div>
 <!-- Side stats -->
 <div class="hero-sidebar">
-<div class="hero-stat"><div style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:6px">AI Pracuje</div><div style="display:flex;gap:8px"><div style="width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(201,162,112,0.5);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#c9a270;background:rgba(201,162,112,0.08)">FR</div><div style="width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(201,162,112,0.5);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#c9a270;background:rgba(201,162,112,0.08)">PR</div></div></div>
-<div class="hero-stat" onclick="openAiChat('ba')"><div style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:6px">Ceka odpoved</div><div style="display:flex;gap:8px"><div style="width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.04)">BA</div></div></div>
-<div class="hero-stat" style="text-align:center;align-items:center"><div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.7)">Porada</div><div style="font-size:8px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-top:4px">Spustit se vsemi AI</div></div>
+<div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">AI Pracuje</div></div><div class="hero-stat-avatars"><div class="avatar-circle" style="border-color:rgba(201,162,112,0.5);color:#c9a270;background:rgba(201,162,112,0.08)">FR</div><div class="avatar-circle" style="border-color:rgba(201,162,112,0.5);color:#c9a270;background:rgba(201,162,112,0.08)">PR</div></div></div>
+<div class="hero-stat" onclick="openAiChat('ba')"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Ceka odpoved</div></div><div class="hero-stat-avatars"><div class="avatar-circle">BA</div></div></div>
+<div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Porada</div><div class="hero-stat-sub">Spustit se vsemi AI</div></div></div>
 </div>
 </div>
 <div class="icons">
@@ -3387,12 +3399,13 @@ function heroRender(key){
   if(c.s1){
     var stats=el.parentElement.querySelectorAll('.hero-stat');
     if(stats.length>=3){
-      stats[0].querySelector('.hero-stat-val').textContent=c.s1;
-      stats[0].querySelector('.hero-stat-lbl').textContent=c.s1l;
-      stats[1].querySelector('.hero-stat-val').textContent=c.s2;
-      stats[1].querySelector('.hero-stat-lbl').textContent=c.s2l;
-      stats[2].querySelector('.hero-stat-val').textContent=c.s3;
-      stats[2].querySelector('.hero-stat-lbl').textContent=c.s3l;
+      var v,l;
+      v=stats[0].querySelector('.hero-stat-val');l=stats[0].querySelector('.hero-stat-lbl');
+      if(v)v.textContent=c.s1;if(l)l.textContent=c.s1l;
+      v=stats[1].querySelector('.hero-stat-val');l=stats[1].querySelector('.hero-stat-lbl');
+      if(v)v.textContent=c.s2;if(l)l.textContent=c.s2l;
+      v=stats[2].querySelector('.hero-stat-val');l=stats[2].querySelector('.hero-stat-lbl');
+      if(v)v.textContent=c.s3;if(l)l.textContent=c.s3l;
     }
   }
 }
