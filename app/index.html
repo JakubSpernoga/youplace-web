@@ -706,16 +706,17 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 #calcContent .calc-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-bottom:-8px}
 
 /* TOP BAR */
-#calcContent .top-bar{display:flex;align-items:center;padding:14px 24px;gap:24px;flex-shrink:0;flex-wrap:wrap}
+#calcContent .top-bar{display:flex;align-items:center;padding:14px 20px;gap:12px 18px;flex-shrink:0;flex-wrap:wrap}
 #calcContent .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
 #calcContent .brand-dot{width:10px;height:10px;border-radius:50%}
 #calcContent .brand-name{font-size:15px;font-weight:600;letter-spacing:1px}
 #calcContent .brand-name span{color:#c9a270}
 #calcContent .brand-sub{font-size:10px;color:rgba(255,255,255,0.35)}
 #calcContent .divider-v{width:1px;height:28px;background:rgba(255,255,255,0.08);flex-shrink:0}
-#calcContent .field-inline{display:flex;align-items:center;gap:8px}
+#calcContent .field-inline{display:flex;align-items:center;gap:6px;flex-shrink:0}
 #calcContent .field-inline label{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.4);white-space:nowrap;font-weight:500}
-#calcContent .field-inline .val{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 12px;font-size:16px;font-weight:600;color:#fff;min-width:60px;text-align:center}
+#calcContent .field-inline .val,
+#calcContent .field-inline input[type="number"]{background:rgba(255,255,255,0.06)!important;border:1px solid rgba(255,255,255,0.1)!important;border-radius:8px!important;padding:6px 10px!important;font-size:15px!important;font-weight:600;color:#fff!important;width:65px!important;max-width:65px!important;min-width:0!important;text-align:center}
 #calcContent .field-inline .unit{font-size:11px;color:rgba(255,255,255,0.35);margin-left:-4px}
 
 /* PILLS */
@@ -2264,8 +2265,8 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
     <div class="field-inline"><label>Obvod</label><input type="number" class="val" id="podlahyObvod" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">bm</span></div>
     <div class="divider-v"></div>
     <div class="field-inline"><label>Dveře</label><input type="number" class="val" id="podlahyDvere" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">ks</span></div>
-    <div class="field-inline"><label>Vnitř. rohy</label><input type="number" class="val" id="podlahyVnitrniRohy" placeholder="0" oninput="vypoctiPodlahy()"></div>
-    <div class="field-inline"><label>Vnějš. rohy</label><input type="number" class="val" id="podlahyVnejsiRohy" placeholder="0" oninput="vypoctiPodlahy()"></div>
+    <div class="field-inline"><label>Rohy vnitř.</label><input type="number" class="val" id="podlahyVnitrniRohy" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">ks</span></div>
+    <div class="field-inline"><label>Rohy vnějš.</label><input type="number" class="val" id="podlahyVnejsiRohy" placeholder="0" oninput="vypoctiPodlahy()"><span class="unit">ks</span></div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
     <div>
