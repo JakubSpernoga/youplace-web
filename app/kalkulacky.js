@@ -583,7 +583,7 @@ function vypoctiZaklady() {
     html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + (p.role ? p.role + ' rolí (' + p.m2 + ' m²)' : p.l + ' l') + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
   });
   
-  html += '<div style="font-size:10px;font-weight:600;color:var(--g400);text-transform:uppercase;margin:12px 0 6px;">Materiál a služby</div>';
+  html += '<div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;margin:12px 0 6px;">Materiál a služby</div>';
   polozky.filter(p => ['material', 'zemneni', 'prostupy', 'sluzby'].includes(p.kat)).forEach(p => {
     const mn = p.ks ? p.ks + ' ks' : p.bm ? p.bm + ' bm' : p.m2 ? p.m2 + ' m²' : p.m3 ? p.m3 + ' m³' : p.kg ? p.kg + ' kg' : p.hod ? p.hod + ' hod' : p.dny ? p.dny + ' dní' : '-';
     html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + mn + '</div></div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
@@ -592,10 +592,10 @@ function vypoctiZaklady() {
   html += '<div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(celkem) + '</span></div>';
   
   html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:12px;text-align:center;">';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:var(--g400);">Beton celkem</div><div style="font-size:14px;font-weight:600;color:#ea580c;">' + objemBetonuCelkem.toFixed(1) + ' m³</div></div>';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:var(--g400);">Plocha desky</div><div style="font-size:14px;font-weight:600;color:#3b82f6;">' + plochaDesky + ' m²</div></div>';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:var(--g400);">Cena/m² desky</div><div style="font-size:14px;font-weight:600;color:#a855f7;">' + Math.round(celkem / plochaDesky) + ' Kč</div></div>';
-  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:var(--g400);">Cena/m³ betonu</div><div style="font-size:14px;font-weight:600;color:#22c55e;">' + Math.round(celkem / objemBetonuCelkem) + ' Kč</div></div>';
+  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Beton celkem</div><div style="font-size:14px;font-weight:600;color:#ea580c;">' + objemBetonuCelkem.toFixed(1) + ' m³</div></div>';
+  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Plocha desky</div><div style="font-size:14px;font-weight:600;color:#3b82f6;">' + plochaDesky + ' m²</div></div>';
+  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Cena/m² desky</div><div style="font-size:14px;font-weight:600;color:#a855f7;">' + Math.round(celkem / plochaDesky) + ' Kč</div></div>';
+  html += '<div style="background:var(--bg);padding:8px;border-radius:8px;"><div style="font-size:10px;color:rgba(255,255,255,0.4);">Cena/m³ betonu</div><div style="font-size:14px;font-weight:600;color:#22c55e;">' + Math.round(celkem / objemBetonuCelkem) + ' Kč</div></div>';
   html += '</div>';
   
   html += '</div>';
@@ -773,7 +773,7 @@ function renderElektroAll() {
 }
 
 function renderElektroTypyMistnosti() {
-  document.getElementById('elektroTypyMistnosti').innerHTML = elektroTypyMistnosti.map(t => '<button onclick="elektroPridatMistnost(\'' + t.id + '\')" style="padding:6px 10px;font-size:11px;background:var(--g200);border:none;border-radius:6px;cursor:pointer;">+ ' + t.nazev + '</button>').join('');
+  document.getElementById('elektroTypyMistnosti').innerHTML = elektroTypyMistnosti.map(t => '<button onclick="elektroPridatMistnost(\'' + t.id + '\')" style="padding:6px 10px;font-size:11px;background:rgba(255,255,255,0.08);border:none;border-radius:6px;cursor:pointer;">+ ' + t.nazev + '</button>').join('');
 }
 
 function elektroPridatMistnost(typId) {
@@ -803,8 +803,8 @@ function elektroUpdateMistnostNazev(id, nazev) {
 
 function renderElektroMistnosti() {
   document.getElementById('elektroMistnostiList').innerHTML = elektroMistnosti.map(m => {
-    const inp = (label, field, max) => '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:10px;color:var(--g500);">' + label + '</span><input type="number" min="0" max="' + (max||20) + '" value="' + m[field] + '" onchange="elektroUpdateMistnost(\'' + m.id + '\',\'' + field + '\',this.value)" style="width:36px;padding:2px;font-size:11px;text-align:center;border:1px solid var(--g200);border-radius:4px;"></div>';
-    return '<div class="card" style="border-left:4px solid ' + (m.vlhka ? '#3b82f6' : '#eab308') + ';"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><input type="text" value="' + m.nazev + '" onchange="elektroUpdateMistnostNazev(\'' + m.id + '\',this.value)" style="font-weight:500;font-size:13px;border:none;background:transparent;width:120px;"><button onclick="elektroOdebratMistnost(\'' + m.id + '\')" style="font-size:18px;color:var(--g400);background:none;border:none;cursor:pointer;">×</button></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:10px;">' + inp('Zásuvky', 'zasuvky') + inp('Dvojité', 'zasuvkyDv', 10) + inp('Světla', 'svetla') + inp('Vypínače', 'vypinace', 10) + inp('Střídavé', 'stridave', 10) + inp('Sériové', 'seriove', 10) + inp('Klima', 'klima', 3) + inp('Termostat', 'termostat', 3) + inp('TV', 'tv', 5) + inp('LAN', 'lan', 10) + '<div style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:10px;color:var(--g500);">Délka kabelu</span><div style="display:flex;align-items:center;gap:4px;"><input type="number" min="5" max="100" value="' + m.delka + '" onchange="elektroUpdateMistnost(\'' + m.id + '\',\'delka\',this.value)" style="width:40px;padding:2px;font-size:11px;text-align:center;border:1px solid var(--g200);border-radius:4px;"><span style="font-size:10px;color:var(--g400);">m</span></div></div></div></div>';
+    const inp = (label, field, max) => '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:10px;color:rgba(255,255,255,0.35);">' + label + '</span><input type="number" min="0" max="' + (max||20) + '" value="' + m[field] + '" onchange="elektroUpdateMistnost(\'' + m.id + '\',\'' + field + '\',this.value)" style="width:36px;padding:2px;font-size:11px;text-align:center;border:1px solid rgba(255,255,255,0.08);border-radius:4px;"></div>';
+    return '<div class="card" style="border-left:4px solid ' + (m.vlhka ? '#3b82f6' : '#eab308') + ';"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><input type="text" value="' + m.nazev + '" onchange="elektroUpdateMistnostNazev(\'' + m.id + '\',this.value)" style="font-weight:500;font-size:13px;border:none;background:transparent;width:120px;"><button onclick="elektroOdebratMistnost(\'' + m.id + '\')" style="font-size:18px;color:rgba(255,255,255,0.4);background:none;border:none;cursor:pointer;">×</button></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:10px;">' + inp('Zásuvky', 'zasuvky') + inp('Dvojité', 'zasuvkyDv', 10) + inp('Světla', 'svetla') + inp('Vypínače', 'vypinace', 10) + inp('Střídavé', 'stridave', 10) + inp('Sériové', 'seriove', 10) + inp('Klima', 'klima', 3) + inp('Termostat', 'termostat', 3) + inp('TV', 'tv', 5) + inp('LAN', 'lan', 10) + '<div style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:10px;color:rgba(255,255,255,0.35);">Délka kabelu</span><div style="display:flex;align-items:center;gap:4px;"><input type="number" min="5" max="100" value="' + m.delka + '" onchange="elektroUpdateMistnost(\'' + m.id + '\',\'delka\',this.value)" style="width:40px;padding:2px;font-size:11px;text-align:center;border:1px solid rgba(255,255,255,0.08);border-radius:4px;"><span style="font-size:10px;color:rgba(255,255,255,0.4);">m</span></div></div></div></div>';
   }).join('');
 }
 
@@ -812,7 +812,7 @@ function renderElektroSpecialni() {
   document.getElementById('elektroSpecialniList').innerHTML = elektroSpecialni.map(s => {
     const sp = elektroSpecialniSpotrebice.find(x => x.id === s.id);
     if (!sp) return '';
-    return '<div onclick="elektroToggleSpecialni(\'' + s.id + '\')" style="padding:8px;border-radius:8px;cursor:pointer;border:1px solid ' + (s.aktivni ? 'rgba(234,179,8,0.5)' : 'var(--g200)') + ';background:' + (s.aktivni ? 'rgba(234,179,8,0.1)' : 'var(--g100)') + ';"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;color:' + (s.aktivni ? '#ca8a04' : 'var(--g400)') + ';">' + sp.nazev + '</span><span style="width:12px;height:12px;border-radius:3px;border:1px solid ' + (s.aktivni ? '#eab308' : 'var(--g300)') + ';background:' + (s.aktivni ? '#eab308' : 'transparent') + ';"></span></div><div style="font-size:10px;color:var(--g400);margin-top:2px;">' + (sp.vykon/1000).toFixed(1) + 'kW ' + sp.jistic + '</div></div>';
+    return '<div onclick="elektroToggleSpecialni(\'' + s.id + '\')" style="padding:8px;border-radius:8px;cursor:pointer;border:1px solid ' + (s.aktivni ? 'rgba(234,179,8,0.5)' : 'rgba(255,255,255,0.08)') + ';background:' + (s.aktivni ? 'rgba(234,179,8,0.1)' : 'rgba(255,255,255,0.04)') + ';"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;color:' + (s.aktivni ? '#ca8a04' : 'rgba(255,255,255,0.4)') + ';">' + sp.nazev + '</span><span style="width:12px;height:12px;border-radius:3px;border:1px solid ' + (s.aktivni ? '#eab308' : 'rgba(255,255,255,0.12)') + ';background:' + (s.aktivni ? '#eab308' : 'transparent') + ';"></span></div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">' + (sp.vykon/1000).toFixed(1) + 'kW ' + sp.jistic + '</div></div>';
   }).join('');
 }
 
@@ -978,20 +978,20 @@ function vypoctiElektro() {
   
   // Souhrn
   html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">';
-  html += '<div style="background:var(--g100);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + elektroMistnosti.length + '</div><div style="font-size:10px;color:var(--g400);">místností</div></div>';
-  html += '<div style="background:var(--g100);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + celkemOkruhu + '</div><div style="font-size:10px;color:var(--g400);">okruhů</div></div>';
-  html += '<div style="background:var(--g100);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + celkemZasuvekBody + '</div><div style="font-size:10px;color:var(--g400);">zásuvek</div></div>';
-  html += '<div style="background:var(--g100);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + sumSvetel + '</div><div style="font-size:10px;color:var(--g400);">světel</div></div>';
+  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + elektroMistnosti.length + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">místností</div></div>';
+  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + celkemOkruhu + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">okruhů</div></div>';
+  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + celkemZasuvekBody + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">zásuvek</div></div>';
+  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;text-align:center;"><div style="font-size:20px;font-weight:700;">' + sumSvetel + '</div><div style="font-size:10px;color:rgba(255,255,255,0.4);">světel</div></div>';
   html += '</div>';
   
   // Rozvaděč info
-  html += '<div style="background:var(--g100);padding:10px;border-radius:8px;margin-bottom:12px;">';
-  html += '<div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--g400);">Rozvaděč</span><span>' + rozvadec.nazev + '</span></div>';
-  html += '<div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--g400);">Obsazeno</span><span>' + celkemModulu + ' / ' + rozvadec.moduly + ' mod</span></div>';
-  html += '<div style="width:100%;height:6px;background:var(--g200);border-radius:3px;margin-top:6px;"><div style="width:' + Math.min(100, celkemModulu/rozvadec.moduly*100) + '%;height:100%;background:linear-gradient(135deg,var(--gold-start),var(--gold-end));border-radius:3px;"></div></div>';
+  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;margin-bottom:12px;">';
+  html += '<div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:rgba(255,255,255,0.4);">Rozvaděč</span><span>' + rozvadec.nazev + '</span></div>';
+  html += '<div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:rgba(255,255,255,0.4);">Obsazeno</span><span>' + celkemModulu + ' / ' + rozvadec.moduly + ' mod</span></div>';
+  html += '<div style="width:100%;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;margin-top:6px;"><div style="width:' + Math.min(100, celkemModulu/rozvadec.moduly*100) + '%;height:100%;background:linear-gradient(135deg,var(--gold-start),var(--gold-end));border-radius:3px;"></div></div>';
   html += '</div>';
   
-  html += '<div style="background:var(--g100);padding:10px;border-radius:8px;margin-bottom:12px;display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--g400);">Inst. výkon</span><span style="font-weight:500;">' + (celkemVykon/1000).toFixed(1) + ' kW</span></div>';
+  html += '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;margin-bottom:12px;display:flex;justify-content:space-between;font-size:12px;"><span style="color:rgba(255,255,255,0.4);">Inst. výkon</span><span style="font-weight:500;">' + (celkemVykon/1000).toFixed(1) + ' kW</span></div>';
   
   // Celkem
   html += '<div class="result-total"><span class="result-total-label">CELKEM</span><span class="result-total-value">' + formatCena(celkem) + '</span></div>';
@@ -1002,9 +1002,9 @@ function vypoctiElektro() {
     const items = polozky.filter(p => p.kat === kat);
     if (items.length === 0) return;
     const katCena = items.reduce((s,i) => s + i.cena, 0);
-    html += '<div style="display:flex;justify-content:space-between;font-size:11px;margin:12px 0 4px;"><span style="font-weight:600;color:var(--gold);">' + kat + '</span><span style="color:var(--g400);">' + formatCena(katCena) + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:11px;margin:12px 0 4px;"><span style="font-weight:600;color:var(--gold);">' + kat + '</span><span style="color:rgba(255,255,255,0.4);">' + formatCena(katCena) + '</span></div>';
     items.forEach(p => {
-      html += '<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--g100);"><span style="color:var(--g500);">' + p.nazev + ' <span style="color:var(--g300);">' + p.ks + (p.j || 'ks') + '</span>' + (p.info ? ' <span style="color:var(--g300);">(' + p.info + ')</span>' : '') + '</span><span style="color:var(--g400);">' + formatCena(p.cena) + '</span></div>';
+      html += '<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="color:rgba(255,255,255,0.35);">' + p.nazev + ' <span style="color:rgba(255,255,255,0.12);">' + p.ks + (p.j || 'ks') + '</span>' + (p.info ? ' <span style="color:rgba(255,255,255,0.12);">(' + p.info + ')</span>' : '') + '</span><span style="color:rgba(255,255,255,0.4);">' + formatCena(p.cena) + '</span></div>';
     });
   });
   html += '</div>';
@@ -1120,7 +1120,7 @@ function renderPodlahyTypInfo() {
   const allP = [...arbitonPodlahy.amaron, ...arbitonPodlahy.woodric, ...arbitonPodlahy.liberal, ...arbitonPodlahy.biclick];
   const p = allP.find(x => x.id === podlahyState.typ);
   if (!p) return;
-  document.getElementById('podlahyTypInfo').innerHTML = '<div style="background:var(--g100);padding:10px;border-radius:8px;font-size:11px;"><div style="color:var(--g500);">' + p.popis + '</div><div style="color:var(--text);margin-top:4px;">Tl. ' + p.tloustka + 'mm • Nášlap ' + p.naslap + 'mm • Třída ' + p.trida + ' • Zámek ' + p.zamek + ' • Balení ' + p.baleniM2 + ' m²</div></div>';
+  document.getElementById('podlahyTypInfo').innerHTML = '<div style="background:rgba(255,255,255,0.04);padding:10px;border-radius:8px;font-size:11px;"><div style="color:rgba(255,255,255,0.35);">' + p.popis + '</div><div style="color:#e8e8ec;margin-top:4px;">Tl. ' + p.tloustka + 'mm • Nášlap ' + p.naslap + 'mm • Třída ' + p.trida + ' • Zámek ' + p.zamek + ' • Balení ' + p.baleniM2 + ' m²</div></div>';
 }
 
 function renderPodlahyPodlozky() {
@@ -1283,9 +1283,9 @@ function vypoctiPodlahy() {
   kategorie.forEach(kat => {
     const items = polozky.filter(p => p.kat === kat);
     if (items.length === 0) return;
-    html += '<div style="font-size:10px;font-weight:600;color:var(--g400);text-transform:uppercase;margin:12px 0 6px;">' + kat + '</div>';
+    html += '<div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;margin:12px 0 6px;">' + kat + '</div>';
     items.forEach(p => {
-      html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div>' + (p.info ? '<div style="font-size:10px;color:var(--g400);margin-top:2px;">' + p.info + '</div>' : '') + '</div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
+      html += '<div class="result-item"><div class="result-item-info"><div class="result-item-name">' + p.nazev + '</div><div class="result-item-detail">' + p.detail + '</div>' + (p.info ? '<div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">' + p.info + '</div>' : '') + '</div><div class="result-item-price">' + formatCena(p.cena) + '</div></div>';
     });
   });
   
@@ -1727,7 +1727,7 @@ function renderVytapeniMistnosti() {
   const deltaT = vnitrni - venkovni;
   
   if (vytapeniMistnosti.length === 0) {
-    cont.innerHTML = '<div style="text-align:center;padding:16px;color:var(--g400);font-size:12px;">Přidejte místnosti pro výpočet tepelných ztrát</div>';
+    cont.innerHTML = '<div style="text-align:center;padding:16px;color:rgba(255,255,255,0.4);font-size:12px;">Přidejte místnosti pro výpočet tepelných ztrát</div>';
     return;
   }
   cont.innerHTML = vytapeniMistnosti.map(m => {
@@ -1737,9 +1737,9 @@ function renderVytapeniMistnosti() {
     return '<div class="mistnost-card' + (m.typ === 'koupelna' ? ' vlhka' : '') + '">' +
       '<div class="mistnost-header"><input class="mistnost-name" value="' + m.nazev + '" onchange="updateVytapeniMistnost(' + m.id + ',\'nazev\',this.value)"><span style="font-weight:600;color:var(--gold-dark);font-size:13px;">' + ztrata + ' W</span><button class="mistnost-remove" onclick="odebratVytapeniMistnost(' + m.id + ')">×</button></div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px;">' +
-        '<div><label style="font-size:9px;color:var(--g400);display:block;">Plocha m²</label><input type="number" style="width:100%;padding:6px;border:1px solid var(--g200);border-radius:6px;font-size:12px;" value="' + m.plocha + '" onchange="updateVytapeniMistnost(' + m.id + ',\'plocha\',this.value)"></div>' +
-        '<div><label style="font-size:9px;color:var(--g400);display:block;">Teplota °C</label><input type="number" style="width:100%;padding:6px;border:1px solid var(--g200);border-radius:6px;font-size:12px;" value="' + m.teplota + '" onchange="updateVytapeniMistnost(' + m.id + ',\'teplota\',this.value)"></div>' +
-        '<div><label style="font-size:9px;color:var(--g400);display:block;">Typ</label><select style="width:100%;padding:6px;border:1px solid var(--g200);border-radius:6px;font-size:11px;" onchange="updateVytapeniMistnost(' + m.id + ',\'typ\',this.value)">' +
+        '<div><label style="font-size:9px;color:rgba(255,255,255,0.4);display:block;">Plocha m²</label><input type="number" style="width:100%;padding:6px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-size:12px;" value="' + m.plocha + '" onchange="updateVytapeniMistnost(' + m.id + ',\'plocha\',this.value)"></div>' +
+        '<div><label style="font-size:9px;color:rgba(255,255,255,0.4);display:block;">Teplota °C</label><input type="number" style="width:100%;padding:6px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-size:12px;" value="' + m.teplota + '" onchange="updateVytapeniMistnost(' + m.id + ',\'teplota\',this.value)"></div>' +
+        '<div><label style="font-size:9px;color:rgba(255,255,255,0.4);display:block;">Typ</label><select style="width:100%;padding:6px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-size:11px;" onchange="updateVytapeniMistnost(' + m.id + ',\'typ\',this.value)">' +
           '<option value="obytna"' + (m.typ === 'obytna' ? ' selected' : '') + '>Obytná</option>' +
           '<option value="kuchyn"' + (m.typ === 'kuchyn' ? ' selected' : '') + '>Kuchyň</option>' +
           '<option value="loznice"' + (m.typ === 'loznice' ? ' selected' : '') + '>Ložnice</option>' +
@@ -1925,7 +1925,7 @@ function updateVodaVyvod(id, pole, hodnota) {
 function renderVodaVyvody() {
   const cont = document.getElementById('vodaVyvodyList');
   if (vodaVyvody.length === 0) {
-    cont.innerHTML = '<div style="text-align:center;padding:16px;color:var(--g400);font-size:12px;">Přidejte vývody pomocí tlačítek níže</div>';
+    cont.innerHTML = '<div style="text-align:center;padding:16px;color:rgba(255,255,255,0.4);font-size:12px;">Přidejte vývody pomocí tlačítek níže</div>';
     return;
   }
   cont.innerHTML = vodaVyvody.map(v => {
@@ -2157,7 +2157,7 @@ function setKlimaOrient(dir) {
 function renderKlimaMistnosti() {
   const cont = document.getElementById('klimaMistnostiList');
   if (klimaMistnosti.length === 0) {
-    cont.innerHTML = '<div style="text-align:center;padding:16px;color:var(--g400);font-size:12px;">Přidejte místnosti pro chlazení</div>';
+    cont.innerHTML = '<div style="text-align:center;padding:16px;color:rgba(255,255,255,0.4);font-size:12px;">Přidejte místnosti pro chlazení</div>';
     return;
   }
   cont.innerHTML = klimaMistnosti.map(m => 
@@ -2168,8 +2168,8 @@ function renderKlimaMistnosti() {
         '<button class="mistnost-remove" onclick="odebratKlimaMistnost(' + m.id + ')">×</button>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">' +
-        '<div><label style="font-size:9px;color:var(--g400);">Plocha m²</label><input type="number" style="width:100%;padding:6px;border:1px solid var(--g200);border-radius:6px;font-size:12px;" value="' + m.plocha + '" onchange="updateKlimaMistnost(' + m.id + ',\'plocha\',this.value)"></div>' +
-        '<div><label style="font-size:9px;color:var(--g400);">Výška m</label><input type="number" style="width:100%;padding:6px;border:1px solid var(--g200);border-radius:6px;font-size:12px;" value="' + m.vyska + '" step="0.1" onchange="updateKlimaMistnost(' + m.id + ',\'vyska\',this.value)"></div>' +
+        '<div><label style="font-size:9px;color:rgba(255,255,255,0.4);">Plocha m²</label><input type="number" style="width:100%;padding:6px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-size:12px;" value="' + m.plocha + '" onchange="updateKlimaMistnost(' + m.id + ',\'plocha\',this.value)"></div>' +
+        '<div><label style="font-size:9px;color:rgba(255,255,255,0.4);">Výška m</label><input type="number" style="width:100%;padding:6px;border:1px solid rgba(255,255,255,0.08);border-radius:6px;font-size:12px;" value="' + m.vyska + '" step="0.1" onchange="updateKlimaMistnost(' + m.id + ',\'vyska\',this.value)"></div>' +
       '</div>' +
     '</div>'
   ).join('');
@@ -2179,7 +2179,7 @@ function vypoctiKlima() {
   if (klimaMistnosti.length === 0) {
     document.getElementById('klimaSumVykon').textContent = '0 kW';
     document.getElementById('klimaSumNaklady').textContent = '0 Kč';
-    document.getElementById('klimaJednotky').innerHTML = '<div style="text-align:center;padding:16px;color:var(--g400);font-size:12px;">Přidejte místnosti</div>';
+    document.getElementById('klimaJednotky').innerHTML = '<div style="text-align:center;padding:16px;color:rgba(255,255,255,0.4);font-size:12px;">Přidejte místnosti</div>';
     return;
   }
   
@@ -2224,7 +2224,7 @@ function vypoctiKlima() {
         '<span class="klima-jednotka-name">' + u.name + '</span>' +
         (i === 0 ? '<span class="klima-jednotka-badge">Doporučeno</span>' : '') +
       '</div>' +
-      '<div style="font-size:9px;color:var(--g400);margin-bottom:6px;">Řada: ' + u.series + '</div>' +
+      '<div style="font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:6px;">Řada: ' + u.series + '</div>' +
       '<div class="klima-jednotka-specs">' +
         '<div class="klima-spec"><div class="klima-spec-label">Chlazení</div><div class="klima-spec-value">' + u.power + ' kW</div></div>' +
         '<div class="klima-spec"><div class="klima-spec-label">SEER</div><div class="klima-spec-value">' + u.seer + '</div></div>' +
