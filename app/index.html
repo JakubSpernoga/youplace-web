@@ -1789,9 +1789,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 </div>
 </section>
 <!-- PAGE: Kalkulacky Detail -->
-<section class="page" id="page-kalkulacky-detail" style="flex-direction:column;overflow-y:auto">
+<section class="page" id="page-kalkulacky-detail" style="flex-direction:column;overflow-y:auto;display:flex">
 <div class="back" onclick="nav('kalkulacky')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>Zpet na kalkulacky</div>
-<iframe id="calcFrame" style="border:none;width:100%;min-height:calc(100vh - 60px);background:transparent" src=""></iframe>
+<iframe id="calcFrame" style="border:none;width:100%;background:transparent" scrolling="no" src="" onload="resizeCalcFrame()"></iframe>
 </section>
 <!-- PAGE: Ukoly T1 -->
 <section class="page" id="page-ukoly">
@@ -2095,9 +2095,19 @@ function openFa(typ,num){
   document.getElementById('fa-back').onclick=function(){nav(fa.back)};
   nav('fa-detail');
 }
+function resizeCalcFrame(){
+  var f=document.getElementById('calcFrame');
+  try{f.style.height=f.contentDocument.body.scrollHeight+'px';}catch(e){f.style.height='100vh';}
+  // Keep checking as user interacts with calculator
+  if(f._resizeObs) return;
+  f._resizeObs=setInterval(function(){
+    try{var h=f.contentDocument.body.scrollHeight;if(h>0)f.style.height=h+'px';}catch(e){}
+  },500);
+}
 function openCalc(pageId){
   var hash=pageId.replace(/Page$/,'');
   var f=document.getElementById('calcFrame');
+  if(f._resizeObs){clearInterval(f._resizeObs);f._resizeObs=null;}
   f.src='about:blank';
   setTimeout(function(){f.src='kalkulacky.html#'+hash},50);
   nav('kalkulacky-detail');
