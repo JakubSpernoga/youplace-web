@@ -2109,7 +2109,7 @@ function openCalc(pageId){
   var f=document.getElementById('calcFrame');
   if(f._resizeObs){clearInterval(f._resizeObs);f._resizeObs=null;}
   f.src='about:blank';
-  setTimeout(function(){f.src='kalkulacky.html#'+hash},50);
+  setTimeout(function(){f.src='kalkulacky.html?v='+Date.now()+'#'+hash},50);
   nav('kalkulacky-detail');
 }
 
