@@ -502,6 +502,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .ai-chat-msgs{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:10px}
 .ai-msg{padding:14px 18px;border-radius:14px;font-size:13px;line-height:1.7;max-width:85%;white-space:pre-wrap;word-wrap:break-word}
 .ai-msg.user{background:rgba(201,162,112,0.12);border:1px solid rgba(201,162,112,0.2);align-self:flex-end;color:rgba(255,255,255,0.9)}
+.ai-msg-row{display:flex;align-items:flex-start;gap:8px;align-self:flex-end;max-width:85%}
+.ai-msg-row .ai-msg{max-width:100%;flex:1}
+.ai-msg-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;margin-top:2px}
 .ai-msg.ai{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);align-self:flex-start;color:rgba(255,255,255,0.85)}
 .ai-msg.typing{color:rgba(255,255,255,0.5);font-style:italic}
 .ai-msg.consulting{color:#8B5CF6;font-style:italic}
@@ -3794,7 +3797,7 @@ function openAiChat(roleId) {
     for (var i = 0; i < conversationHistory[roleId].length; i++) {
       var m = conversationHistory[roleId][i];
       if (m.role === 'user') {
-        html += '<div class="ai-msg user">' + esc(m.content) + '</div>';
+        html += '<div class="ai-msg-row"><img src="jakub.png" class="ai-msg-avatar"><div class="ai-msg user">' + esc(m.content) + '</div></div>';
       } else {
         html += '<div class="ai-msg ai">' + esc(m.content) + '</div>';
       }
@@ -3827,7 +3830,7 @@ async function sendAiMessage() {
 
   input.value = '';
   var msgs = document.getElementById('aiChatMsgs');
-  msgs.innerHTML += '<div class="ai-msg user">' + esc(text) + '</div>';
+  msgs.innerHTML += '<div class="ai-msg-row"><img src="jakub.png" class="ai-msg-avatar"><div class="ai-msg user">' + esc(text) + '</div></div>';
   msgs.innerHTML += '<div class="ai-msg ai typing" id="aiTyping">Premyslim...</div>';
   msgs.scrollTop = msgs.scrollHeight;
 
