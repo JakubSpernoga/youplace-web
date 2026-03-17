@@ -3951,22 +3951,18 @@ async function sendAiMessage() {
   var savedRole = currentAiRole; // capture in case user navigates away
 
   // AI proxy URLs: try localhost first, fallback to Cloudflare tunnel
-  var AI_PROXY_URLS = ['http://localhost:8081/chat', 'https://ai.youplace.cz/chat'];
+  var controller = new AbortController();
+  var tid = setTimeout(function() { controller.abort(); }, 120000);
   var response = null;
-  for (var pi = 0; pi < AI_PROXY_URLS.length; pi++) {
-    try {
-      var controller = new AbortController();
-      var tid = setTimeout(function() { controller.abort(); }, 120000);
-      response = await fetch(AI_PROXY_URLS[pi], {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, agent_id: currentAiRole, history: apiMessages }),
-        signal: controller.signal
-      });
-      clearTimeout(tid);
-      if (response.ok) break;
-    } catch(e) { response = null; continue; }
-  }
+  try {
+    response = await fetch('/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, agent_id: currentAiRole, history: apiMessages }),
+      signal: controller.signal
+    });
+    clearTimeout(tid);
+  } catch(e) { clearTimeout(tid); response = null; }
   try {
     if (!response) throw new Error('Proxy nedostupny');
 
