@@ -153,6 +153,24 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .task-dot.g{background:#5cb85c}
 .task-dot.b{background:#3b82f6}
 
+/* Checklist */
+.chk-section{margin-bottom:16px}
+.chk-section-title{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(201,162,112,0.7);margin-bottom:10px;padding-left:12px;position:relative}
+.chk-section-title::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:2px;background:#c9a270}
+.chk-item{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:12px;color:rgba(255,255,255,0.75);cursor:pointer;transition:opacity 0.2s}
+.chk-item:hover{color:#fff}
+.chk-item input[type="checkbox"]{width:16px;height:16px;border-radius:4px;accent-color:#c9a270;cursor:pointer;flex-shrink:0}
+.chk-item.done{opacity:0.35;text-decoration:line-through}
+.chk-deadline{font-size:10px;color:rgba(201,162,112,0.5);margin-left:auto;white-space:nowrap;flex-shrink:0}
+.chk-priority{font-size:8px;font-weight:600;padding:2px 6px;border-radius:4px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px}
+.chk-priority.high{background:rgba(220,53,69,0.15);color:#dc3545}
+.chk-priority.med{background:rgba(201,162,112,0.15);color:#c9a270}
+.chk-priority.low{background:rgba(59,130,246,0.15);color:#3b82f6}
+.chk-progress{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.chk-progress-bar{flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}
+.chk-progress-fill{height:100%;background:#c9a270;border-radius:3px;transition:width 0.3s}
+.chk-progress-text{font-size:11px;color:rgba(255,255,255,0.4);white-space:nowrap}
+
 /* Warning/tip boxes */
 .warn-box{display:flex;gap:10px;padding:14px;background:rgba(201,162,112,0.08);border:1px solid rgba(201,162,112,0.2);border-radius:10px;margin-top:16px;font-size:11px;color:rgba(255,255,255,0.7);line-height:1.5}
 .warn-box svg{width:18px;height:18px;color:#c9a270;flex-shrink:0;margin-top:2px}
@@ -3366,7 +3384,7 @@ var heroData={
   projekty:{idx:0,items:[
     {big:'74%',name:'Vinohrady',sub:'1.85M Kc · Realizace',link:'projekty-detail',s1:'1.85M',s1l:'rozpocet',s2:'4',s2l:'lidi',s3:'6',s3l:'ukolu'},
     {big:'45%',name:'Karlin',sub:'0.98M Kc · Realizace',link:'projekty-detail',s1:'0.98M',s1l:'rozpocet',s2:'3',s2l:'lidi',s3:'4',s3l:'ukoly'},
-    {big:'12%',name:'Dolni Jircany',sub:'2.77M Kc · Priprava',link:'projekty-detail',s1:'2.77M',s1l:'rozpocet',s2:'2',s2l:'lidi',s3:'3',s3l:'ukoly'}
+    {big:'12%',name:'Dolni Jircany',sub:'2.77M Kc · Priprava',link:'projekty-jircany',s1:'2.77M',s1l:'rozpocet',s2:'2',s2l:'lidi',s3:'3',s3l:'ukoly'}
   ]},
   lide:{idx:1,items:[
     {big:'PH',name:'Petr Hajek',sub:'Manazer realizace',link:'lide-detail',s1:'3',s1l:'projekty',s2:'8',s2l:'ukolu',s3:'HPP',s3l:'smlouva'},
@@ -3914,6 +3932,7 @@ async function sendAiMessage() {
   var input = document.getElementById('aiChatInput');
   var text = input.value.trim();
   if (!text || !currentAiRole) return;
+  console.log('[AI] Sending to agent:', currentAiRole, 'message:', text);
 
   input.value = '';
   var msgs = document.getElementById('aiChatMsgs');
@@ -3932,17 +3951,19 @@ async function sendAiMessage() {
   var savedRole = currentAiRole; // capture in case user navigates away
 
   // AI proxy URLs: try localhost first, fallback to Cloudflare tunnel
-  var isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-  var AI_PROXY_URLS = isLocalhost ? ['http://localhost:8081/chat'] : ['https://ai.youplace.cz/chat'];
+  var AI_PROXY_URLS = ['http://localhost:8081/chat', 'https://ai.youplace.cz/chat'];
   var response = null;
   for (var pi = 0; pi < AI_PROXY_URLS.length; pi++) {
     try {
+      var controller = new AbortController();
+      var tid = setTimeout(function() { controller.abort(); }, 120000);
       response = await fetch(AI_PROXY_URLS[pi], {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, agent_id: currentAiRole, history: apiMessages }),
-        signal: AbortSignal.timeout(120000)
+        signal: controller.signal
       });
+      clearTimeout(tid);
       if (response.ok) break;
     } catch(e) { response = null; continue; }
   }
