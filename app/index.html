@@ -3750,15 +3750,8 @@ var roleIdMap = { fr:'financial', as:'assistant', ba:'business', st:'builder', p
 var roleNameMap = { financial:'Financni reditel', assistant:'Asistentka', business:'Manazer rozvoje', builder:'Stavebni inzenyr', developer:'Programator', designer:'Kreativec' };
 var roleColorMap = { financial:'#C9A84C', assistant:'#8B5CF6', business:'#3B82F6', builder:'#F59E0B', developer:'#22C55E', designer:'#EC4899' };
 
-// AI agent system prompts
-var aiSystemPrompts = {
-  fr: 'Jsi AI Financni reditel stavebni firmy You&Place s.r.o. Jsi expert na rozpocty, faktury, DPH, dane, cash-flow a investice ve stavebnictvi. Odpovidej cesky, strucne a konkretne. Kdyz neznas presna cisla, rekni to a navrhni jak je zjistit.',
-  as: 'Jsi AI Asistentka stavebni firmy You&Place s.r.o. Pomahass s administrativou, planovanim schuzek, koordinaci tymu, organizaci dokumentu a komunikaci. Odpovidej cesky, prakticky a efektivne.',
-  ba: 'Jsi AI Manazer rozvoje stavebni firmy You&Place s.r.o. Zameru jes se na business development, rust firmy, strategii, analyzu trhu a nove prilezitosti ve stavebnictvi. Odpovidej cesky, analyticky a s navrhy.',
-  st: 'Jsi AI Stavebni inzenyr firmy You&Place s.r.o. Jsi expert na technicke specifikace, stavebni metody, normy, materialy a reseni technickych problemu. Odpovidej cesky, technicky presne a s konkretnimi doporucenimi.',
-  pr: 'Jsi AI Programator firmy You&Place s.r.o. Pomahass s vyvojem webu, IT systemu, automatizaci a technickymi resenimi. Odpovidej cesky, s kodem a praktickymi priklady.',
-  de: 'Jsi AI Kreativec firmy You&Place s.r.o. Zameru jes se na design, vizualizace, marketingove materialy, branding a kreativni reseni. Odpovidej cesky, kreativne a s vizualnimi navrhy.'
-};
+// AI agent prompts are now loaded from server-side .md files (ai-agents/*.md)
+// The proxy reads the personality file based on agent_id
 
 // Notification badges state
 var aiUnreadBadges = JSON.parse(localStorage.getItem('ai_unread_badges') || '{}');
@@ -3933,8 +3926,6 @@ async function sendAiMessage() {
   conversationHistory[currentAiRole].push({ role: 'user', content: text });
   saveConversationHistory();
 
-  var systemPrompt = aiSystemPrompts[currentAiRole] || 'Jsi AI asistent stavebni firmy You&Place. Odpovidej cesky.';
-
   // Build messages array for proxy (last 20 messages for context)
   var apiMessages = (conversationHistory[currentAiRole] || []).slice(-20);
 
@@ -3948,7 +3939,7 @@ async function sendAiMessage() {
       },
       body: JSON.stringify({
         message: text,
-        system: systemPrompt,
+        agent_id: currentAiRole,
         history: apiMessages
       })
     });
