@@ -3129,10 +3129,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="s-row"><span class="s-row-l">Email notifikace</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
 <div class="s-row"><span class="s-row-l">AI doporuceni</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
 </div>
-<div class="s-card"><div class="s-clbl">AI Asistenti (Anthropic)</div>
-<div class="s-row"><span class="s-row-l">API klic</span><span class="s-row-v"><input id="anthropicKeyInput" type="password" placeholder="sk-ant-..." style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 10px;color:#fff;font-family:Poppins;font-size:12px;width:220px;outline:none" oninput="localStorage.setItem('anthropic_api_key',this.value)" onfocus="this.type='text'" onblur="this.type='password'"></span></div>
-<div class="s-row"><span class="s-row-l">Model</span><span class="s-row-v">claude-sonnet-4-20250514</span></div>
-<div class="s-row"><span class="s-row-l">Stav</span><span class="s-row-v" id="aiApiStatus">Nekonfigurovano</span></div>
+<div class="s-card"><div class="s-clbl">AI Asistenti</div>
+<div class="s-row"><span class="s-row-l">Pripojeni</span><span class="s-row-v">Lokalni proxy (claude CLI)</span></div>
+<div class="s-row"><span class="s-row-l">Model</span><span class="s-row-v">Claude (Max subscription)</span></div>
 </div>
 <div class="s-card"><div class="s-clbl">System</div>
 <div class="s-row"><span class="s-row-l">Verze</span><span class="s-row-v">YouPlace 2.0 (Node.js)</span></div>
@@ -3771,7 +3770,7 @@ function saveConversationHistory() {
 }
 
 function getAnthropicKey() {
-  return localStorage.getItem('anthropic_api_key') || '';
+  return 'proxy';
 }
 
 // Get current AI agent from hero carousel
@@ -3867,11 +3866,7 @@ function openAiChat(roleId) {
   var specEl = document.getElementById('aiDetailSpec');
   if (specEl) specEl.textContent = team.desc;
 
-  // Show API key warning if not set
   var keyWarning = '';
-  if (!getAnthropicKey()) {
-    keyWarning = '<div class="ai-msg ai" style="border-left:3px solid #c9a270;background:rgba(201,162,112,0.08)">API klic neni nastaven. Prejdete do Nastaveni a zadejte Anthropic API klic pro aktivaci chatu.</div>';
-  }
 
   // Restore or init messages
   var msgs = document.getElementById('aiChatMsgs');
@@ -3923,14 +3918,6 @@ async function sendAiMessage() {
   var text = input.value.trim();
   if (!text || !currentAiRole) return;
 
-  var apiKey = getAnthropicKey();
-  if (!apiKey) {
-    var msgs = document.getElementById('aiChatMsgs');
-    msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #c9a270;background:rgba(201,162,112,0.08)">API klic neni nastaven. Prejdete do Nastaveni a zadejte Anthropic API klic.</div>';
-    msgs.scrollTop = msgs.scrollHeight;
-    return;
-  }
-
   input.value = '';
   var msgs = document.getElementById('aiChatMsgs');
   msgs.innerHTML += '<div class="ai-msg-row"><img src="jakub.png" class="ai-msg-avatar"><div class="ai-msg user">' + esc(text) + '</div></div>';
@@ -3944,25 +3931,21 @@ async function sendAiMessage() {
 
   var systemPrompt = aiSystemPrompts[currentAiRole] || 'Jsi AI asistent stavebni firmy You&Place. Odpovidej cesky.';
 
-  // Build messages array for API (last 20 messages for context)
+  // Build messages array for proxy (last 20 messages for context)
   var apiMessages = (conversationHistory[currentAiRole] || []).slice(-20);
 
   var savedRole = currentAiRole; // capture in case user navigates away
 
   try {
-    var response = await fetch('https://api.anthropic.com/v1/messages', {
+    var response = await fetch('http://localhost:8081/chat', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2048,
+        message: text,
         system: systemPrompt,
-        messages: apiMessages
+        history: apiMessages
       })
     });
 
@@ -3970,18 +3953,15 @@ async function sendAiMessage() {
 
     if (!response.ok) {
       var errBody = await response.text();
-      var errMsg = 'Chyba API (' + response.status + ')';
-      try { var errJson = JSON.parse(errBody); errMsg = errJson.error ? errJson.error.message : errMsg; } catch(e2) {}
+      var errMsg = 'Chyba proxy (' + response.status + ')';
+      try { var errJson = JSON.parse(errBody); errMsg = errJson.error || errMsg; } catch(e2) {}
       msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #e74c3c">Chyba: ' + esc(errMsg) + '</div>';
       msgs.scrollTop = msgs.scrollHeight;
       return;
     }
 
     var data = await response.json();
-    var responseText = '';
-    if (data.content && data.content.length > 0) {
-      responseText = data.content.map(function(c) { return c.text || ''; }).join('');
-    }
+    var responseText = data.response || '';
 
     if (!responseText) responseText = 'AI neodpovedel.';
 
@@ -3999,9 +3979,7 @@ async function sendAiMessage() {
       setAiUnread(savedRole, true);
     }
 
-    // Update API status in settings
-    var statusEl = document.getElementById('aiApiStatus');
-    if (statusEl) statusEl.textContent = 'Aktivni';
+    // Update status indicators
     var dotEl = document.getElementById('aiDetailStatusDot');
     if (dotEl) { dotEl.classList.remove('offline'); dotEl.classList.add('online'); }
     var dotTextEl = document.getElementById('aiDetailStatusText');
@@ -4009,7 +3987,10 @@ async function sendAiMessage() {
 
   } catch(e) {
     removeTyping();
-    msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #e74c3c">Chyba pripojeni: ' + esc(e.message || 'Neznama chyba') + '</div>';
+    var errText = (e.message && e.message.indexOf('Failed to fetch') !== -1)
+      ? 'Spustte YouPlace.app pro AI chat'
+      : (e.message || 'Neznama chyba');
+    msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #e74c3c">' + esc(errText) + '</div>';
     msgs.scrollTop = msgs.scrollHeight;
   }
 }
@@ -4213,14 +4194,7 @@ function initAi() {
   // Periodic checks
   setInterval(checkWorkerHealth, 30000);
   setInterval(checkPendingFacts, 60000);
-  // Load API key into settings input
-  var savedKey = getAnthropicKey();
-  var keyInput = document.getElementById('anthropicKeyInput');
-  if (keyInput && savedKey) {
-    keyInput.value = savedKey;
-    var statusEl = document.getElementById('aiApiStatus');
-    if (statusEl) statusEl.textContent = 'Klic ulozen';
-  }
+  // AI proxy - no API key needed
   // Render notification badges
   renderAiDotBadges();
 }
