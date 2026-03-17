@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "youplace",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8889", "--directory", "/Users/mp/Desktop/youplace-web-work/app"],
+      "port": 8889
+    }
+  ]
+}
