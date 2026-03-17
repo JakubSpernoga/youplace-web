@@ -298,7 +298,7 @@ def main():
     os.makedirs(AGENTS_DIR, exist_ok=True)
 
     port = 8081
-    server = HTTPServer(('127.0.0.1', port), ProxyHandler)
+    server = HTTPServer(('0.0.0.0', port), ProxyHandler)
     print(f'[AI Proxy] Running on http://127.0.0.1:{port}')
     print(f'[AI Proxy] Agent files directory: {AGENTS_DIR}')
     sys.stdout.flush()
