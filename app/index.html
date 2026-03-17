@@ -3932,7 +3932,7 @@ async function sendAiMessage() {
   var savedRole = currentAiRole; // capture in case user navigates away
 
   // AI proxy URLs: try localhost first, fallback to Cloudflare tunnel
-  var AI_PROXY_URLS = ['http://localhost:8081/chat', 'https://jersey-donate-phenomenon-berry.trycloudflare.com/chat'];
+  var AI_PROXY_URLS = ['http://localhost:8081/chat', 'https://ai.youplace.cz/chat'];
   var response = null;
   for (var pi = 0; pi < AI_PROXY_URLS.length; pi++) {
     try {
