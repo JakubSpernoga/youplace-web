@@ -1,0 +1,23 @@
+{
+  "name": "You&Place",
+  "short_name": "Y&P",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='64' fill='%231a1a1a'/%3E%3Ctext x='256' y='300' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='160' fill='%23c9a270'%3EY%26P%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='24' fill='%231a1a1a'/%3E%3Ctext x='96' y='116' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='64' fill='%23c9a270'%3EY%26P%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
