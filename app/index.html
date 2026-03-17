@@ -3932,7 +3932,8 @@ async function sendAiMessage() {
   var savedRole = currentAiRole; // capture in case user navigates away
 
   // AI proxy URLs: try localhost first, fallback to Cloudflare tunnel
-  var AI_PROXY_URLS = ['http://localhost:8081/chat', 'https://ai.youplace.cz/chat'];
+  var isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  var AI_PROXY_URLS = isLocalhost ? ['http://localhost:8081/chat'] : ['https://ai.youplace.cz/chat'];
   var response = null;
   for (var pi = 0; pi < AI_PROXY_URLS.length; pi++) {
     try {
@@ -3940,7 +3941,7 @@ async function sendAiMessage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, agent_id: currentAiRole, history: apiMessages }),
-        signal: AbortSignal.timeout(pi === 0 ? 3000 : 120000)
+        signal: AbortSignal.timeout(120000)
       });
       if (response.ok) break;
     } catch(e) { response = null; continue; }
