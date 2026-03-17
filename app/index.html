@@ -3931,18 +3931,22 @@ async function sendAiMessage() {
 
   var savedRole = currentAiRole; // capture in case user navigates away
 
+  // AI proxy URLs: try localhost first, fallback to Cloudflare tunnel
+  var AI_PROXY_URLS = ['http://localhost:8081/chat', 'https://jersey-donate-phenomenon-berry.trycloudflare.com/chat'];
+  var response = null;
+  for (var pi = 0; pi < AI_PROXY_URLS.length; pi++) {
+    try {
+      response = await fetch(AI_PROXY_URLS[pi], {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, agent_id: currentAiRole, history: apiMessages }),
+        signal: AbortSignal.timeout(pi === 0 ? 3000 : 120000)
+      });
+      if (response.ok) break;
+    } catch(e) { response = null; continue; }
+  }
   try {
-    var response = await fetch('http://localhost:8081/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: text,
-        agent_id: currentAiRole,
-        history: apiMessages
-      })
-    });
+    if (!response) throw new Error('Proxy nedostupny');
 
     removeTyping();
 
