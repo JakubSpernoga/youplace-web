@@ -84,11 +84,15 @@ def background_learning(agent_id, conversation_snippet):
             f'Conversation:\n{conversation_snippet}'
         )
 
+        env = os.environ.copy()
+        env.pop('CLAUDECODE', None)
+        env.pop('CLAUDE_CODE', None)
         result = subprocess.run(
             ['claude', '-p', learning_prompt],
             capture_output=True,
             text=True,
-            timeout=60
+            timeout=60,
+            env=env
         )
 
         if result.returncode != 0:
@@ -229,12 +233,16 @@ class ProxyHandler(BaseHTTPRequestHandler):
 
             prompt_text = '\n'.join(prompt_parts)
 
-            # Call claude CLI
+            # Call claude CLI (clear nested session env vars)
+            env = os.environ.copy()
+            env.pop('CLAUDECODE', None)
+            env.pop('CLAUDE_CODE', None)
             result = subprocess.run(
                 ['claude', '-p', prompt_text],
                 capture_output=True,
                 text=True,
-                timeout=120
+                timeout=120,
+                env=env
             )
 
             if result.returncode != 0:
