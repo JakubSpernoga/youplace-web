@@ -1708,7 +1708,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="hero-container" style="position:relative">
 <div class="hero-row">
 <!-- Main hero card -->
-<div id="hero-ai" class="hero-card" onclick="openAiChat('fr')">
+<div id="hero-ai" class="hero-card" onclick="openAiChatCurrent()">
 <div class="hero-label" style="font-size:9px;color:rgba(201,162,112,0.5);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">AI Asistent</div>
 <div style="display:flex;justify-content:center;align-items:center;gap:24px">
 <svg onclick="event.stopPropagation();heroPrev('ai')" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" style="width:26px;height:26px;cursor:pointer"><polyline points="15 18 9 12 15 6"/></svg>
@@ -1733,9 +1733,9 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="hero-stat"><div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="hero-stat-mid"><div class="hero-stat-lbl">Porada</div><div class="hero-stat-sub">Spustit se vsemi AI</div></div></div>
 </div>
 </div>
-<div class="icons">
+<div class="icons" id="aiBottomIcons">
 <div class="ic-wrap"><div class="ic search" onclick="nav('vyhledavani')"><svg viewBox="0 0 24 24" fill="none" stroke="#c9a270" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="ic-label">Hledat</div></div>
-<div class="ic-wrap"><div class="ic" onclick="openAiChat('fr')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="ic-label">Chat</div></div>
+<div class="ic-wrap"><div class="ic" onclick="openAiChatCurrent()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="ic-label">Chat</div></div>
 <div class="ic-wrap"><div class="ic" onclick="nav('ai-dokumenty')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="ic-label">Dokumenty</div></div>
 <div class="ic-wrap"><div class="ic" onclick="nav('ai-statistiky')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="ic-label">Statistiky</div></div>
 <div class="ic-wrap"><div class="ic" onclick="nav('ai-kalendar')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="ic-label">Kalendar</div></div>
@@ -3129,6 +3129,11 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="s-row"><span class="s-row-l">Email notifikace</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
 <div class="s-row"><span class="s-row-l">AI doporuceni</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
 </div>
+<div class="s-card"><div class="s-clbl">AI Asistenti (Anthropic)</div>
+<div class="s-row"><span class="s-row-l">API klic</span><span class="s-row-v"><input id="anthropicKeyInput" type="password" placeholder="sk-ant-..." style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 10px;color:#fff;font-family:Poppins;font-size:12px;width:220px;outline:none" oninput="localStorage.setItem('anthropic_api_key',this.value)" onfocus="this.type='text'" onblur="this.type='password'"></span></div>
+<div class="s-row"><span class="s-row-l">Model</span><span class="s-row-v">claude-sonnet-4-20250514</span></div>
+<div class="s-row"><span class="s-row-l">Stav</span><span class="s-row-v" id="aiApiStatus">Nekonfigurovano</span></div>
+</div>
 <div class="s-card"><div class="s-clbl">System</div>
 <div class="s-row"><span class="s-row-l">Verze</span><span class="s-row-v">YouPlace 2.0 (Node.js)</span></div>
 <div class="s-row"><span class="s-row-l">Backend</span><span class="s-row-v">Railway</span></div>
@@ -3416,9 +3421,9 @@ function heroRender(key){
     }
   }
 }
-function heroNext(key){var d=heroData[key];d.idx=(d.idx+1)%d.items.length;heroRender(key)}
-function heroPrev(key){var d=heroData[key];d.idx=(d.idx-1+d.items.length)%d.items.length;heroRender(key)}
-function heroGo(key,i){heroData[key].idx=i;heroRender(key)}
+function heroNext(key){var d=heroData[key];d.idx=(d.idx+1)%d.items.length;heroRender(key);if(key==='ai')renderAiDotBadges()}
+function heroPrev(key){var d=heroData[key];d.idx=(d.idx-1+d.items.length)%d.items.length;heroRender(key);if(key==='ai')renderAiDotBadges()}
+function heroGo(key,i){heroData[key].idx=i;heroRender(key);if(key==='ai')renderAiDotBadges()}
 
 function route(){
   const hash=location.hash.slice(1)||'login-pin';
@@ -3742,6 +3747,74 @@ var roleIdMap = { fr:'financial', as:'assistant', ba:'business', st:'builder', p
 var roleNameMap = { financial:'Financni reditel', assistant:'Asistentka', business:'Manazer rozvoje', builder:'Stavebni inzenyr', developer:'Programator', designer:'Kreativec' };
 var roleColorMap = { financial:'#C9A84C', assistant:'#8B5CF6', business:'#3B82F6', builder:'#F59E0B', developer:'#22C55E', designer:'#EC4899' };
 
+// AI agent system prompts
+var aiSystemPrompts = {
+  fr: 'Jsi AI Financni reditel stavebni firmy You&Place s.r.o. Jsi expert na rozpocty, faktury, DPH, dane, cash-flow a investice ve stavebnictvi. Odpovidej cesky, strucne a konkretne. Kdyz neznas presna cisla, rekni to a navrhni jak je zjistit.',
+  as: 'Jsi AI Asistentka stavebni firmy You&Place s.r.o. Pomahass s administrativou, planovanim schuzek, koordinaci tymu, organizaci dokumentu a komunikaci. Odpovidej cesky, prakticky a efektivne.',
+  ba: 'Jsi AI Manazer rozvoje stavebni firmy You&Place s.r.o. Zameru jes se na business development, rust firmy, strategii, analyzu trhu a nove prilezitosti ve stavebnictvi. Odpovidej cesky, analyticky a s navrhy.',
+  st: 'Jsi AI Stavebni inzenyr firmy You&Place s.r.o. Jsi expert na technicke specifikace, stavebni metody, normy, materialy a reseni technickych problemu. Odpovidej cesky, technicky presne a s konkretnimi doporucenimi.',
+  pr: 'Jsi AI Programator firmy You&Place s.r.o. Pomahass s vyvojem webu, IT systemu, automatizaci a technickymi resenimi. Odpovidej cesky, s kodem a praktickymi priklady.',
+  de: 'Jsi AI Kreativec firmy You&Place s.r.o. Zameru jes se na design, vizualizace, marketingove materialy, branding a kreativni reseni. Odpovidej cesky, kreativne a s vizualnimi navrhy.'
+};
+
+// Notification badges state
+var aiUnreadBadges = JSON.parse(localStorage.getItem('ai_unread_badges') || '{}');
+
+// Load conversation history from localStorage
+try {
+  var savedHistory = localStorage.getItem('ai_conversation_history');
+  if (savedHistory) conversationHistory = JSON.parse(savedHistory);
+} catch(e) { conversationHistory = {}; }
+
+function saveConversationHistory() {
+  try { localStorage.setItem('ai_conversation_history', JSON.stringify(conversationHistory)); } catch(e) {}
+}
+
+function getAnthropicKey() {
+  return localStorage.getItem('anthropic_api_key') || '';
+}
+
+// Get current AI agent from hero carousel
+function getCurrentAiAgentId() {
+  var d = heroData.ai;
+  if (!d) return 'fr';
+  var item = d.items[d.idx];
+  return item ? (item.chat || 'fr') : 'fr';
+}
+
+// Open chat for currently selected agent in hero carousel
+function openAiChatCurrent() {
+  openAiChat(getCurrentAiAgentId());
+}
+
+function setAiUnread(roleId, val) {
+  aiUnreadBadges[roleId] = val;
+  localStorage.setItem('ai_unread_badges', JSON.stringify(aiUnreadBadges));
+  renderAiDotBadges();
+}
+
+function renderAiDotBadges() {
+  var el = document.getElementById('hero-ai');
+  if (!el) return;
+  var dots = el.querySelectorAll('.hero-dot');
+  var agents = ['fr','as','ba','st','pr','de'];
+  dots.forEach(function(dot, i) {
+    var agentId = agents[i];
+    var existing = dot.querySelector('.ai-unread-dot');
+    if (aiUnreadBadges[agentId]) {
+      if (!existing) {
+        var badge = document.createElement('div');
+        badge.className = 'ai-unread-dot';
+        badge.style.cssText = 'position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#c9a270;';
+        dot.style.position = 'relative';
+        dot.appendChild(badge);
+      }
+    } else {
+      if (existing) existing.remove();
+    }
+  });
+}
+
 var aiTeam = [
   { id:'fr', code:'FR', name:'Financni reditel', desc:'Rozpocty, faktury, DPH, dane', color:'#c9a270' },
   { id:'as', code:'AS', name:'Asistentka', desc:'Administrativa, komunikace, organizace', color:'#c9a270' },
@@ -3785,27 +3858,37 @@ function openAiChat(roleId) {
   var team = aiTeam.find(function(t) { return t.id === roleId; });
   if (!team) return;
 
+  // Clear unread badge for this agent
+  setAiUnread(roleId, false);
+
   // Set detail header
   document.getElementById('aiChatName').textContent = team.code + ' - ' + team.name;
   document.getElementById('aiChatSub').textContent = 'AI poradce \u00b7 Poradni sbor';
   var specEl = document.getElementById('aiDetailSpec');
   if (specEl) specEl.textContent = team.desc;
 
+  // Show API key warning if not set
+  var keyWarning = '';
+  if (!getAnthropicKey()) {
+    keyWarning = '<div class="ai-msg ai" style="border-left:3px solid #c9a270;background:rgba(201,162,112,0.08)">API klic neni nastaven. Prejdete do Nastaveni a zadejte Anthropic API klic pro aktivaci chatu.</div>';
+  }
+
   // Restore or init messages
   var msgs = document.getElementById('aiChatMsgs');
   if (conversationHistory[roleId] && conversationHistory[roleId].length > 0) {
     var html = '<div class="ai-msg ai">Dobry den, jsem ' + esc(team.name.toLowerCase()) + '. ' + esc(team.desc) + '. Ptejte se na cokoliv.</div>';
+    html += keyWarning;
     for (var i = 0; i < conversationHistory[roleId].length; i++) {
       var m = conversationHistory[roleId][i];
       if (m.role === 'user') {
         html += '<div class="ai-msg-row"><img src="jakub.png" class="ai-msg-avatar"><div class="ai-msg user">' + esc(m.content) + '</div></div>';
       } else {
-        html += '<div class="ai-msg ai">' + esc(m.content) + '</div>';
+        html += '<div class="ai-msg ai">' + formatAiResponse(m.content) + '</div>';
       }
     }
     msgs.innerHTML = html;
   } else {
-    msgs.innerHTML = '<div class="ai-msg ai">Dobry den, jsem ' + esc(team.name.toLowerCase()) + '. ' + esc(team.desc) + '. Ptejte se na cokoliv.</div>';
+    msgs.innerHTML = '<div class="ai-msg ai">Dobry den, jsem ' + esc(team.name.toLowerCase()) + '. ' + esc(team.desc) + '. Ptejte se na cokoliv.</div>' + keyWarning;
   }
 
   nav('ai-detail');
@@ -3824,10 +3907,29 @@ function closeAiChat() {
 // ============================================================
 // SEND AI MESSAGE
 // ============================================================
+// Format AI response - basic markdown-like formatting
+function formatAiResponse(text) {
+  if (!text) return '';
+  var s = esc(text);
+  // Bold: **text**
+  s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // Line breaks
+  s = s.replace(/\n/g, '<br>');
+  return s;
+}
+
 async function sendAiMessage() {
   var input = document.getElementById('aiChatInput');
   var text = input.value.trim();
   if (!text || !currentAiRole) return;
+
+  var apiKey = getAnthropicKey();
+  if (!apiKey) {
+    var msgs = document.getElementById('aiChatMsgs');
+    msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #c9a270;background:rgba(201,162,112,0.08)">API klic neni nastaven. Prejdete do Nastaveni a zadejte Anthropic API klic.</div>';
+    msgs.scrollTop = msgs.scrollHeight;
+    return;
+  }
 
   input.value = '';
   var msgs = document.getElementById('aiChatMsgs');
@@ -3835,107 +3937,79 @@ async function sendAiMessage() {
   msgs.innerHTML += '<div class="ai-msg ai typing" id="aiTyping">Premyslim...</div>';
   msgs.scrollTop = msgs.scrollHeight;
 
-  // Save to history
+  // Save user message to history
   if (!conversationHistory[currentAiRole]) conversationHistory[currentAiRole] = [];
   conversationHistory[currentAiRole].push({ role: 'user', content: text });
+  saveConversationHistory();
 
-  var fullRoleId = roleIdMap[currentAiRole] || currentAiRole;
+  var systemPrompt = aiSystemPrompts[currentAiRole] || 'Jsi AI asistent stavebni firmy You&Place. Odpovidej cesky.';
+
+  // Build messages array for API (last 20 messages for context)
+  var apiMessages = (conversationHistory[currentAiRole] || []).slice(-20);
+
+  var savedRole = currentAiRole; // capture in case user navigates away
 
   try {
-    var docRef = await db.collection('advisor_queue').add({
-      role: fullRoleId,
-      message: text,
-      history: (conversationHistory[currentAiRole] || []).slice(-10),
-      from_role: null,
-      depth: 0,
-      status: 'pending',
-      created_at: firebase.firestore.FieldValue.serverTimestamp(),
-      response: null,
-      chain: [],
-      partial_response: '',
-      consulting: ''
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2048,
+        system: systemPrompt,
+        messages: apiMessages
+      })
     });
 
-    if (activeSnapshotUnsubscribe) { activeSnapshotUnsubscribe(); }
+    removeTyping();
 
-    activeSnapshotUnsubscribe = db.collection('advisor_queue').doc(docRef.id).onSnapshot(function(snapshot) {
-      var data = snapshot.data();
-      if (!data) return;
+    if (!response.ok) {
+      var errBody = await response.text();
+      var errMsg = 'Chyba API (' + response.status + ')';
+      try { var errJson = JSON.parse(errBody); errMsg = errJson.error ? errJson.error.message : errMsg; } catch(e2) {}
+      msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #e74c3c">Chyba: ' + esc(errMsg) + '</div>';
+      msgs.scrollTop = msgs.scrollHeight;
+      return;
+    }
 
-      var typingEl = document.getElementById('aiTyping');
+    var data = await response.json();
+    var responseText = '';
+    if (data.content && data.content.length > 0) {
+      responseText = data.content.map(function(c) { return c.text || ''; }).join('');
+    }
 
-      if (data.status === 'processing') {
-        if (typingEl) {
-          var displayText = 'Zpracovavam...';
-          if (data.consulting) {
-            displayText = 'Konzultuji s: ' + data.consulting + '...';
-            typingEl.className = 'ai-msg ai consulting';
-          } else {
-            typingEl.className = 'ai-msg ai typing';
-          }
-          if (data.partial_response) {
-            displayText = data.partial_response;
-            typingEl.className = 'ai-msg ai typing';
-          }
-          typingEl.textContent = displayText;
-          msgs.scrollTop = msgs.scrollHeight;
-        }
-      } else if (data.status === 'done') {
-        removeTyping();
-        var responseText = data.response || '';
-        var parsed = parseSourceBadge(responseText);
-        var msgHtml = '<div class="ai-msg ai">' + esc(parsed.clean) + parsed.badge;
+    if (!responseText) responseText = 'AI neodpovedel.';
 
-        // Consultation tree
-        var chain = data.chain || [];
-        if (chain.length > 0) {
-          msgHtml += '<div class="consult-tree" onclick="this.classList.toggle(\'open\')">';
-          msgHtml += '<div class="consult-tree-header">Prubeh konzultace (' + chain.length + ')</div>';
-          msgHtml += '<div class="consult-tree-body">';
-          for (var ci = 0; ci < chain.length; ci++) {
-            var c = chain[ci];
-            var cColor = roleColorMap[c.to] || '#888';
-            var cName = roleNameMap[c.to] || c.to;
-            msgHtml += '<div class="consult-tree-item" style="border-left:3px solid ' + cColor + '">';
-            msgHtml += '<div class="consult-tree-from" style="color:' + cColor + '">' + esc(cName) + '</div>';
-            msgHtml += '<div class="consult-tree-q">Otazka: ' + esc((c.question || '').substring(0, 150)) + '</div>';
-            msgHtml += '<div class="consult-tree-a">' + esc((c.answer || '').substring(0, 300)) + '</div>';
-            msgHtml += '</div>';
-          }
-          msgHtml += '</div></div>';
-        }
+    // Display formatted response
+    msgs.innerHTML += '<div class="ai-msg ai">' + formatAiResponse(responseText) + '</div>';
+    msgs.scrollTop = msgs.scrollHeight;
 
-        msgHtml += '</div>';
-        msgs.innerHTML += msgHtml;
-        msgs.scrollTop = msgs.scrollHeight;
+    // Save assistant response
+    if (!conversationHistory[savedRole]) conversationHistory[savedRole] = [];
+    conversationHistory[savedRole].push({ role: 'assistant', content: responseText });
+    saveConversationHistory();
 
-        // Knowledge update toasts
-        var knowledgeUpdates = data.knowledge_updates || [];
-        for (var ki = 0; ki < knowledgeUpdates.length; ki++) {
-          var ku = knowledgeUpdates[ki];
-          var toastMsg = ku.oldValue
-            ? 'Ulozeno: ' + ku.key + ' -> ' + ku.newValue + ' (drive: ' + ku.oldValue + ')'
-            : 'Ulozeno: ' + ku.key + ' -> ' + ku.newValue;
-          showToast(toastMsg);
-        }
+    // Set unread badge if user navigated away
+    if (currentAiRole !== savedRole) {
+      setAiUnread(savedRole, true);
+    }
 
-        // Save to conversation history
-        if (currentAiRole) {
-          if (!conversationHistory[currentAiRole]) conversationHistory[currentAiRole] = [];
-          conversationHistory[currentAiRole].push({ role: 'assistant', content: parsed.clean });
-        }
+    // Update API status in settings
+    var statusEl = document.getElementById('aiApiStatus');
+    if (statusEl) statusEl.textContent = 'Aktivni';
+    var dotEl = document.getElementById('aiDetailStatusDot');
+    if (dotEl) { dotEl.classList.remove('offline'); dotEl.classList.add('online'); }
+    var dotTextEl = document.getElementById('aiDetailStatusText');
+    if (dotTextEl) dotTextEl.textContent = 'Online';
 
-        if (activeSnapshotUnsubscribe) { activeSnapshotUnsubscribe(); activeSnapshotUnsubscribe = null; }
-      } else if (data.status === 'error') {
-        removeTyping();
-        msgs.innerHTML += '<div class="ai-msg ai">Chyba: ' + esc(data.response || 'AI neodpovedel') + '</div>';
-        msgs.scrollTop = msgs.scrollHeight;
-        if (activeSnapshotUnsubscribe) { activeSnapshotUnsubscribe(); activeSnapshotUnsubscribe = null; }
-      }
-    });
   } catch(e) {
     removeTyping();
-    msgs.innerHTML += '<div class="ai-msg ai">Chyba pripojeni: ' + esc(e.message || '') + '</div>';
+    msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #e74c3c">Chyba pripojeni: ' + esc(e.message || 'Neznama chyba') + '</div>';
     msgs.scrollTop = msgs.scrollHeight;
   }
 }
@@ -4139,6 +4213,16 @@ function initAi() {
   // Periodic checks
   setInterval(checkWorkerHealth, 30000);
   setInterval(checkPendingFacts, 60000);
+  // Load API key into settings input
+  var savedKey = getAnthropicKey();
+  var keyInput = document.getElementById('anthropicKeyInput');
+  if (keyInput && savedKey) {
+    keyInput.value = savedKey;
+    var statusEl = document.getElementById('aiApiStatus');
+    if (statusEl) statusEl.textContent = 'Klic ulozen';
+  }
+  // Render notification badges
+  renderAiDotBadges();
 }
 
 // Router
