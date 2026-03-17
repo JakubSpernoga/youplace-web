@@ -36,21 +36,11 @@ self.addEventListener('activate', function(e) {
 });
 
 self.addEventListener('fetch', function(e) {
-  // Skip non-GET requests
+  // Skip non-GET requests (POST to AI proxy etc.)
   if (e.request.method !== 'GET') return;
 
-  // Skip AI proxy requests - they won't work offline
-  if (e.request.url.indexOf(':8081') !== -1) {
-    e.respondWith(
-      fetch(e.request).catch(function() {
-        return new Response(JSON.stringify({ error: 'Offline - AI chat is not available without internet connection.' }), {
-          status: 503,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      })
-    );
-    return;
-  }
+  // Skip localhost requests entirely - let them go direct to local servers
+  if (e.request.url.indexOf('localhost') !== -1) return;
 
   // Cache-first strategy with network update
   e.respondWith(
