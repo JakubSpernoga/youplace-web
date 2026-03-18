@@ -8,10 +8,25 @@ APP_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.normpath(os.path.join(APP_DIR, '..', '..', 'data'))
 AGENTS_DIR = os.path.join(DATA_DIR, 'ai-agents')
 
-def read_agent_prompt(agent_id):
+def read_agent_prompt(agent_id, max_chars=3000):
     try:
         with open(os.path.join(AGENTS_DIR, f'{os.path.basename(agent_id)}.md'), 'r', encoding='utf-8') as f:
-            return f.read()
+            content = f.read()
+        # If too long, keep role section + last N chars of learned facts
+        if len(content) > max_chars:
+            marker = '## Naučené poznatky'
+            if marker in content:
+                base = content[:content.index(marker)]
+                facts = content[content.index(marker):]
+                # Keep base + last part of facts
+                remaining = max_chars - len(base) - 100
+                if remaining > 200:
+                    content = base + marker + '\n(zkraceno)\n' + facts[-remaining:]
+                else:
+                    content = base[:max_chars]
+            else:
+                content = content[:max_chars]
+        return content
     except:
         return 'Jsi AI asistent stavebni firmy You&Place. Odpovidej cesky.'
 
@@ -30,12 +45,15 @@ def append_learned_facts(agent_id, facts_text):
 
 def background_learning(agent_id, snippet):
     try:
+        # Read existing facts to avoid duplicates
+        existing = read_agent_prompt(agent_id, max_chars=99999)
         env = os.environ.copy()
         env.pop('CLAUDECODE', None)
         env.pop('CLAUDE_CODE', None)
         r = subprocess.run(['claude', '-p',
-            'Extract new concrete facts from this conversation (company, projects, clients, dates, decisions). '
-            'If nothing new, respond "NONE". Otherwise bullet list in Czech.\n\n' + snippet],
+            'Extract ONLY genuinely NEW facts from this conversation that are NOT already in the existing knowledge below. '
+            'If all facts are already known, respond "NONE". Otherwise max 3 bullet points in Czech.\n\n'
+            f'EXISTING KNOWLEDGE:\n{existing[-1500:]}\n\nNEW CONVERSATION:\n{snippet[-1000:]}'],
             capture_output=True, text=True, timeout=60, env=env)
         if r.returncode != 0 or not r.stdout.strip() or r.stdout.strip().upper() == 'NONE': return
         from datetime import datetime
@@ -95,11 +113,15 @@ class Handler(BaseHTTPRequestHandler):
             system_prompt = body.get('system','') or read_agent_prompt(agent_id)
             parts = []
             if system_prompt: parts.append(system_prompt); parts.append('')
-            if history:
+            # Limit history to last 6 messages, each max 500 chars
+            recent = history[-6:] if len(history) > 6 else history
+            if recent:
                 parts.append('Previous conversation:')
-                for m in history[:-1]: parts.append(f'{"User" if m.get("role")=="user" else "Assistant"}: {m.get("content","")}')
+                for m in recent[:-1]:
+                    content = m.get("content","")[:500]
+                    parts.append(f'{"User" if m.get("role")=="user" else "Assistant"}: {content}')
                 parts.append('')
-            parts.append(f'User: {message}')
+            parts.append(f'User: {message[:1000]}')
             env = os.environ.copy()
             env.pop('CLAUDECODE', None); env.pop('CLAUDE_CODE', None)
             r = subprocess.run(['claude','-p','\n'.join(parts)], capture_output=True, text=True, timeout=120, env=env)
