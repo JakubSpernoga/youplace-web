@@ -3984,40 +3984,69 @@ async function sendAiMessage() {
 
   var savedRole = currentAiRole; // capture in case user navigates away
 
-  // AI proxy URLs: try localhost first, fallback to Cloudflare tunnel
-  var controller = new AbortController();
-  var tid = setTimeout(function() { controller.abort(); }, 120000);
+  // Streaming chat via SSE
   var response = null;
   try {
     response = await fetch('/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text, agent_id: currentAiRole, history: apiMessages }),
-      signal: controller.signal
+      body: JSON.stringify({ message: text, agent_id: currentAiRole, history: apiMessages })
     });
-    clearTimeout(tid);
-  } catch(e) { clearTimeout(tid); response = null; }
+  } catch(e) { response = null; }
   try {
-    if (!response) throw new Error('Proxy nedostupny');
+    if (!response) throw new Error('Server nedostupny');
 
     removeTyping();
 
     if (!response.ok) {
       var errBody = await response.text();
-      var errMsg = 'Chyba proxy (' + response.status + ')';
-      try { var errJson = JSON.parse(errBody); errMsg = errJson.error || errMsg; } catch(e2) {}
-      msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #e74c3c">Chyba: ' + esc(errMsg) + '</div>';
+      msgs.innerHTML += '<div class="ai-msg ai" style="border-left:3px solid #e74c3c">Chyba: ' + esc(errBody) + '</div>';
       msgs.scrollTop = msgs.scrollHeight;
       return;
     }
 
-    var data = await response.json();
-    var responseText = data.response || '';
+    // Create streaming message bubble
+    var streamDiv = document.createElement('div');
+    streamDiv.className = 'ai-msg ai';
+    streamDiv.textContent = '';
+    msgs.appendChild(streamDiv);
+
+    // Read SSE stream
+    var reader = response.body.getReader();
+    var decoder = new TextDecoder();
+    var responseText = '';
+    var buffer = '';
+
+    while (true) {
+      var result = await reader.read();
+      if (result.done) break;
+      buffer += decoder.decode(result.value, {stream: true});
+      var lines = buffer.split('\n');
+      buffer = lines.pop() || '';
+      for (var li = 0; li < lines.length; li++) {
+        var line = lines[li];
+        if (line.startsWith('data: ')) {
+          try {
+            var evt = JSON.parse(line.substring(6));
+            if (evt.chunk) {
+              responseText += evt.chunk;
+              streamDiv.innerHTML = formatAiResponse(responseText);
+              msgs.scrollTop = msgs.scrollHeight;
+            }
+            if (evt.done) {
+              responseText = evt.full || responseText;
+              streamDiv.innerHTML = formatAiResponse(responseText);
+            }
+            if (evt.error) {
+              streamDiv.innerHTML = '<span style="color:#e74c3c">' + esc(evt.error) + '</span>';
+            }
+          } catch(pe) {}
+        }
+      }
+    }
 
     if (!responseText) responseText = 'AI neodpovedel.';
-
-    // Display formatted response
-    msgs.innerHTML += '<div class="ai-msg ai">' + formatAiResponse(responseText) + '</div>';
+    streamDiv.innerHTML = formatAiResponse(responseText);
     msgs.scrollTop = msgs.scrollHeight;
 
     // Save assistant response
