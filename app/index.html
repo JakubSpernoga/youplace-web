@@ -4084,11 +4084,23 @@ function renderConvHistory() {
     var preview = conv.preview || '(prazdna konverzace)';
     if (preview.length > 40) preview = preview.substring(0, 40) + '...';
     html += '<div class="conv-history-item" onclick="loadConversation(' + conv.id + ')" title="' + esc(conv.preview || '') + '">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center">';
     html += '<div class="conv-history-preview">' + esc(preview) + '</div>';
+    html += '<div onclick="deleteConversation(' + conv.id + ',event)" style="width:18px;height:18px;min-width:18px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;color:rgba(255,255,255,0.2);font-size:11px" onmouseover="this.style.color=\'#e74c3c\';this.style.background=\'rgba(231,76,60,0.1)\'" onmouseout="this.style.color=\'rgba(255,255,255,0.2)\';this.style.background=\'none\'">&times;</div>';
+    html += '</div>';
     html += '<div class="conv-history-date">' + esc(conv.date) + '</div>';
     html += '</div>';
   }
   list.innerHTML = html;
+}
+
+function deleteConversation(convId, e) {
+  if (e) e.stopPropagation();
+  if (!currentAiRole) return;
+  var history = loadConvHistory(currentAiRole);
+  history = history.filter(function(c) { return c.id !== convId; });
+  saveConvHistory(currentAiRole, history);
+  renderConvHistory();
 }
 
 function endConversation() {
@@ -4096,12 +4108,23 @@ function endConversation() {
   var messages = conversationHistory[currentAiRole];
   if (!messages || messages.length === 0) return;
 
-  // Save to history
+  // Check for duplicate - compare first user message with existing history
   var history = loadConvHistory(currentAiRole);
   var firstUserMsg = '';
   for (var i = 0; i < messages.length; i++) {
     if (messages[i].role === 'user') { firstUserMsg = messages[i].content; break; }
   }
+  // Skip if duplicate (same first message and same message count)
+  var isDuplicate = history.some(function(c) {
+    return c.preview === firstUserMsg && c.messages && c.messages.length === messages.length;
+  });
+  if (isDuplicate) {
+    conversationHistory[currentAiRole] = [];
+    saveConversationHistory();
+    renderConvHistory();
+    return;
+  }
+
   var now = new Date();
   var dateStr = now.getDate() + '.' + (now.getMonth() + 1) + '.' + now.getFullYear() + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
   var convObj = {
