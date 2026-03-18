@@ -3977,8 +3977,10 @@ async function sendAiMessage() {
   conversationHistory[currentAiRole].push({ role: 'user', content: text });
   saveConversationHistory();
 
-  // Build messages array for proxy (last 20 messages for context)
-  var apiMessages = (conversationHistory[currentAiRole] || []).slice(-20);
+  // Build messages array for proxy (last 6 messages, truncated to 400 chars each)
+  var apiMessages = (conversationHistory[currentAiRole] || []).slice(-6).map(function(m) {
+    return {role: m.role, content: (m.content || '').substring(0, 400)};
+  });
 
   var savedRole = currentAiRole; // capture in case user navigates away
 

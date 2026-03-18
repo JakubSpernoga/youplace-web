@@ -121,9 +121,12 @@ class Handler(BaseHTTPRequestHandler):
                     parts.append(f'{"User" if m.get("role")=="user" else "Assistant"}: {content}')
                 parts.append('')
             parts.append(f'User: {message[:1000]}')
+            full_prompt = '\n'.join(parts)
+            print(f'[Server] Prompt size: {len(full_prompt)} chars, history msgs: {len(recent) if recent else 0}')
+            sys.stdout.flush()
             env = os.environ.copy()
             env.pop('CLAUDECODE', None); env.pop('CLAUDE_CODE', None)
-            r = subprocess.run(['claude','-p','\n'.join(parts)], capture_output=True, text=True, timeout=120, env=env)
+            r = subprocess.run(['claude','-p',full_prompt], capture_output=True, text=True, timeout=120, env=env)
             if r.returncode != 0:
                 self.send_response(500); self.send_header('Content-Type','application/json'); self.end_headers()
                 self.wfile.write(json.dumps({'error':r.stderr.strip() or 'CLI error'}).encode()); return
