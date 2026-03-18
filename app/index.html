@@ -1783,6 +1783,17 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="crow"><span class="crow-k">Fronta</span><span class="crow-v" id="aiDetailQueue"><span class="badge badge-gold">0 ukolu</span></span></div>
 <div class="tags" id="aiDetailTags"><div class="tag">Cash-flow</div><div class="tag">Rozpocty</div><div class="tag">Investice</div><div class="tag">Dane</div><div class="tag">Faktury</div></div>
 </div>
+<!-- Conversation History Sidebar -->
+<div class="card" id="convHistoryCard">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<div class="clbl" style="margin-bottom:0">Historie konverzaci</div>
+<div class="conv-new-btn" onclick="startNewConversation()" title="Nova konverzace">
+<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+Nova
+</div>
+</div>
+<div id="convHistoryList" class="conv-history-list"></div>
+</div>
 <div class="card"><div class="clbl">Knowledge base</div>
 <div class="crow"><span class="crow-k">Dokumenty</span><span class="crow-v">23 souboru</span></div>
 <div class="crow"><span class="crow-k">Posledni update</span><span class="crow-v">11.3.2026</span></div>
@@ -1790,7 +1801,15 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 <div class="ai-status" style="margin-top:12px"><div class="ai-status-dot offline" id="aiDetailStatusDot"></div><span class="ai-status-text" id="aiDetailStatusText">Offline</span></div>
 </div>
 <div class="detail-right" style="display:flex;flex-direction:column">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase">Konverzace</div><div style="font-size:10px;padding:4px 10px;border:1px solid rgba(201,162,112,0.3);border-radius:8px;color:#c9a270;cursor:pointer" onclick="alert('Prizvat dalsi AI do debaty')">+ Prizvat AI</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:1px;text-transform:uppercase">Konverzace</div>
+<div style="display:flex;gap:8px;align-items:center">
+<div style="font-size:10px;padding:4px 10px;border:1px solid rgba(201,162,112,0.3);border-radius:8px;color:#c9a270;cursor:pointer" onclick="alert('Prizvat dalsi AI do debaty')">+ Prizvat AI</div>
+<div class="conv-end-btn" onclick="endConversation()" title="Ukoncit konverzaci">
+<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</div>
+</div>
+</div>
 <div class="ai-chat-msgs" id="aiChatMsgs" style="flex:1;overflow-y:auto;padding:0;display:flex;flex-direction:column;gap:10px"></div>
 <div style="display:flex;align-items:flex-end;gap:10px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.04);margin-top:12px">
 <textarea class="ai-chat-input" id="aiChatInput" placeholder="Napiste zpravu..." rows="1" style="flex:1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAiMessage();}"></textarea>
@@ -1803,6 +1822,18 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;po
 .msg-ai-fr{border-left:3px solid #c9a270;padding-left:10px;margin-left:4px}
 .msg-ai-ba{border-left:3px solid #3b82f6;padding-left:10px;margin-left:4px}
 .msg-ai-pr{border-left:3px solid #5cb85c;padding-left:10px;margin-left:4px}
+/* Conversation management styles */
+.conv-end-btn{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.4);transition:all 0.2s}
+.conv-end-btn:hover{background:rgba(231,76,60,0.15);border-color:rgba(231,76,60,0.3);color:#e74c3c}
+.conv-new-btn{display:flex;align-items:center;gap:4px;font-size:10px;padding:3px 8px;border-radius:6px;background:rgba(201,162,112,0.1);border:1px solid rgba(201,162,112,0.2);color:#c9a270;cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif}
+.conv-new-btn:hover{background:rgba(201,162,112,0.2);border-color:rgba(201,162,112,0.4)}
+.conv-history-list{display:flex;flex-direction:column;gap:4px;max-height:240px;overflow-y:auto}
+.conv-history-item{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s}
+.conv-history-item:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08)}
+.conv-history-item.active{background:rgba(201,162,112,0.08);border-color:rgba(201,162,112,0.2)}
+.conv-history-preview{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}
+.conv-history-date{font-size:9px;color:rgba(255,255,255,0.25);margin-top:3px}
+.conv-history-empty{font-size:11px;color:rgba(255,255,255,0.2);text-align:center;padding:12px 0}
 </style>
 </div>
 </section>
@@ -3903,6 +3934,7 @@ function openAiChat(roleId) {
 
   nav('ai-detail');
   setTimeout(function() { msgs.scrollTop = msgs.scrollHeight; }, 50);
+  renderConvHistory();
 }
 
 // ============================================================
@@ -4015,6 +4047,138 @@ async function sendAiMessage() {
 function removeTyping() {
   var el = document.getElementById('aiTyping');
   if (el) el.remove();
+}
+
+// ============================================================
+// CONVERSATION MANAGEMENT
+// ============================================================
+
+function getConvHistoryKey(roleId) {
+  return 'ai_chat_history_' + roleId;
+}
+
+function loadConvHistory(roleId) {
+  try {
+    var data = localStorage.getItem(getConvHistoryKey(roleId));
+    return data ? JSON.parse(data) : [];
+  } catch(e) { return []; }
+}
+
+function saveConvHistory(roleId, history) {
+  try { localStorage.setItem(getConvHistoryKey(roleId), JSON.stringify(history)); } catch(e) {}
+}
+
+function renderConvHistory() {
+  var list = document.getElementById('convHistoryList');
+  if (!list || !currentAiRole) return;
+  var history = loadConvHistory(currentAiRole);
+  if (history.length === 0) {
+    list.innerHTML = '<div class="conv-history-empty">Zadna historie</div>';
+    return;
+  }
+  var html = '';
+  for (var i = history.length - 1; i >= 0; i--) {
+    var conv = history[i];
+    var preview = conv.preview || '(prazdna konverzace)';
+    if (preview.length > 40) preview = preview.substring(0, 40) + '...';
+    html += '<div class="conv-history-item" onclick="loadConversation(' + conv.id + ')" title="' + esc(conv.preview || '') + '">';
+    html += '<div class="conv-history-preview">' + esc(preview) + '</div>';
+    html += '<div class="conv-history-date">' + esc(conv.date) + '</div>';
+    html += '</div>';
+  }
+  list.innerHTML = html;
+}
+
+function endConversation() {
+  if (!currentAiRole) return;
+  var messages = conversationHistory[currentAiRole];
+  if (!messages || messages.length === 0) return;
+
+  // Save to history
+  var history = loadConvHistory(currentAiRole);
+  var firstUserMsg = '';
+  for (var i = 0; i < messages.length; i++) {
+    if (messages[i].role === 'user') { firstUserMsg = messages[i].content; break; }
+  }
+  var now = new Date();
+  var dateStr = now.getDate() + '.' + (now.getMonth() + 1) + '.' + now.getFullYear() + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  var convObj = {
+    id: Date.now(),
+    messages: messages.slice(),
+    date: dateStr,
+    preview: firstUserMsg || '(bez zpravy)'
+  };
+  history.push(convObj);
+  saveConvHistory(currentAiRole, history);
+
+  // Clear current conversation
+  conversationHistory[currentAiRole] = [];
+  saveConversationHistory();
+
+  // Refresh chat view
+  var team = aiTeam.find(function(t) { return t.id === currentAiRole; });
+  var msgs = document.getElementById('aiChatMsgs');
+  if (msgs && team) {
+    msgs.innerHTML = '<div class="ai-msg ai">Dobry den, jsem ' + esc(team.name.toLowerCase()) + '. ' + esc(team.desc) + '. Ptejte se na cokoliv.</div>';
+  }
+
+  // Refresh sidebar
+  renderConvHistory();
+}
+
+function startNewConversation() {
+  if (!currentAiRole) return;
+  // If there are messages, end (save) current conversation first
+  var messages = conversationHistory[currentAiRole];
+  if (messages && messages.length > 0) {
+    endConversation();
+  } else {
+    // Already empty, just ensure clean state
+    var team = aiTeam.find(function(t) { return t.id === currentAiRole; });
+    var msgs = document.getElementById('aiChatMsgs');
+    if (msgs && team) {
+      msgs.innerHTML = '<div class="ai-msg ai">Dobry den, jsem ' + esc(team.name.toLowerCase()) + '. ' + esc(team.desc) + '. Ptejte se na cokoliv.</div>';
+    }
+  }
+}
+
+function loadConversation(convId) {
+  if (!currentAiRole) return;
+  var history = loadConvHistory(currentAiRole);
+  var conv = null;
+  for (var i = 0; i < history.length; i++) {
+    if (history[i].id === convId) { conv = history[i]; break; }
+  }
+  if (!conv) return;
+
+  // If current conversation has messages, save it first
+  var currentMsgs = conversationHistory[currentAiRole];
+  if (currentMsgs && currentMsgs.length > 0) {
+    endConversation();
+  }
+
+  // Load the selected conversation into active state
+  conversationHistory[currentAiRole] = conv.messages.slice();
+  saveConversationHistory();
+
+  // Render messages
+  var team = aiTeam.find(function(t) { return t.id === currentAiRole; });
+  var msgs = document.getElementById('aiChatMsgs');
+  if (!msgs || !team) return;
+  var html = '<div class="ai-msg ai">Dobry den, jsem ' + esc(team.name.toLowerCase()) + '. ' + esc(team.desc) + '. Ptejte se na cokoliv.</div>';
+  for (var i = 0; i < conv.messages.length; i++) {
+    var m = conv.messages[i];
+    if (m.role === 'user') {
+      html += '<div class="ai-msg-row"><img src="jakub.png" class="ai-msg-avatar"><div class="ai-msg user">' + esc(m.content) + '</div></div>';
+    } else {
+      html += '<div class="ai-msg ai">' + formatAiResponse(m.content) + '</div>';
+    }
+  }
+  msgs.innerHTML = html;
+  setTimeout(function() { msgs.scrollTop = msgs.scrollHeight; }, 50);
+
+  // Re-render sidebar to reflect state
+  renderConvHistory();
 }
 
 // ============================================================
