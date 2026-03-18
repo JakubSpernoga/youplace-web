@@ -8,25 +8,10 @@ APP_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.normpath(os.path.join(APP_DIR, '..', '..', 'data'))
 AGENTS_DIR = os.path.join(DATA_DIR, 'ai-agents')
 
-def read_agent_prompt(agent_id, max_chars=3000):
+def read_agent_prompt(agent_id):
     try:
         with open(os.path.join(AGENTS_DIR, f'{os.path.basename(agent_id)}.md'), 'r', encoding='utf-8') as f:
-            content = f.read()
-        # If too long, keep role section + last N chars of learned facts
-        if len(content) > max_chars:
-            marker = '## Naučené poznatky'
-            if marker in content:
-                base = content[:content.index(marker)]
-                facts = content[content.index(marker):]
-                # Keep base + last part of facts
-                remaining = max_chars - len(base) - 100
-                if remaining > 200:
-                    content = base + marker + '\n(zkraceno)\n' + facts[-remaining:]
-                else:
-                    content = base[:max_chars]
-            else:
-                content = content[:max_chars]
-        return content
+            return f.read()
     except:
         return 'Jsi AI asistent stavebni firmy You&Place. Odpovidej cesky.'
 
@@ -45,19 +30,33 @@ def append_learned_facts(agent_id, facts_text):
 
 def background_learning(agent_id, snippet):
     try:
-        # Read existing facts to avoid duplicates
-        existing = read_agent_prompt(agent_id, max_chars=99999)
+        # Read existing file
+        filepath = os.path.join(AGENTS_DIR, f'{os.path.basename(agent_id)}.md')
+        with open(filepath, 'r', encoding='utf-8') as f: existing = f.read()
         env = os.environ.copy()
         env.pop('CLAUDECODE', None)
         env.pop('CLAUDE_CODE', None)
+        # Rewrite the ENTIRE file - compact, no duplicates, no fluff
         r = subprocess.run(['claude', '-p',
-            'Extract ONLY genuinely NEW facts from this conversation that are NOT already in the existing knowledge below. '
-            'If all facts are already known, respond "NONE". Otherwise max 3 bullet points in Czech.\n\n'
-            f'EXISTING KNOWLEDGE:\n{existing[-1500:]}\n\nNEW CONVERSATION:\n{snippet[-1000:]}'],
-            capture_output=True, text=True, timeout=60, env=env)
-        if r.returncode != 0 or not r.stdout.strip() or r.stdout.strip().upper() == 'NONE': return
-        from datetime import datetime
-        append_learned_facts(agent_id, f'\n### {datetime.now().strftime("%Y-%m-%d")}\n{r.stdout.strip()}')
+            'Tady je soubor s osobností AI agenta a jeho naučenými poznatky, '
+            'a nová konverzace ze které se mohl něco nového naučit.\n\n'
+            'Tvůj úkol: Přepiš CELÝ soubor tak aby:\n'
+            '1. Sekce Role, Kompetence, Osobnost zůstaly stejné\n'
+            '2. Sekce "Naučené poznatky" obsahovala VŠECHNY důležité fakta (staré i nové) ale:\n'
+            '   - Žádné duplikáty\n'
+            '   - Každý fakt max 1 řádek\n'
+            '   - Seskupené podle tématu (projekt, finance, lidi...)\n'
+            '   - Jen konkrétní fakta (čísla, jména, data, rozhodnutí) - žádné obecné fráze\n'
+            '3. Pokud z nové konverzace nevyplývá nic nového, vrať soubor beze změny\n\n'
+            'Vrať POUZE obsah souboru, nic jiného.\n\n'
+            f'=== SOUČASNÝ SOUBOR ===\n{existing}\n\n'
+            f'=== NOVÁ KONVERZACE ===\n{snippet[-1500:]}'],
+            capture_output=True, text=True, timeout=90, env=env)
+        if r.returncode != 0 or not r.stdout.strip(): return
+        output = r.stdout.strip()
+        # Basic sanity check - must contain the role header
+        if '# ' not in output or 'Role' not in output: return
+        with open(filepath, 'w', encoding='utf-8') as f: f.write(output)
     except: pass
 
 class Handler(BaseHTTPRequestHandler):
